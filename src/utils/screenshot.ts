@@ -1,11 +1,17 @@
 import puppeteer, { ScreenshotOptions, JSONObject } from "puppeteer";
 
-interface CaptureOptions extends ScreenshotOptions {
-    waitFor?: string,
-    top?: string,
-    bottom?: string,
-    left?: string,
-    right?: string
+type ElementBasedBound = {
+    selector: string,
+    edge: "top" | "bottom" | "left" | "right"
+};
+interface CaptureOptions {
+    [index: string]: string | number | Array<string> | ElementBasedBound | undefined;
+
+    waitFor?: string | Array<string>;
+    top: number | ElementBasedBound;
+    bottom?: number | ElementBasedBound;
+    left: number | ElementBasedBound;
+    right?: number | ElementBasedBound;
 };
 
 /**
@@ -26,10 +32,6 @@ export async function captureSelector(url: string, selector: string): Promise<Bu
 
     let pageElement = await page.waitForSelector(selector);
 
-    if (!pageElement) {
-        throw new Error("Counld not find element using selector " + selector);
-    }
-
     let screenshotBuffer = await pageElement.screenshot({
         encoding: "binary"
     });
@@ -37,7 +39,7 @@ export async function captureSelector(url: string, selector: string): Promise<Bu
     return screenshotBuffer;
 }
 
-export async function capture(url: string, options: CaptureOptions = {}): Promise<Buffer> {
+export async function capture(url: string, options: CaptureOptions = {left: 0, top: 0}): Promise<Buffer> {
     const browser = await puppeteer.launch({
         defaultViewport: {
             width: 1920,
@@ -48,9 +50,61 @@ export async function capture(url: string, options: CaptureOptions = {}): Promis
     const page = await browser.newPage();
     await page.goto(url);
 
-    let data = await page.evaluate((options: CaptureOptions) => {}, options as JSONObject);
-    
-    //TODO: Finish coordinate-based screenshot function.
+    if (options.waitFor) {
+        if (Array.isArray(options.waitFor)) {
+            await Promise.all(options.waitFor.map(selector => page.waitForSelector(selector)));
+        } else {
+            await page.waitForSelector(options.waitFor);
+        }
+    }
 
-    return new Buffer("");
+    let clipBounds: {
+        x: number,
+        y: number,
+        width?: number,
+        height?: number
+    } = await page.evaluate((options: CaptureOptions) => {
+        let bounds: {[k: string]: number | undefined} = {
+            x: undefined,
+            y: undefined,
+            width: undefined,
+            height: undefined
+        };
+
+        ["top", "left", "bottom", "right"].forEach(edge => {
+            let currentOption = options[edge];
+            if (!currentOption) return;
+
+            if (typeof currentOption == "number") {
+                if (edge == "top") bounds.y = currentOption;
+                if (edge == "left") bounds.x = currentOption;
+                if (edge == "bottom") bounds.height = currentOption - (bounds.y as number);
+                if (edge == "right") bounds.width = currentOption - (bounds.x as number);
+            } else if (typeof currentOption == "object") {
+                if (!document.querySelector((currentOption as ElementBasedBound).selector)) throw new Error("Top element not found.");
+    
+                let element = document.querySelector((currentOption as ElementBasedBound).selector) as HTMLElement;
+                let boundingClientRect = element.getBoundingClientRect();
+
+                if (edge == "top") bounds.y = boundingClientRect[(currentOption as ElementBasedBound).edge];
+                if (edge == "left") bounds.x = boundingClientRect[(currentOption as ElementBasedBound).edge];
+                if (edge == "bottom") bounds.height = boundingClientRect[(currentOption as ElementBasedBound).edge] - (bounds.y as number);
+                if (edge == "right") bounds.width = boundingClientRect[(currentOption as ElementBasedBound).edge] - (bounds.x as number);
+            }
+        });
+
+        return bounds;
+    }, options as JSONObject) as {
+        x: number,
+        y: number,
+        width?: number,
+        height?: number
+    };
+    
+    let screenshotBuffer = await page.screenshot({
+        clip: (clipBounds as ScreenshotOptions["clip"]),
+        encoding: "binary"
+    });
+
+    return screenshotBuffer;
 }
