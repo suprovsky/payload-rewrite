@@ -1,5 +1,12 @@
-import { Client } from "discord.js";
+import Discord from "discord.js";
+import Enmap from "enmap";
+import db from "./database";
 
-const bot = new Client();
+interface Client extends Discord.Client {
+    db: Enmap
+}
+
+const bot: Client = new Discord.Client() as Client;
+bot.db = db;
 
 export default bot;
