@@ -1,7 +1,10 @@
 import Discord from "discord.js";
 import db from "./database";
+import config from "../secure-config";
 import { Command, AutoResponse, Bot } from "./types"
 import { readdir } from "fs";
+import { handleMessageDelete, cleanCache } from "./utils/snipe-cache";
+import handleCommand from "./utils/handle-command";
 
 const bot: Bot = new Discord.Client() as Bot;
 bot.isReady = false;
@@ -45,6 +48,22 @@ readdir(__dirname + "/preload/auto", (err, files) => {
 bot.on("ready", async () => {
     await bot.db.defer;
     bot.isReady = true;
+});
+
+bot.on("messageDelete", msg => {
+    handleMessageDelete(bot, msg);
+    cleanCache(bot, msg);
+});
+
+bot.on("messageUpdate", (oldMsg, newMsg) => {
+    handleMessageDelete(bot, oldMsg);
+    cleanCache(bot, oldMsg);
+});
+
+bot.on("message", msg => {
+    if (!bot.isReady) return;
+
+    handleCommand(bot, msg);
 });
 
 export default bot;
