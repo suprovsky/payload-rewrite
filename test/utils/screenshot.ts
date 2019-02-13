@@ -5,10 +5,10 @@ describe("screenshot", () => {
     describe("#capture()", () => {
         it("should be able to take full page screenshots", done => {
             capture("https://google.com").then(buffer => done()).catch(done);
-        });
+        }).timeout(30000);
         it("should be able to take a screenshot of a region", done => {
             capture("https://google.com", {top: 100, left: 100, bottom: 300, right: 300}).then(buffer => done()).catch(done);
-        });
+        }).timeout(30000);
         it("should be able to take a screenshot of a region based off of elements", done => {
             capture("https://google.com", {
                 top: {
@@ -28,11 +28,11 @@ describe("screenshot", () => {
                     edge: "right"
                 }
             }).then(buffer => done()).catch(done);
-        });
+        }).timeout(30000);
     });
     describe("#captureSelector()", () => {
         it("should be able to capture a screenshot of an element", done => {
             captureSelector("https://google.com", "#hplogo").then(buffer => done()).catch(done);
-        });
+        }).timeout(30000);
     });
 });
