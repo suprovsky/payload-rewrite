@@ -3,4 +3,7 @@ dist/
 
 data/
 
+.env
+secure-config.ts
+
 .DS_Store
