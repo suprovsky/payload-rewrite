@@ -1,8 +1,7 @@
 import { describe, it } from "mocha";
 import { expect } from "chai";
 import { handleMessageDelete, cleanCache } from "../../src/utils/snipe-cache";
-import { Bot } from "../../src/types";
-import { Message, Collection } from "discord.js";
+import { Collection } from "discord.js";
 
 describe("snipeCache", () => {
     describe("#handleMessageDelete()", () => {
