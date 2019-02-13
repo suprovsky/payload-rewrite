@@ -67,10 +67,10 @@ export async function capture(url: string, options: CaptureOptions = {left: 0, t
         height?: number
     } = await page.evaluate((options: CaptureOptions) => {
         let bounds: {[k: string]: number | undefined} = {
-            x: undefined,
-            y: undefined,
-            width: undefined,
-            height: undefined
+            x: 0,
+            y: 0,
+            width: document.body.clientWidth,
+            height: document.body.clientHeight
         };
 
         ["top", "left", "bottom", "right"].forEach(edge => {
