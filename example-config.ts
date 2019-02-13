@@ -1,5 +1,6 @@
 const config = {
-    TOKEN: "TOKEN_HERE"
+    TOKEN: "TOKEN_HERE",
+    PREFIX: "pls "
 };
 
 export default config;
