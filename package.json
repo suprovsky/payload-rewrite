@@ -4,7 +4,8 @@
   "description": "The open-source rewrite for the popular TF2 Discord bot.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --require ts-node/register \"test/**/*.ts\"",
+    "build": "tsc --build tsconfig.json"
   },
   "author": "Juan de Urtubey",
   "license": "MIT",
@@ -16,9 +17,14 @@
     "puppeteer": "^1.12.2"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.7",
     "@types/dotenv": "^6.1.0",
+    "@types/mocha": "^5.2.5",
     "chai": "^4.2.0",
+    "i": "^0.3.6",
     "mocha": "^5.2.0",
+    "npm": "^6.7.0",
+    "ts-node": "^8.0.2",
     "typescript": "^3.3.3"
   }
 }
