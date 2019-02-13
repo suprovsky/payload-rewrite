@@ -36,6 +36,8 @@ export async function captureSelector(url: string, selector: string): Promise<Bu
         encoding: "binary"
     });
 
+    await browser.close();
+
     return screenshotBuffer;
 }
 
@@ -105,6 +107,8 @@ export async function capture(url: string, options: CaptureOptions = {left: 0, t
         clip: (clipBounds as ScreenshotOptions["clip"]),
         encoding: "binary"
     });
+
+    await browser.close();
 
     return screenshotBuffer;
 }
