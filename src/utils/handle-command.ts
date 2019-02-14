@@ -7,7 +7,7 @@ export default function handleCommand(bot: Bot, msg: Message): boolean {
 
     if (!msg.content.startsWith(config.PREFIX)) return false;
 
-    let command = msg.content.slice(config.PREFIX.length).trim();
+    let command = msg.content.slice(config.PREFIX.length).trim().split(" ")[0];
 
     if (!bot.commands.has(command)) return false;
 

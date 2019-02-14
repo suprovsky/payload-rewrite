@@ -7,7 +7,7 @@ export const description = "Find out how to use commands.";
 export const usage = config.PREFIX + name + " <command>";
 
 export function run(bot: Bot, msg: Message) {
-    let commandName = msg.content.slice(name.length).trim();
+    let commandName = msg.content.slice(config.PREFIX.length + name.length).trim();
 
     if (commandName.length == 0) return;
 
