@@ -13,13 +13,17 @@
   "license": "MIT",
   "dependencies": {
     "better-sqlite-pool": "^0.2.0",
+    "cheerio": "^1.0.0-rc.2",
     "discord.js": "^11.4.2",
     "dotenv": "^6.2.0",
     "enmap": "^4.7.1",
+    "image-to-base64": "^2.0.1",
+    "moment": "^2.24.0",
     "puppeteer": "^1.12.2"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
+    "@types/cheerio": "^0.22.10",
     "@types/dotenv": "^6.1.0",
     "@types/mocha": "^5.2.5",
     "@types/puppeteer": "^1.12.1",
