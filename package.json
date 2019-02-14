@@ -4,6 +4,7 @@
   "description": "The open-source rewrite for the popular TF2 Discord bot.",
   "main": "index.js",
   "scripts": {
+    "start": "node ./dist/index.js",
     "test": "mocha --exit --require ts-node/register \"test/**/*.ts\"",
     "build": "tsc --build tsconfig.json"
   },
