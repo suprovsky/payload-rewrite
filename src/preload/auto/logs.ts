@@ -1,6 +1,6 @@
 import { Bot } from "../../types";
 import { Message, MessageOptions } from "discord.js";
-import { capture, captureSelector } from "../../utils/screenshot";
+import { capture } from "../../utils/screenshot";
 
 export const name = "logs";
 export const description = "Automatically renders logs whenever a logs link is posted.";
