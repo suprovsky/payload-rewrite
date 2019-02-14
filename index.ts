@@ -16,9 +16,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import dotenv from "dotenv";
+import config from "./secure-config";
 import bot from "./src/bot";
 
-dotenv.load();
-
-bot.login();
+bot.login(config.TOKEN);
