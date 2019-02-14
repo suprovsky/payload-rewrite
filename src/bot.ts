@@ -5,6 +5,7 @@ import { Command, AutoResponse, Bot } from "./types"
 import { readdir } from "fs";
 import { handleMessageDelete, cleanCache } from "./utils/snipe-cache";
 import handleCommand from "./utils/handle-command";
+import handleAutoResponse from "./utils/handle-autoresponse";
 
 const bot: Bot = new Discord.Client() as Bot;
 bot.isReady = false;
@@ -63,7 +64,8 @@ bot.on("messageUpdate", (oldMsg, newMsg) => {
 bot.on("message", msg => {
     if (!bot.isReady) return;
 
-    handleCommand(bot, msg);
+    let didHandleCommand = handleCommand(bot, msg);
+    if (!didHandleCommand) handleAutoResponse(bot, msg);
 });
 
 export default bot;
