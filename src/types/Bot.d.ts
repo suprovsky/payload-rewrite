@@ -1,5 +1,7 @@
 import { Client, Collection, Message } from "discord.js";
 import Enmap from "enmap";
+import { Command } from "./Command";
+import { AutoResponse } from "./AutoResponse";
 
 /**
  * Payload Bot interface.
@@ -18,12 +20,12 @@ export interface Bot extends Client {
     /**
      * A collection of commands indexed by each of their names.
      */
-    commands: Collection<string, {name: string, run: Function}>,
+    commands: Collection<string, Command>,
 
     /**
      * A collection of automatic responses indexed by each of their names.
      */
-    autoResponses: Collection<string, {name: string, pattern: RegExp, run: Function}>,
+    autoResponses: Collection<string, AutoResponse>,
 
     /**
      * The bot's temporary cache.
