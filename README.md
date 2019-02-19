@@ -18,6 +18,7 @@ God this is going to take so much time.
 - [ ] exec command in tf2 server
 - [ ] setup tf2 server for gamemode
 - [ ] pugging commands
+- [x] snipe
 
 ### Automatic Functions
 - [ ] steam connect link
