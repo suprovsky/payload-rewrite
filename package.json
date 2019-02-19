@@ -20,7 +20,8 @@
     "image-to-base64": "^2.0.1",
     "moment": "^2.24.0",
     "mongoose": "^5.4.14",
-    "puppeteer": "^1.12.2"
+    "puppeteer": "^1.12.2",
+    "steamid": "^1.1.0"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
@@ -29,6 +30,7 @@
     "@types/mocha": "^5.2.5",
     "@types/mongoose": "^5.3.17",
     "@types/puppeteer": "^1.12.1",
+    "@types/steamid": "^1.1.0",
     "chai": "^4.2.0",
     "i": "^0.3.6",
     "mocha": "^5.2.0",
