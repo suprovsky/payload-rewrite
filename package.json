@@ -19,6 +19,7 @@
     "enmap": "^4.7.1",
     "image-to-base64": "^2.0.1",
     "moment": "^2.24.0",
+    "mongoose": "^5.4.14",
     "puppeteer": "^1.12.2"
   },
   "devDependencies": {
