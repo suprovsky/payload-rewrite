@@ -8,7 +8,7 @@ God this is going to take so much time.
 ## TODO
 
 ### Commands
-- [ ] 8ball
+- [x] 8ball
 - [ ] rtd
 - [ ] steam linking
 - [ ] logs from profile
