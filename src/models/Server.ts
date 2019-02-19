@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
-export type ServerModel = {
-    id: string,
+export type ServerModel = mongoose.Document & {
+    id?: string,
 
-    disabled: Array<{channelID: string, commands: Array<string>}>
+    disabled?: Array<{channelID: string, commands: Array<string>}>
 };
 
 const serverSchema = new mongoose.Schema({

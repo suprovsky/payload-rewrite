@@ -10,7 +10,7 @@ God this is going to take so much time.
 ### Commands
 - [x] 8ball
 - [x] rtd
-- [ ] steam linking
+- [x] steam linking
 - [ ] logs from profile
 - [ ] demo finder
 - [ ] log combiner

@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 
-export type UserModel = {
-    id: string,
+export type UserModel = mongoose.Document & {
+    id?: string,
 
-    steamID: number
+    steamID?: string
 };
 
 const userSchema = new mongoose.Schema({
     id: String,
 
-    steamID: Number
+    steamID: String
 });
 
 export const User = mongoose.model("User", userSchema);
