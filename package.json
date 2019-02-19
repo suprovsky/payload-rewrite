@@ -27,6 +27,7 @@
     "@types/cheerio": "^0.22.10",
     "@types/dotenv": "^6.1.0",
     "@types/mocha": "^5.2.5",
+    "@types/mongoose": "^5.3.17",
     "@types/puppeteer": "^1.12.1",
     "chai": "^4.2.0",
     "i": "^0.3.6",
