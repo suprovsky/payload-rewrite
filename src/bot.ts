@@ -6,6 +6,7 @@ import { readdir } from "fs";
 import { handleMessageDelete, cleanCache } from "./utils/snipe-cache";
 import handleCommand from "./utils/handle-command";
 import handleAutoResponse from "./utils/handle-autoresponse";
+import mongoose from "mongoose";
 
 const bot: Bot = new Discord.Client() as Bot;
 bot.isReady = false;
@@ -15,6 +16,16 @@ bot.autoResponses = new Discord.Collection();
 bot.cache = {
     snipe: {}
 };
+
+/**
+ * Connect to MongoDB.
+ */
+mongoose.connect(config.MONGODB_URI, {
+    useNewUrlParser: true
+}).catch(() => {
+    console.error("Error connecting to MongoDB. Make sure you used the correct password.");
+    process.exit(1);
+});
 
 /**
  * Load commands.
