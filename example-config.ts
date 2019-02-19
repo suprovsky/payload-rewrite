@@ -1,6 +1,8 @@
 const config = {
     TOKEN: "TOKEN_HERE",
-    PREFIX: "pls "
+    PREFIX: "pls ",
+
+    MONGODB_URI: ""
 };
 
 export default config;
