@@ -19,8 +19,8 @@ export async function run(bot: Bot, msg: Message) {
 
     let screenshotBuffer = await render(link);
     
-    placeholder.delete();
     msg.channel.send({
         files: [screenshotBuffer]
     });
+    placeholder.delete();
 }
