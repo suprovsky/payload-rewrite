@@ -7,7 +7,7 @@
     "start": "node ./dist/index.js",
     "debug": "ts-node -P tsconfig.json index.ts",
     "test": "mocha --exit --require ts-node/register \"test/**/*.ts\"",
-    "build": "tsc --build tsconfig.json; ts-node buidlscripts/copy-static-assets.ts"
+    "build": "tsc --build tsconfig.json; ts-node buildscripts/copy-static-assets.ts"
   },
   "author": "Juan de Urtubey",
   "license": "MIT",
