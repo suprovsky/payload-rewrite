@@ -3,6 +3,7 @@ import { Message } from "discord.js";
 import { render } from "../../utils/render-log";
 import { readFileSync } from "fs";
 import config from "../../../example-config";
+import { resolve } from "path";
 
 export const name = "logs";
 export const description = "Automatically renders logs whenever a logs link is posted.";
@@ -12,7 +13,12 @@ export async function run(bot: Bot, msg: Message) {
     let link = (msg.content.match(/http(s|):\/\/(www\.|)logs\.tf\/\d+/g) as Array<string>)[0];
 
     let placeholder = await msg.channel.send({
-        files: [ readFileSync(config.LOADING_IMG, {encoding: "binary"}) ]
+        files: [
+            readFileSync(
+                resolve(__dirname, "../../assets/loading.png"),
+                { encoding: "binary" }
+            )
+        ]
     }) as Message;
 
     let screenshotBuffer = await render(link);
