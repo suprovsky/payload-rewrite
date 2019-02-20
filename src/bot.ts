@@ -67,8 +67,6 @@ bot.on("messageUpdate", (oldMsg, newMsg) => {
 });
 
 bot.on("message", msg => {
-    if (!bot.isReady) return;
-
     let didHandleCommand = handleCommand(bot, msg);
     if (!didHandleCommand) handleAutoResponse(bot, msg);
 });
