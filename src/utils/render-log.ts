@@ -1,5 +1,6 @@
 import { capture } from "./screenshot";
 import { resolve } from "path";
+import config from "../../secure-config";
 
 export async function render(link: string): Promise<Buffer> {
     let screenshotBuffer = await capture(link, {
@@ -20,7 +21,7 @@ export async function render(link: string): Promise<Buffer> {
             edge: "bottom"
         },
 
-        cssPath: resolve(__dirname, "../assets/dark-logs.css")
+        cssPath: config.files.LOGS_CSS
     });
 
     return screenshotBuffer;
