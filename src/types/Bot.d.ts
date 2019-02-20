@@ -1,5 +1,4 @@
 import { Client, Collection, Message } from "discord.js";
-import Enmap from "enmap";
 import { Command } from "./Command";
 import { AutoResponse } from "./AutoResponse";
 
@@ -11,11 +10,6 @@ export interface Bot extends Client {
      * Whether or not the bot's database is ready to be accessed.
      */
     isReady: boolean,
-
-    /**
-     * The bot's database.
-     */
-    db: Enmap,
 
     /**
      * A collection of commands indexed by each of their names.
