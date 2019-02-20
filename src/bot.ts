@@ -19,6 +19,8 @@ bot.cache = {
  */
 mongoose.connect(config.MONGODB_URI, {
     useNewUrlParser: true
+}).then(() => {
+    console.log("Successfully connected to MongoDB.");
 }).catch(() => {
     console.error("Error connecting to MongoDB. Make sure you used the correct password.");
     process.exit(1);
@@ -69,6 +71,10 @@ bot.on("message", msg => {
 
     let didHandleCommand = handleCommand(bot, msg);
     if (!didHandleCommand) handleAutoResponse(bot, msg);
+});
+
+bot.on("ready", () => {
+    console.log("Payload is running and listening for commands!");
 });
 
 export default bot;
