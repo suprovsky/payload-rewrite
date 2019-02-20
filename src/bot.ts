@@ -8,7 +8,6 @@ import handleAutoResponse from "./utils/handle-autoresponse";
 import mongoose from "mongoose";
 
 const bot: Bot = new Discord.Client() as Bot;
-bot.isReady = false;
 bot.commands = new Discord.Collection();
 bot.autoResponses = new Discord.Collection();
 bot.cache = {
@@ -53,11 +52,6 @@ readdir(__dirname + "/preload/auto", (err, files) => {
 
         bot.autoResponses.set(autoResponse.name, autoResponse);
     });
-});
-
-bot.on("ready", async () => {
-    await bot.db.defer;
-    bot.isReady = true;
 });
 
 bot.on("messageDelete", msg => {
