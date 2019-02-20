@@ -7,7 +7,7 @@
     "start": "node ./dist/index.js",
     "debug": "ts-node -P tsconfig.json index.ts",
     "test": "mocha --exit --require ts-node/register \"test/**/*.ts\"",
-    "build": "tsc --build tsconfig.json"
+    "build": "tsc --build tsconfig.json; ts-node buidlscripts/copy-static-assets.ts"
   },
   "author": "Juan de Urtubey",
   "license": "MIT",
@@ -16,7 +16,6 @@
     "cheerio": "^1.0.0-rc.2",
     "discord.js": "^11.4.2",
     "dotenv": "^6.2.0",
-    "enmap": "^4.7.1",
     "got": "^9.6.0",
     "image-to-base64": "^2.0.1",
     "moment": "^2.24.0",
