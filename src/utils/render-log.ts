@@ -1,4 +1,5 @@
 import { capture } from "./screenshot";
+import { resolve } from "path";
 
 export async function render(link: string): Promise<Buffer> {
     let screenshotBuffer = await capture(link, {
@@ -17,7 +18,9 @@ export async function render(link: string): Promise<Buffer> {
         bottom: {
             selector: "#log-section-players",
             edge: "bottom"
-        }
+        },
+
+        cssPath: resolve(__dirname, "../assets/dark-logs.css")
     });
 
     return screenshotBuffer;
