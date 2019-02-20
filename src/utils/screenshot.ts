@@ -12,34 +12,8 @@ interface CaptureOptions {
     bottom?: number | ElementBasedBound;
     left: number | ElementBasedBound;
     right?: number | ElementBasedBound;
+    cssPath?: string;
 };
-
-/**
- * Takes a screenshot of an element. Will wait 30 seconds for the element to load before timing out.
- * @param url The URL to take the screenshot in.
- * @param selector The element selector.
- */
-export async function captureSelector(url: string, selector: string): Promise<Buffer> {
-    const browser = await puppeteer.launch({
-        defaultViewport: {
-            width: 1920,
-            height: 1080
-        }
-    });
-
-    const page = await browser.newPage();
-    await page.goto(url);
-
-    let pageElement = await page.waitForSelector(selector);
-
-    let screenshotBuffer = await pageElement.screenshot({
-        encoding: "binary"
-    });
-
-    await browser.close();
-
-    return screenshotBuffer;
-}
 
 export async function capture(url: string, options: CaptureOptions = {left: 0, top: 0}): Promise<Buffer> {
     const browser = await puppeteer.launch({
@@ -51,6 +25,8 @@ export async function capture(url: string, options: CaptureOptions = {left: 0, t
 
     const page = await browser.newPage();
     await page.goto(url);
+
+    if (options.cssPath) await page.addStyleTag({ path: options.cssPath });
 
     if (options.waitFor) {
         if (Array.isArray(options.waitFor)) {
@@ -105,6 +81,33 @@ export async function capture(url: string, options: CaptureOptions = {left: 0, t
     
     let screenshotBuffer = await page.screenshot({
         clip: (clipBounds as ScreenshotOptions["clip"]),
+        encoding: "binary"
+    });
+
+    await browser.close();
+
+    return screenshotBuffer;
+}
+
+/**
+ * Takes a screenshot of an element. Will wait 30 seconds for the element to load before timing out.
+ * @param url The URL to take the screenshot in.
+ * @param selector The element selector.
+ */
+export async function captureSelector(url: string, selector: string): Promise<Buffer> {
+    const browser = await puppeteer.launch({
+        defaultViewport: {
+            width: 1920,
+            height: 1080
+        }
+    });
+
+    const page = await browser.newPage();
+    await page.goto(url);
+
+    let pageElement = await page.waitForSelector(selector);
+
+    let screenshotBuffer = await pageElement.screenshot({
         encoding: "binary"
     });
 
