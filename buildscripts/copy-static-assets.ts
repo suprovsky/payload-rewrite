@@ -11,5 +11,5 @@ if (!existsSync(dirPath)) {
 }
 
 assetsDir.forEach(file => {
-    copyFileSync("./src/assets/" + file, "./dist/assets/" + file);
+    copyFileSync(srcPath + "/" + file, dirPath + "/" + file);
 });
