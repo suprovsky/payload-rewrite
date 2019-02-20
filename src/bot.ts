@@ -1,5 +1,4 @@
 import Discord from "discord.js";
-import db from "./database";
 import config from "../secure-config";
 import { Command, AutoResponse, Bot } from "./types"
 import { readdir } from "fs";
