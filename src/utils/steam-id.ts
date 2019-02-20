@@ -4,6 +4,8 @@ import got from "got";
 export async function ensureSteamID(id: string): Promise<string | undefined> {
     let steamID: SteamID;
 
+    if (id.length == 0) return undefined;
+
     try {
         steamID = new SteamID(id);
     } catch (err) {
