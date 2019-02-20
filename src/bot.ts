@@ -9,7 +9,6 @@ import mongoose from "mongoose";
 
 const bot: Bot = new Discord.Client() as Bot;
 bot.isReady = false;
-bot.db = db;
 bot.commands = new Discord.Collection();
 bot.autoResponses = new Discord.Collection();
 bot.cache = {
