@@ -105,7 +105,7 @@ export function run(bot: Bot, msg: Message) {
             });
 
             connection.connect().then(() => {
-                connection.command(command).then(res => {
+                connection.command(`say [PAYLOAD] Command sent by ${msg.author.tag}.; ${command}`).then(res => {
                     msg.channel.send("Command sent to server. Console output shown below:");
 
                     let responses = res.match(/.{1,1500}/g) as RegExpMatchArray;
