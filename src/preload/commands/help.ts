@@ -21,6 +21,7 @@ export function run(bot: Bot, msg: Message) {
     helpEmbed.setTitle(command.name);
     helpEmbed.addField("Description", command.description);
     helpEmbed.addField("Usage", command.usage);
+    helpEmbed.addField("Permissions Needed", `\`\`\`md\n# For User #\n${command.canBeExecutedBy.join("\n")}\n# For Payload #\n${command.permissions.join("\n")}\n\`\`\``);
     helpEmbed.setThumbnail("https://images.vexels.com/media/users/3/143553/isolated/preview/18da5bb6f3a7c09e042921571f8a0f37-red-3d-question-mark-by-vexels.png");
 
     msg.channel.send(helpEmbed);
