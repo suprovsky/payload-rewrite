@@ -19,6 +19,8 @@ export async function run(bot: Bot, msg: Message) {
         id: msg.author.id
     }, (err, user: UserModel) => {
         if (err) {
+            return msg.channel.send("Error linking your Discord and Steam accounts. This is most likely a problem with the database.");
+        } else if (!user) {
             user = new User({
                 id: msg.author.id,
                 steamID: steamIDTestResult
