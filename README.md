@@ -21,7 +21,7 @@ God this is going to take so much time.
 - [x] snipe
 
 ### Automatic Functions
-- [ ] steam connect link
+- [x] steam connect link
 - [x] log previews
 - [ ] esea match previews
 - [ ] tftv thread previews
