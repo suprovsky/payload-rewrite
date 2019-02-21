@@ -1,7 +1,7 @@
 import { Bot } from "../../types";
 import { Message, RichEmbed } from "discord.js";
 
-export const name = "steam connect link";
+export const name = "steam connect info";
 export const description = "Automatically sends steam connect links when raw connect info is posted.";
 export const pattern = /steam:\/\/connect\/(\w+\.)+\w+(:\d+)?\/.+/;
 export const permissions = ["SEND_MESSAGES", "EMBED_LINKS"];
