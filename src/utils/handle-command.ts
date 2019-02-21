@@ -12,6 +12,8 @@ export default function handleCommand(bot: Bot, msg: Message): boolean {
     if (!bot.commands.has(command)) return false;
 
     let executableCommand = bot.commands.get(command) as Command;
+
+    if (!executableCommand.zones.includes(msg.channel.type)) return false;
     
     if (msg.channel.type == "text") {
         let canBeExecutedBy = executableCommand.canBeExecutedBy as PermissionResolvable;
