@@ -1,12 +1,12 @@
 import { Bot } from "./Bot";
-import { Message, Permissions } from "discord.js";
+import { Message } from "discord.js";
 
 export interface Command {
     name: string;
     description: string;
     usage: string;
-    permissions: Permissions;
-    canBeExecutedBy: Permissions;
+    permissions: Array<string>;
+    canBeExecutedBy: Array<string>;
 
     run: (bot: Bot, msg: Message) => void;
 }
