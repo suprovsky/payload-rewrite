@@ -15,7 +15,7 @@ God this is going to take so much time.
 - [ ] demo finder
 - [ ] log combiner
 - [ ] players in a server
-- [ ] exec command in tf2 server
+- [x] exec command in tf2 server
 - [ ] setup tf2 server for gamemode
 - [ ] pugging commands
 - [x] snipe
