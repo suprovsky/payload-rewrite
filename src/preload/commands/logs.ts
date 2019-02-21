@@ -10,7 +10,7 @@ export const description = "Retrieves the latest log from a user's Steam ID. Onl
 export const usage = config.PREFIX + name + " [SteamID]";
 export const permissions = ["SEND_MESSAGES", "ATTACH_FILES"];
 export const canBeExecutedBy = ["SEND_MESSAGES"];
-export const zones = ["text, dm"];
+export const zones = ["text", "dm"];
 
 export async function run(bot: Bot, msg: Message) {
     let target: DiscordUser;

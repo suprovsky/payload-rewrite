@@ -8,7 +8,7 @@ export const description = "Asks the 8ball a question.";
 export const usage = config.PREFIX + name + " <question>";
 export const permissions = ["SEND_MESSAGES"];
 export const canBeExecutedBy = ["SEND_MESSAGES"];
-export const zones = ["text, dm"];
+export const zones = ["text", "dm"];
 
 export function run(bot: Bot, msg: Message) {
     let question = msg.content.slice(config.PREFIX.length + name.length).trim();

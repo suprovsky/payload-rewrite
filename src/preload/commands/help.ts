@@ -7,7 +7,7 @@ export const description = "Find out how to use commands.";
 export const usage = config.PREFIX + name + " <command>";
 export const permissions = ["SEND_MESSAGES", "EMBED_LINKS"];
 export const canBeExecutedBy = ["SEND_MESSAGES"];
-export const zones = ["text, dm"];
+export const zones = ["text", "dm"];
 
 export function run(bot: Bot, msg: Message) {
     let commandName = msg.content.slice(config.PREFIX.length + name.length).trim();

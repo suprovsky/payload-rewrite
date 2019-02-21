@@ -5,12 +5,12 @@ import { getArgs, sliceCmd } from "../../utils/command-parsing";
 import { User, UserModel, Servers } from "../../models/User";
 import Rcon from "srcds-rcon";
 
-export const name = "hello";
-export const description = "A test command that also serves as a template for other commands.";
+export const name = "server";
+export const description = "Various server management utilities.";
 export const usage = config.PREFIX + name;
 export const permissions = ["SEND_MESSAGES"];
 export const canBeExecutedBy = ["SEND_MESSAGES"];
-export const zones = ["text, dm"];
+export const zones = ["text", "dm"];
 
 export function run(bot: Bot, msg: Message) {
     let args = getArgs(sliceCmd(msg, name));
@@ -68,10 +68,66 @@ export function run(bot: Bot, msg: Message) {
             }).catch((err => {
                 msg.channel.send("Error saving server.");
             }));
+        } else if (args[0] == "remove") {
+            let targetServer = args[1];
+
+            if (!targetServer) return msg.channel.send("Missing <name> argument.");
+
+            if (!user || !user.servers) return msg.channel.send(`You have no servers added yet. Find out more with \`${config.PREFIX}help ${name}\``);
+
+            let serverIndex = (user.servers as Servers).findIndex(server => server.name == targetServer);
+
+            if (serverIndex < 0) return msg.channel.send(`\`${targetServer}\` does not exist under your account.`);
+
+            user.servers.splice(serverIndex, 1);
+
+            user.save().then(() => {
+                msg.channel.send(`Removed server \`${targetServer}\` from your list.`);
+            }).catch(err => {
+                msg.channel.send("Error removing server.");
+            })
         } else if (args[0] == "exec") {
+            let targetServer = args[1];
+            let command = args[2];
 
+            if (!targetServer) return msg.channel.send("Missing <name> argument.");
+            if (!command) return msg.channel.send("Missing <command> argument.");
+
+            if (!user || !user.servers) return msg.channel.send(`You have no servers added yet. Find out more with \`${config.PREFIX}help ${name}\``);
+
+            let server = (user.servers as Servers).find(server => server.name == targetServer);
+
+            if (!server) return msg.channel.send(`\`${targetServer}\` does not exist under your account.`);
+
+            let connection = Rcon({
+                address: server.address,
+                password: server.rconPassword
+            });
+
+            connection.connect().then(() => {
+                connection.command(command).then(res => {
+                    msg.channel.send("Command sent to server. Console output shown below:");
+
+                    let responses = res.match(/.{1,1500}/g) as RegExpMatchArray;
+                    responses.slice(0, 3).forEach(section => {
+                        msg.channel.send("```" + section + "```");
+                    });
+
+                    connection.disconnect();
+                }).catch(err => {
+                    msg.channel.send("Error sending command to your server.");
+                });
+            }).catch(err => {
+                msg.channel.send("Error connecting to your server. Make sure the address and rcon password are valid.");
+            });
         } else if (args[0] == "setup") {
+            let league = args[1];
+            let gamemode = args[2];
+            let map = args[3];
 
+            if (!league) return msg.channel.send("Missing <league> argument.");
+            if (!gamemode) return msg.channel.send("Missing <gamemode> argument.");
+            if (!map) return msg.channel.send("Missing <map> argument.");
         }
     });
 }

@@ -34,10 +34,14 @@ readdir(__dirname + "/preload/commands", (err, files) => {
         throw new Error("Error reading commands directory: " + err);
     }
 
+    console.log("Loading commands...");
+
     files.forEach(file => {
         let command: Command = require(__dirname + "/preload/commands/" + file);
 
         bot.commands.set(command.name, command);
+
+        console.log("\tLoaded " + command.name);
     });
 });
 
@@ -49,10 +53,14 @@ readdir(__dirname + "/preload/auto", (err, files) => {
         throw new Error("Error reading automatic responses directory: " + err);
     }
 
+    console.log("Loading autoresponses...");
+
     files.forEach(file => {
         let autoResponse: AutoResponse = require(__dirname + "/preload/auto/" + file);
 
         bot.autoResponses.set(autoResponse.name, autoResponse);
+        
+        console.log("\tLoaded " + autoResponse.name);
     });
 });
 
@@ -74,5 +82,7 @@ bot.on("message", msg => {
 bot.on("ready", () => {
     console.log("Payload is running and listening for commands!");
 });
+
+bot.on("error", console.log);
 
 export default bot;

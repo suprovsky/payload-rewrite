@@ -8,7 +8,7 @@ export const description = "Retrieves the latest (or number X) deleted/edited me
 export const usage = config.PREFIX + name + " [number]";
 export const permissions = ["SEND_MESSAGES", "ATTACH_FILES"];
 export const canBeExecutedBy = ["SEND_MESSAGES"];
-export const zones = ["text, dm"];
+export const zones = ["text", "dm"];
 
 export async function run(bot: Bot, msg: Message) {
     let number: any = msg.content.slice(config.PREFIX.length + name.length).trim();
