@@ -7,7 +7,9 @@ const config = {
     files: {
         LOGS_CSS: __dirname + "/src/assets/dark-logs.css",
         LOADING: __dirname + "/src/assets/loading.jpg"
-    }
+    },
+
+    LOGSTF_API_KEY: ""
 };
 
 export default config;
