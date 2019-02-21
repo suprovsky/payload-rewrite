@@ -13,7 +13,7 @@ God this is going to take so much time.
 - [x] steam linking
 - [x] logs from profile
 - [ ] demo finder
-- [ ] log combiner
+- [x] log combiner
 - [ ] players in a server
 - [x] exec command in tf2 server
 - [ ] setup tf2 server for gamemode
