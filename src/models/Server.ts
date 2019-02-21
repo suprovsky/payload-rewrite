@@ -3,7 +3,17 @@ import mongoose from "mongoose";
 export type ServerModel = mongoose.Document & {
     id?: string,
 
-    disabled?: Array<{channelID: string, commands: Array<string>}>
+    disabled?: Array<{channelID: string, commands: Array<string>}>,
+
+    pugging: {
+        newbieRoleID: string,
+
+        waitingChannelID: string,
+        pickingChannelID: string,
+        redTeamChannelID: string,
+        blueTeamChannelID: string,
+        captainsChannelID: string
+    }
 };
 
 const serverSchema = new mongoose.Schema({
@@ -12,7 +22,17 @@ const serverSchema = new mongoose.Schema({
     disabled: [{
         channelID: String,
         commands: [String]
-    }]
+    }],
+
+    pugging: {
+        newbieRoleID: String,
+
+        waitingChannelID: String,
+        pickingChannelID: String,
+        redTeamChannelID: String,
+        blueTeamChannelID: String,
+        captainsChannelID: String
+    }
 });
 
 export const Server = mongoose.model("Server", serverSchema);
