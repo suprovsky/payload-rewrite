@@ -5,5 +5,7 @@ export interface AutoResponse {
     name: string;
     description: string;
     pattern: RegExp;
+    permissions: Array<string>;
+
     run: (bot: Bot, msg: Message) => void;
 }

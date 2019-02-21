@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { Message, TextChannel, Permissions, PermissionResolvable } from "discord.js";
 import { Bot, Command, AutoResponse } from "../types";
 import config from "../../secure-config";
 
@@ -20,6 +20,10 @@ export default function handleAutoResponse(bot: Bot, msg: Message): boolean {
 
     if (!match) return false;
 
-    (bot.autoResponses.get(match) as AutoResponse).run(bot, msg);
+    let autoResponse = bot.autoResponses.get(match) as AutoResponse;
+
+    if (!((msg.channel as TextChannel).permissionsFor(bot.user) as Permissions).has(autoResponse.permissions as PermissionResolvable)) return false;
+
+    autoResponse.run(bot, msg);
     return true;
 }
