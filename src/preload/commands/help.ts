@@ -5,6 +5,8 @@ import config from "../../../secure-config";
 export const name = "help";
 export const description = "Find out how to use commands.";
 export const usage = config.PREFIX + name + " <command>";
+export const permissions = ["SEND_MESSAGES", "EMBED_LINKS"];
+export const canBeExecutedBy = ["SEND_MESSAGES"];
 
 export function run(bot: Bot, msg: Message) {
     let commandName = msg.content.slice(config.PREFIX.length + name.length).trim();

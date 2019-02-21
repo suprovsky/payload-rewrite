@@ -6,6 +6,8 @@ import { random } from "../../utils/random";
 export const name = "rtd";
 export const description = "Rolls a die with 6 sides or a die with [number] sides if specified.";
 export const usage = config.PREFIX + name + " [number]";
+export const permissions = ["SEND_MESSAGES"];
+export const canBeExecutedBy = ["SEND_MESSAGES"];
 
 export function run(bot: Bot, msg: Message) {
     let maybeANumber = msg.content.slice(config.PREFIX.length + name.length).trim();

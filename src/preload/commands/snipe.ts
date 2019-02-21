@@ -6,6 +6,8 @@ import config from "../../../secure-config";
 export const name = "snipe";
 export const description = "Retrieves the latest (or number X) deleted/edited message from the past 5 minutes.";
 export const usage = config.PREFIX + name + " [number]";
+export const permissions = ["SEND_MESSAGES", "ATTACH_FILES"];
+export const canBeExecutedBy = ["SEND_MESSAGES"];
 
 export async function run(bot: Bot, msg: Message) {
     let number: any = msg.content.slice(config.PREFIX.length + name.length).trim();
