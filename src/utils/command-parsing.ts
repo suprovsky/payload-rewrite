@@ -6,5 +6,12 @@ export function sliceCmd(message: Message, name: string): string {
 }
 
 export function getArgs(str: string): Array<string> {
-    return str.replace(/\s+(?=((\\[\\"]|[^\\"])*"(\\[\\"]|[^\\"])*")*(\\[\\"]|[^\\"])*$)/g, "%SPLIT%").split("%SPLIT%");
+    let rawArgs = str.replace(/\s+(?=((\\[\\"]|[^\\"])*"(\\[\\"]|[^\\"])*")*(\\[\\"]|[^\\"])*$)/g, "%SPLIT%").split("%SPLIT%");
+
+    // <Array>.map(): void[] ?????? wtf
+    let safeArgs = rawArgs.map(arg => {
+        return arg.replace(/^"(.+)"$/, "$1").replace(/\\(.)/g, "$1");
+    }) as Array<unknown>;
+
+    return safeArgs as Array<string>;
 }
