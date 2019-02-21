@@ -4,3 +4,7 @@ import { Message } from "discord.js";
 export function sliceCmd(message: Message, name: string): string {
     return message.content.slice(config.PREFIX.length + name.length).trim();
 }
+
+export function getArgs(str: string): Array<string> {
+    return str.replace(/\s+(?=((\\[\\"]|[^\\"])*"(\\[\\"]|[^\\"])*")*(\\[\\"]|[^\\"])*$)/g, "%SPLIT%").split("%SPLIT%");
+}
