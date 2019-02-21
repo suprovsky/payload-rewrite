@@ -6,8 +6,8 @@ import { User, UserModel, Servers } from "../../models/User";
 import Rcon from "srcds-rcon";
 
 export const name = "server";
-export const description = "Various server management utilities.";
-export const usage = config.PREFIX + name;
+export const description = "list: Lists your servers.\nset: Adds a server to your list.\nremove: Removes a server from your list.\nexec: Executes a command on one of your servers.\nsetup: Automatically sets up one of your servers for a map in a certain league and gamemode.\n\nNOTES: <name> is a name you give your server to retrieve later.";
+export const usage = `${config.PREFIX}${name} list\n${config.PREFIX}${name} set <name> <address> <rcon password>\n${config.PREFIX}${name} remove <name>\n${config.PREFIX}${name} exec <name> <command>\n${config.PREFIX}${name} setup <league> <gamemode> <map>`;
 export const permissions = ["SEND_MESSAGES"];
 export const canBeExecutedBy = ["SEND_MESSAGES"];
 export const zones = ["text", "dm"];
@@ -27,10 +27,10 @@ export function run(bot: Bot, msg: Message) {
         if (!VALID_ARGUMENTS.includes(args[0])) return msg.channel.send("Invalid initial argument. Must be one of the following: `" + VALID_ARGUMENTS + "`.");
 
         if (args[0] == "list") {
-            if (!user || !user.servers) return msg.channel.send(`You have no servers added yet. Find out more with \`${config.PREFIX}help ${name}\``);
+            if (!user || !user.servers ||!user.servers.length) return msg.channel.send(`You have no servers added yet. Find out more with \`${config.PREFIX}help ${name}\``);
 
             let servers = user.servers.map(serverInfo => {
-                `[${serverInfo.name}]\n\t${serverInfo.address}\n\t${serverInfo.rconPassword}`
+                return `[${serverInfo.name}]\n\t${serverInfo.address}\n\t${serverInfo.rconPassword}`
             });
 
             msg.channel.send(`\`\`\`AsciiDoc\n${servers.join("\n")}\n\`\`\``);
@@ -41,7 +41,7 @@ export function run(bot: Bot, msg: Message) {
 
             if (!serverName) return msg.channel.send("Missing <name> argument.");
             if (!address) return msg.channel.send("Missing <address> argument.");
-            if (!rconPassword) return msg.channel.send("Missing <RCON password> argument.");
+            if (!rconPassword) return msg.channel.send("Missing <rcon password> argument.");
 
             if (!user) {
                 user = new User({
