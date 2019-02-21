@@ -12,7 +12,6 @@ God this is going to take so much time.
 - [x] rtd
 - [x] steam linking
 - [x] logs from profile
-- [ ] demo finder
 - [x] log combiner
 - [ ] players in a server
 - [x] exec command in tf2 server
