@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { LogData } from "../types";
 
 export type Servers = Array<{name: string, address: string, rconPassword: string}>;
 
@@ -7,7 +8,9 @@ export type UserModel = mongoose.Document & {
 
     steamID?: string,
 
-    servers?: Servers
+    servers?: Servers,
+
+    logs?: Array<LogData>
 };
 
 const userSchema = new mongoose.Schema({
@@ -19,7 +22,9 @@ const userSchema = new mongoose.Schema({
         name: String,
         address: String,
         rconPassword: String
-    }]
+    }],
+
+    logs: [Object]
 });
 
 export const User = mongoose.model("User", userSchema);
