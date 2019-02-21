@@ -6,7 +6,7 @@ import { ensureSteamID } from "../../utils/steam-id";
 
 export const name = "link";
 export const description = "Links your steam account to your Discord account.";
-export const usage = config.PREFIX + name;
+export const usage = config.PREFIX + name + " <SteamID>";
 
 export async function run(bot: Bot, msg: Message) {
     let testString = msg.content.slice(config.PREFIX.length + name.length).trim();
@@ -18,9 +18,9 @@ export async function run(bot: Bot, msg: Message) {
     User.findOne({
         id: msg.author.id
     }, (err, user: UserModel) => {
-        if (err) {
-            return msg.channel.send("Error linking your Discord and Steam accounts. This is most likely a problem with the database.");
-        } else if (!user) {
+        if (err) return msg.channel.send("Error linking your Discord and Steam accounts. This is most likely a problem with the database.");
+
+        if (!user) {
             user = new User({
                 id: msg.author.id,
                 steamID: steamIDTestResult

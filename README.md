@@ -11,7 +11,7 @@ God this is going to take so much time.
 - [x] 8ball
 - [x] rtd
 - [x] steam linking
-- [ ] logs from profile
+- [x] logs from profile
 - [ ] demo finder
 - [ ] log combiner
 - [ ] players in a server
