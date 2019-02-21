@@ -9,6 +9,7 @@ export const description = "Links your steam account to your Discord account.";
 export const usage = config.PREFIX + name + " <SteamID>";
 export const permissions = ["SEND_MESSAGES"];
 export const canBeExecutedBy = ["SEND_MESSAGES"];
+export const zones = ["text, dm"];
 
 export async function run(bot: Bot, msg: Message) {
     let testString = msg.content.slice(config.PREFIX.length + name.length).trim();

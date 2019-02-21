@@ -5,6 +5,7 @@ export const name = "steam connect link";
 export const description = "Automatically sends steam connect links when raw connect info is posted.";
 export const pattern = /connect (https?:\/\/)?(\w+\.)+\w+(:\d+)?; ?password .+/;
 export const permissions = ["SEND_MESSAGES", "EMBED_LINKS"];
+export const zones = ["text, dm"];
 
 export function run(bot: Bot, msg: Message) {
     let connectInfo = msg.content.match(pattern) as RegExpExecArray;

@@ -8,6 +8,7 @@ export const description = "Rolls a die with 6 sides or a die with [number] side
 export const usage = config.PREFIX + name + " [number]";
 export const permissions = ["SEND_MESSAGES"];
 export const canBeExecutedBy = ["SEND_MESSAGES"];
+export const zones = ["text, dm"];
 
 export function run(bot: Bot, msg: Message) {
     let maybeANumber = msg.content.slice(config.PREFIX.length + name.length).trim();

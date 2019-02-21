@@ -1,5 +1,5 @@
 import { Bot } from "./Bot";
-import { Message } from "discord.js";
+import { Message, Channel } from "discord.js";
 
 export interface Command {
     name: string;
@@ -7,6 +7,7 @@ export interface Command {
     usage: string;
     permissions: Array<string>;
     canBeExecutedBy: Array<string>;
+    zones: Array<Channel["type"]>;
 
     run: (bot: Bot, msg: Message) => void;
 }

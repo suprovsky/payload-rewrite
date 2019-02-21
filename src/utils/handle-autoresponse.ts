@@ -22,7 +22,11 @@ export default function handleAutoResponse(bot: Bot, msg: Message): boolean {
 
     let autoResponse = bot.autoResponses.get(match) as AutoResponse;
 
-    if (!((msg.channel as TextChannel).permissionsFor(bot.user) as Permissions).has(autoResponse.permissions as PermissionResolvable)) return false;
+    if (!autoResponse.zones.includes(msg.channel.type)) return false;
+
+    if (msg.channel.type == "text") {
+        if (!((msg.channel as TextChannel).permissionsFor(bot.user) as Permissions).has(autoResponse.permissions as PermissionResolvable)) return false;
+    }
 
     autoResponse.run(bot, msg);
     return true;

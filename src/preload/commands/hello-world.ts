@@ -7,6 +7,7 @@ export const description = "A test command that also serves as a template for ot
 export const usage = config.PREFIX + name;
 export const permissions = ["SEND_MESSAGES"];
 export const canBeExecutedBy = ["SEND_MESSAGES"];
+export const zones = ["text, dm"];
 
 export function run(bot: Bot, msg: Message) {
     msg.channel.send("Hello World!");
