@@ -121,6 +121,8 @@ export function run(bot: Bot, msg: Message) {
                 msg.channel.send("Error connecting to your server. Make sure the address and rcon password are valid.");
             });
         } else if (args[0] == "setup") {
+            // TODO: Finish setup command
+
             let league = args[1];
             let gamemode = args[2];
             let map = args[3];
@@ -128,8 +130,58 @@ export function run(bot: Bot, msg: Message) {
             if (!league) return msg.channel.send("Missing <league> argument.");
             if (!gamemode) return msg.channel.send("Missing <gamemode> argument.");
             if (!map) return msg.channel.send("Missing <map> argument.");
+
+            if (!VALID_LEAGUES.includes(league)) return msg.channel.send("League is not supported. Must be one of the following: `" + VALID_LEAGUES + "`.");
+            if (!VALID_GAMEMODES.includes(gamemode)) return msg.channel.send("Gamemode is not supported. Must be one of the following: `" + VALID_GAMEMODES + "`.");
+
+            let leaguePrefix: string;
+            let gamemodeDiscriminator: string;
+            let mapSuffix: string;
+
+            if (league == "rgl") {
+                leaguePrefix = "rgl_";
+
+                if (gamemode == "hl") {
+                    gamemodeDiscriminator = "hl_";
+                } else if (gamemode == "6s") {
+                    gamemodeDiscriminator = "mm_";
+                } else if (gamemode == "7s") {
+                    gamemodeDiscriminator = "";
+                } else {
+                    return msg.channel.send(`\`${gamemode}\` is not supported by \`${league}\`.`)
+                }
+            } else if (league == "ugc") {
+                leaguePrefix = "ugc_";
+
+                if (gamemode == "hl") {
+                    gamemodeDiscriminator = "hl_";
+                } else if (gamemode == "6s") {
+                    gamemodeDiscriminator = "6v_";
+                } else if (gamemode == "4s") {
+                    gamemodeDiscriminator = "4v_";
+                } else {
+                    return msg.channel.send(`\`${gamemode}\` is not supported by \`${league}\`.`)
+                }
+            } else if (league == "etf2l") {
+                leaguePrefix = "etf2l_";
+
+                if (gamemode == "hl") {
+                    gamemodeDiscriminator = "9v9_";
+                } else if (gamemode == "6s") {
+                    gamemodeDiscriminator = "6v6_";
+                } else {
+                    return msg.channel.send(`\`${gamemode}\` is not supported by \`${league}\`.`)
+                }
+            } else {
+                leaguePrefix = "";
+                gamemodeDiscriminator = "";
+            }
+
+            msg.channel.send(`DEBUG: ${leaguePrefix}${gamemodeDiscriminator}`);
         }
     });
 }
 
 const VALID_ARGUMENTS = ["list", "set", "remove", "exec", "setup"];
+const VALID_LEAGUES = ["rgl", "ugc", "etf2l"];
+const VALID_GAMEMODES = ["hl", "6s", "4s", "7s"];
