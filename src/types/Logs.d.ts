@@ -1,4 +1,5 @@
 export interface LogData {
+    id: string,
     version: number,
     teams: {
         Red: {
