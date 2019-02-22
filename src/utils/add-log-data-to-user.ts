@@ -8,11 +8,14 @@ import { LogData } from "../types";
 
     if (!process.env.LOGS) return console.log("Missing LOGS env variable for child!");
 
+    let logIDMatch = process.env.LOGS.match(/\d+/) as RegExpMatchArray;
+
     let logsURL = process.env.LOGS as string;
 
     try {
         let res = await got(logsURL.replace(/\/(\d+)/, "/json/$1"), { json: true });
         let data: LogData = res.body;
+        data.id = logIDMatch[0];
 
         for (let id3 in data.players) {
             let steamID = new SteamID(id3);
@@ -26,8 +29,7 @@ import { LogData } from "../types";
                 if (!user) return console.log(`User with Steam ID ${id64} does not exist in database.`);
 
                 if (!user.logs) user.logs = [];
-                // TODO: Implement duplicate checking.
-                //else if (user.logs.find())
+                else if (user.logs.find(log => log.id == data.id)) return console.log(`Log with id ${data.id} already exists in user with Steam ID ${id64} database entry.`);
 
                 user.logs.push(data);
 
