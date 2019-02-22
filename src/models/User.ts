@@ -10,7 +10,7 @@ export type UserModel = mongoose.Document & {
     id?: string,
 
     steamID?: string,
-    getSteam3ID: Steam3IDFunction
+    getSteam3ID: Steam3IDFunction,
 
     servers?: Servers,
 
