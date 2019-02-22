@@ -1,5 +1,5 @@
 import { capture } from "./screenshot";
-import child_process from "child_process";
+import child_process, { ChildProcess } from "child_process";
 import config from "../../secure-config";
 
 export async function render(link: string): Promise<Buffer> {
@@ -30,9 +30,7 @@ export async function render(link: string): Promise<Buffer> {
             "LOGS": link
         }
     });
-    child.on("message", msg => {
-        console.log(msg);
-    });
+
     child.on("exit", code => {
         console.log("Log stats appender child process exited with code " + code);
     });

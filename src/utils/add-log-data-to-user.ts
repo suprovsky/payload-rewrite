@@ -3,6 +3,45 @@ import got from "got";
 import SteamID from "SteamID";
 import { LogData } from "../types";
 
+async function saveToUser(data: LogData, id64: string): Promise<boolean> {
+    return new Promise(resolve => {
+        console.log("looking for user");
+        User.findOne({
+            steamID: id64
+        }, (err, user: UserModel) => {
+            if (err) {
+                console.log(`Error retrieving user with Steam ID ${id64} from database.`);
+                resolve(false);
+            }
+    
+            if (!user) {
+                console.log(`User with Steam ID ${id64} does not exist in database.`);
+                resolve(false);
+            }
+    
+            console.log("Found user with Steam ID " + id64);
+    
+            if (!user.logs) user.logs = [];
+            else if (user.logs.find(log => log.id == data.id)) {
+                console.log(`Log with id ${data.id} already exists in user with Steam ID ${id64} database entry.`);
+                resolve(false);
+            }
+    
+            user.logs.push(data);
+    
+            user.save(err => {
+                if (err) {
+                    console.log(`Error saving user with Steam ID ${id64} to database.`);
+                    resolve(false);
+                }
+    
+                console.log(`Appended log data to user with Steam ID ${id64} in database.`);
+                resolve(true);
+            });
+        });
+    });
+}
+
 (async () => {
     console.log("Starting task", process.env);
 
@@ -12,35 +51,23 @@ import { LogData } from "../types";
 
     let logsURL = process.env.LOGS as string;
 
-    try {
-        let res = await got(logsURL.replace(/\/(\d+)/, "/json/$1"), { json: true });
-        let data: LogData = res.body;
-        data.id = logIDMatch[0];
+    let res = await got(logsURL.replace(/\/(\d+)/, "/json/$1"), { json: true });
+    let data: LogData = res.body;
+    data.id = logIDMatch[0];
 
-        for (let id3 in data.players) {
-            let steamID = new SteamID(id3);
-            let id64 = steamID.getSteamID64();
+    let promiseArray: Array<Promise<boolean>> = [];
 
-            User.findOne({
-                steamID: id64
-            }, (err, user: UserModel) => {
-                if (err) return console.log(`Error retrieving user with Steam ID ${id64} from database.`);
+    for (let id3 in data.players) {
+        let steamID = new SteamID(id3);
+        let id64 = steamID.getSteamID64();
 
-                if (!user) return console.log(`User with Steam ID ${id64} does not exist in database.`);
-
-                if (!user.logs) user.logs = [];
-                else if (user.logs.find(log => log.id == data.id)) return console.log(`Log with id ${data.id} already exists in user with Steam ID ${id64} database entry.`);
-
-                user.logs.push(data);
-
-                user.save(err => {
-                    if (err) return console.log(`Error saving user with Steam ID ${id64} to database.`);
-
-                    console.log(`Appended log data to user with Steam ID ${id64} in database.`);
-                });
-            });
-        }
-    } catch (err) {
-        console.log("Unknown error thrown!", err);
+        promiseArray.push(saveToUser(data, id64));
+        console.log(`Added ${id64} to queue.`);
     }
-})();
+
+    await Promise.all(promiseArray);
+})().then(() => {
+    console.log("Finished work on log " + process.env.LOGS + ". Exiting...");
+}).catch(err => {
+    console.error("Unknown error thrown!", err);
+});
