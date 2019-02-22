@@ -2,7 +2,7 @@ import Discord from "discord.js";
 import config from "../secure-config";
 import { Command, AutoResponse, Bot } from "./types"
 import { readdir } from "fs";
-import { handleMessageDelete, cleanCache } from "./utils/snipe-cache";
+import { handleMessageDelete, cleanCache, handleMentionDelete } from "./utils/snipe-cache";
 import handleCommand from "./utils/handle-command";
 import handleAutoResponse from "./utils/handle-autoresponse";
 import mongoose from "mongoose";
@@ -65,16 +65,20 @@ readdir(__dirname + "/preload/auto", (err, files) => {
 });
 
 bot.on("messageDelete", msg => {
+    handleMentionDelete(msg);
     handleMessageDelete(bot, msg);
     cleanCache(bot, msg);
 });
 
 bot.on("messageUpdate", (oldMsg, newMsg) => {
+    handleMentionDelete(oldMsg);
     handleMessageDelete(bot, oldMsg);
     cleanCache(bot, oldMsg);
 });
 
 bot.on("message", msg => {
+    handleMentionDelete(msg);
+
     let didHandleCommand = handleCommand(bot, msg);
     if (!didHandleCommand) handleAutoResponse(bot, msg);
 });
