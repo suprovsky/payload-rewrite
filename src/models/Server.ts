@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
+import { Message } from "discord.js";
 
 export type ServerModel = mongoose.Document & {
     id?: string,
 
     disabled?: Array<{channelID: string, commands: Array<string>}>,
 
-    pugging: {
+    pugging?: {
         newbieRoleID: string,
 
         waitingChannelID: string,
@@ -13,6 +14,10 @@ export type ServerModel = mongoose.Document & {
         redTeamChannelID: string,
         blueTeamChannelID: string,
         captainsChannelID: string
+    },
+
+    mentions?: {
+        [channelID: string]: Array<Message>
     }
 };
 
@@ -32,7 +37,9 @@ const serverSchema = new mongoose.Schema({
         redTeamChannelID: String,
         blueTeamChannelID: String,
         captainsChannelID: String
-    }
+    },
+
+    mentions: Object
 });
 
 export const Server = mongoose.model("Server", serverSchema);
