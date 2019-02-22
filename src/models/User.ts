@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
+import SteamID from "steamid";
 import { LogData } from "../types";
+
+type Steam3IDFunction = () => string | undefined;
 
 export type Servers = Array<{name: string, address: string, rconPassword: string}>;
 
@@ -7,6 +10,7 @@ export type UserModel = mongoose.Document & {
     id?: string,
 
     steamID?: string,
+    getSteam3ID: Steam3IDFunction
 
     servers?: Servers,
 
@@ -26,5 +30,13 @@ const userSchema = new mongoose.Schema({
 
     logs: [Object]
 });
+
+userSchema.methods.getSteam3ID = function() {
+    if (!this.steamID) return undefined;
+
+    let steamID = new SteamID(this.steamID);
+
+    return steamID.steam3();
+};
 
 export const User = mongoose.model("User", userSchema);
