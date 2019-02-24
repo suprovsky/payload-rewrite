@@ -2,7 +2,7 @@ import { Bot } from "../../types";
 import { Message } from "discord.js";
 import { renderMessage } from "../../utils/snipe-cache";
 import { Server, ServerModel } from "../../models/Server";
-import { getArgs } from "../../utils/command-parsing";
+import { getArgs, sliceCmd } from "../../utils/command-parsing";
 import config from "../../../secure-config";
 
 export const name = "find";
@@ -13,7 +13,7 @@ export const canBeExecutedBy = ["SEND_MESSAGES"];
 export const zones = ["text"];
 
 export function run(bot: Bot, msg: Message) {
-    let args = getArgs(msg.content);
+    let args = getArgs(sliceCmd(msg, name));
     let criteria: string;
 
     if (!args[0]) return msg.channel.send("Missing criteria to use.");
