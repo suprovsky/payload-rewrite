@@ -1,58 +1,58 @@
 import { Bot } from "../../types";
 import { Message } from "discord.js";
-import { getCache, channelCacheExists, renderMessage } from "../../utils/snipe-cache";
+import { renderMessage } from "../../utils/snipe-cache";
+import { Server, ServerModel } from "../../models/Server";
+import { getArgs } from "../../utils/command-parsing";
 import config from "../../../secure-config";
 
 export const name = "find";
-export const description = "Retrieves the latest message that matches certain criteria.";
+export const description = "Retrieves the latest message that matches certain criteria.\n\n__Valid Criteria__\nping\ndeleted ping";
 export const usage = config.PREFIX + name + " <criteria>";
 export const permissions = ["SEND_MESSAGES", "ATTACH_FILES"];
 export const canBeExecutedBy = ["SEND_MESSAGES"];
-export const zones = ["text", "dm"];
+export const zones = ["text"];
 
-export async function run(bot: Bot, msg: Message) {
-    let number: any = msg.content.slice(config.PREFIX.length + name.length).trim();
+export function run(bot: Bot, msg: Message) {
+    let args = getArgs(msg.content);
+    let criteria: string;
 
-    if (!channelCacheExists(bot, msg) || getCache(bot, msg).size == 0) {
-        return msg.channel.send("No messages to snipe!");
-    }
+    if (!args[0]) return msg.channel.send("Missing criteria to use.");
 
-    if (number.length == 0 || isNaN(number)) {
-        let targetMessage = getCache(bot, msg).last();
-
-        let snipeData = await renderMessage(targetMessage);
-
-        await msg.channel.send({
-            files: [snipeData.buffer]
-        });
-
-        if (snipeData.attachments || snipeData.links) {
-            await msg.channel.send(snipeData.attachments + "\n" + snipeData.links);
-        }
+    if (args[0] == "ping") {
+        criteria = "any";
+    } else if (args[0] == "deleted ping") {
+        criteria = "deleted";
     } else {
-        let cache = getCache(bot, msg);
+        return msg.channel.send("Invalid criteria. Use the help command to see a list of valid criteria.");
+    }
 
-        let max = cache.size;
-        number = parseInt(number);
+    Server.findOne({
+        id: msg.guild.id
+    }, async (err, server: ServerModel) => {
+        if (err) return msg.channel.send("Error retrieving server info.");
 
-        if (number < 1) {
-            return msg.channel.send("Number argument must be greater than 0.");
-        }
-        if (number > max) {
-            return msg.channel.send("Snipe cache doesn't go that far!");
-        }
+        if (!server || !server.mentions || !server.mentions[msg.channel.id]) return msg.channel.send("No messages found.");
 
-        let ids = cache.keyArray();
-        let targetMessage = cache.get(ids[max - number]) as Message;
-
-        let snipeData = await renderMessage(targetMessage);
-
-        await msg.channel.send({
-            files: [snipeData.buffer]
+        let match = server.mentions[msg.channel.id].find(message => {
+            if (criteria == "any") {
+                return message.isMemberMentioned(msg.author);
+            } else {
+                // Discord.js's stable branch doesn't have correct typings...
+                //@ts-ignore
+                return message.deleted && message.isMemberMentioned(msg.author);
+            }
         });
 
-        if (snipeData.attachments || snipeData.links) {
-            await msg.channel.send(snipeData.attachments + "\n" + snipeData.links);
+        if (!match) return msg.channel.send("No messages matching criteria found.");
+
+        let messageData = await renderMessage(match);
+
+        await msg.channel.send({
+            files: [messageData.buffer]
+        });
+
+        if (messageData.attachments || messageData.links) {
+            await msg.channel.send(messageData.attachments + "\n" + messageData.links);
         }
-    }
+    });
 }
