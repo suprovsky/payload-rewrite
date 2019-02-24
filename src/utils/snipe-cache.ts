@@ -121,16 +121,7 @@ export async function handleMentionDelete(message: Message): Promise<boolean> {
 
             if (!server) {
                 server = new Server({
-                    id: message.channel.id,
-                    mentions: {}
-                });
-                (server.mentions as ServerMentionsObject)[message.channel.id] = [];
-
-                (server.mentions as ServerMentionsObject)[message.channel.id].unshift(message);
-
-                server.save(err => {
-                    if (err) console.log(err);
-                    else console.log("Added mention to server data.");
+                    id: message.channel.id
                 });
             } else {
                 if (!server.mentions) server.mentions = {};
