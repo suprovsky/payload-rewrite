@@ -94,6 +94,7 @@ export function getCache(bot: Bot, message: Message): Collection<String, Message
  */
 export function handleMessageDelete(bot: Bot, message: Message): boolean {
     if (message.author.bot) return false;
+    if (message.channel.type != "text") return false;
 
     ensureChannel(bot, message);
 
@@ -108,6 +109,7 @@ export function handleMessageDelete(bot: Bot, message: Message): boolean {
  */
 export async function handleMentionDelete(message: Message): Promise<boolean> {
     if (message.author.bot) return false;
+    if (message.channel.type != "text") return false;
 
     if (!message.mentions.users.size && !message.mentions.roles.size && !message.mentions.everyone) return false;
 
