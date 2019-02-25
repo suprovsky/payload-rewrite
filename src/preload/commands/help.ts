@@ -9,7 +9,7 @@ export const permissions = ["SEND_MESSAGES", "EMBED_LINKS"];
 export const canBeExecutedBy = ["SEND_MESSAGES"];
 export const zones = ["text", "dm"];
 
-export function run(bot: Bot, msg: Message) {
+export async function run(bot: Bot, msg: Message) {
     let commandName = msg.content.slice(config.PREFIX.length + name.length).trim();
 
     if (commandName.length == 0) return;

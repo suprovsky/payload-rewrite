@@ -12,7 +12,7 @@ export const permissions = ["SEND_MESSAGES"];
 export const canBeExecutedBy = ["SEND_MESSAGES"];
 export const zones = ["text", "dm"];
 
-export function run(bot: Bot, msg: Message) {
+export async function run(bot: Bot, msg: Message) {
     let args = getArgs(sliceCmd(msg, name));
 
     User.findOne({

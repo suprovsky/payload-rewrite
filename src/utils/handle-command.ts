@@ -2,7 +2,7 @@ import { Message, PermissionResolvable, TextChannel, Permissions } from "discord
 import { Bot, Command } from "../types";
 import config from "../../secure-config";
 
-export default function handleCommand(bot: Bot, msg: Message): boolean {
+export default async function handleCommand(bot: Bot, msg: Message): Promise<boolean> {
     if (msg.author.bot) return false;
 
     if (!msg.content.startsWith(config.PREFIX)) return false;
@@ -27,7 +27,7 @@ export default function handleCommand(bot: Bot, msg: Message): boolean {
     msg.channel.startTyping();
 
     try {
-        executableCommand.run(bot, msg);
+        await executableCommand.run(bot, msg);
     } catch (err) {
         console.warn("Error while executing command " + command, err);
     }

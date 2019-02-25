@@ -2,7 +2,7 @@ import { Message, TextChannel, Permissions, PermissionResolvable } from "discord
 import { Bot, Command, AutoResponse } from "../types";
 import config from "../../secure-config";
 
-export default function handleAutoResponse(bot: Bot, msg: Message): boolean {
+export default async function handleAutoResponse(bot: Bot, msg: Message): Promise<boolean> {
     if (msg.author.bot) return false;
 
     let match = "";
@@ -28,6 +28,15 @@ export default function handleAutoResponse(bot: Bot, msg: Message): boolean {
         if (!((msg.channel as TextChannel).permissionsFor(bot.user) as Permissions).has(autoResponse.permissions as PermissionResolvable)) return false;
     }
 
-    autoResponse.run(bot, msg);
+    msg.channel.startTyping();
+
+    try {
+        await autoResponse.run(bot, msg);
+    } catch (err) {
+        console.warn("Error while executing autoresponse " + autoResponse.name, err);
+    }
+
+    msg.channel.stopTyping(true);
+
     return true;
 }

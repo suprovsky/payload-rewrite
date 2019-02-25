@@ -7,7 +7,7 @@ export const pattern = /steam:\/\/connect\/(\w+\.)+\w+(:\d+)?\/.+/;
 export const permissions = ["SEND_MESSAGES", "EMBED_LINKS"];
 export const zones = ["text", "dm"];
 
-export function run(bot: Bot, msg: Message) {
+export async function run(bot: Bot, msg: Message) {
     let connectLink = msg.content.match(pattern) as RegExpExecArray;
     let parts = connectLink[0].replace("steam://connect/", "").split("/");
 

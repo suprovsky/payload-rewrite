@@ -10,7 +10,7 @@ export const permissions = ["SEND_MESSAGES"];
 export const canBeExecutedBy = ["SEND_MESSAGES"];
 export const zones = ["text", "dm"];
 
-export function run(bot: Bot, msg: Message) {
+export async function run(bot: Bot, msg: Message) {
     let maybeANumber = msg.content.slice(config.PREFIX.length + name.length).trim();
 
     if (maybeANumber.length > 0 && !Number(maybeANumber)) return msg.channel.send("Argument must be a number.");

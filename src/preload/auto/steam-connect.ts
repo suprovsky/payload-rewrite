@@ -7,7 +7,7 @@ export const pattern = /connect (https?:\/\/)?(\w+\.)+\w+(:\d+)?; ?password .+/;
 export const permissions = ["SEND_MESSAGES", "EMBED_LINKS"];
 export const zones = ["text", "dm"];
 
-export function run(bot: Bot, msg: Message) {
+export async function run(bot: Bot, msg: Message) {
     let connectInfo = msg.content.match(pattern) as RegExpExecArray;
     let parts = connectInfo[0].split(";");
 

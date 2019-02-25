@@ -7,6 +7,6 @@ export const pattern = /test payload hello world/;
 export const permissions = ["SEND_MESSAGES"];
 export const zones = ["text", "dm"];
 
-export function run(bot: Bot, msg: Message) {
+export async function run(bot: Bot, msg: Message) {
     msg.channel.send("Hello World!");
 }

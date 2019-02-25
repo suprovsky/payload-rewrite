@@ -13,7 +13,7 @@ export const permissions = ["SEND_MESSAGES", "ATTACH_FILES"];
 export const canBeExecutedBy = ["SEND_MESSAGES"];
 export const zones = ["text", "dm"];
 
-export function run(bot: Bot, msg: Message) {
+export async function run(bot: Bot, msg: Message) {
     let args = getArgs(sliceCmd(msg, name));
 
     let map = args[0];

@@ -10,7 +10,7 @@ export const permissions = ["SEND_MESSAGES"];
 export const canBeExecutedBy = ["SEND_MESSAGES"];
 export const zones = ["text", "dm"];
 
-export function run(bot: Bot, msg: Message) {
+export async function run(bot: Bot, msg: Message) {
     let question = msg.content.slice(config.PREFIX.length + name.length).trim();
 
     if (!question) return msg.channel.send("You must ask the 8ball a question.");
