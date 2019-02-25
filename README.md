@@ -2,7 +2,6 @@
 God this is going to take so much time.
 
 ## Changes in Payload v2
-- pls snipe no longer caches messages deleted by someone other than the sender
 - pugging features
 
 ## TODO
@@ -22,8 +21,8 @@ God this is going to take so much time.
 ### Automatic Functions
 - [x] steam connect link
 - [x] log previews
-- [ ] esea match previews
-- [ ] tftv thread previews
+- [x] esea match previews
+- [x] tftv thread previews
 - [ ] ugc team previews
 - [ ] esea team previews
 - [ ] rgl team previews
