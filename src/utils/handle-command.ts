@@ -26,7 +26,11 @@ export default function handleCommand(bot: Bot, msg: Message): boolean {
 
     msg.channel.startTyping();
 
-    executableCommand.run(bot, msg);
+    try {
+        executableCommand.run(bot, msg);
+    } catch (err) {
+        console.warn("Error while executing command " + command, err);
+    }
 
     msg.channel.stopTyping(true);
 
