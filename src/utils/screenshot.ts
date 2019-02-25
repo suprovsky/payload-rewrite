@@ -93,13 +93,11 @@ export async function capture(url: string, options: CaptureOptions = {left: 0, t
  * Takes a screenshot of an element. Will wait 30 seconds for the element to load before timing out.
  * @param url The URL to take the screenshot in.
  * @param selector The element selector.
+ * @param viewport The default viewport dimensions.
  */
-export async function captureSelector(url: string, selector: string): Promise<Buffer> {
+export async function captureSelector(url: string, selector: string, viewport = {width: 1920, height: 1080}): Promise<Buffer> {
     const browser = await puppeteer.launch({
-        defaultViewport: {
-            width: 1920,
-            height: 1080
-        }
+        defaultViewport: viewport
     });
 
     const page = await browser.newPage();
