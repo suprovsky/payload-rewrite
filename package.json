@@ -36,6 +36,7 @@
     "@types/mongoose": "^5.3.17",
     "@types/puppeteer": "^1.12.1",
     "@types/steamid": "^1.1.0",
+    "@types/text-table": "^0.2.0",
     "chai": "^4.2.0",
     "i": "^0.3.6",
     "mocha": "^5.2.0",
