@@ -2,10 +2,10 @@ import { Bot } from "../../types";
 import { Message } from "discord.js";
 import { capture } from "../../utils/screenshot";
 
-export const name = "hello world";
-export const description = "A test command that also serves as a template for other commands.";
+export const name = "rgl";
+export const description = "Generates RGL team previews.";
 export const pattern = /\w+\.rgl\.gg\/Public\/Team\.aspx?t=\d+/;
-export const permissions = ["SEND_MESSAGES", "ATTACH_LINKS"];
+export const permissions = ["SEND_MESSAGES", "ATTACH_FILES"];
 export const zones = ["text", "dm"];
 
 export async function run(bot: Bot, msg: Message) {
