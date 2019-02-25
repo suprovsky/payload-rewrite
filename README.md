@@ -25,5 +25,5 @@ God this is going to take so much time.
 - [x] tftv thread previews
 - [ ] ugc team previews
 - [ ] esea team previews
-- [ ] rgl team previews
+- [x] rgl team previews
 - [ ] etf2l team previews
