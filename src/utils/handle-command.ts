@@ -24,6 +24,11 @@ export default function handleCommand(bot: Bot, msg: Message): boolean {
         if (!((msg.channel as TextChannel).permissionsFor(bot.user) as Permissions).has(permissionsNeeded)) return false;
     }
 
+    msg.channel.startTyping();
+
     executableCommand.run(bot, msg);
+
+    msg.channel.stopTyping(true);
+
     return true;
 }
