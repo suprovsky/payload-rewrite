@@ -1,7 +1,6 @@
 import { Bot } from "../../types";
 import { Message } from "discord.js";
 import { render } from "../../utils/render-log";
-import { readFileSync } from "fs";
 import config from "../../../example-config";
 
 export const name = "logs";
