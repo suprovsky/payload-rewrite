@@ -16,7 +16,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import config from "./secure-config";
-import bot from "./src/bot";
+import config from "../secure-config";
+import bot from "./bot";
 
 bot.login(config.TOKEN);
