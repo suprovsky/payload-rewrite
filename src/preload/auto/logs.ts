@@ -11,7 +11,7 @@ export const permissions = ["SEND_MESSAGES", "ATTACH_FILES"];
 export const zones = ["text", "dm"];
 
 export async function run(bot: Bot, msg: Message) {
-    let link = (msg.content.match(/http(s|):\/\/(www\.|)logs\.tf\/\d+/g) as Array<string>)[0];
+    let link = matchMsg(msg);
 
     let placeholder = await msg.channel.send({
         files: [
@@ -25,4 +25,10 @@ export async function run(bot: Bot, msg: Message) {
         files: [screenshotBuffer]
     });
     placeholder.delete();
+}
+
+function matchMsg(msg: Message) {
+    let match = msg.content.match(pattern) as RegExpMatchArray;
+
+    return match[0];
 }

@@ -10,3 +10,9 @@ export const zones = ["text", "dm"];
 export async function run(bot: Bot, msg: Message) {
     msg.channel.send("Hello World!");
 }
+
+function matchMsg(msg: Message) {
+    let match = msg.content.match(pattern) as RegExpMatchArray;
+
+    return match[0];
+}
