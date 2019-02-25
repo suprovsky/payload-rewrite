@@ -1,5 +1,5 @@
 import { capture } from "./screenshot";
-import child_process, { ChildProcess } from "child_process";
+import { exec } from "./add-log-data-to-user";
 import config from "../../secure-config";
 
 export async function render(link: string): Promise<Buffer> {
@@ -24,16 +24,7 @@ export async function render(link: string): Promise<Buffer> {
         cssPath: config.files.LOGS_CSS
     });
 
-    console.log("Starting log stats appender child process.");
-    let child = child_process.fork(__dirname + "/add-log-data-to-user.ts", [], {
-        env: {
-            "LOGS": link
-        }
-    });
-
-    child.on("exit", code => {
-        console.log("Log stats appender child process exited with code " + code);
-    });
+    exec(link);
 
     return screenshotBuffer;
 }
