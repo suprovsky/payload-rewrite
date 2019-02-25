@@ -3,7 +3,6 @@ import { Bot } from "../types";
 import puppeteer, { ElementHandle } from "puppeteer";
 import cheerio from "cheerio";
 import moment from "moment";
-import { Server, ServerModel } from "../models/Server";
 
 // Module doesn't have support for TS.
 const imageToBase64 = require("image-to-base64");
