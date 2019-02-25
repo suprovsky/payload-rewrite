@@ -3,7 +3,7 @@ import { Bot } from "../types";
 import puppeteer, { ElementHandle } from "puppeteer";
 import cheerio from "cheerio";
 import moment from "moment";
-import { Server, ServerModel, ServerMentionsObject } from "../models/Server";
+import { Server, ServerModel } from "../models/Server";
 
 // Module doesn't have support for TS.
 const imageToBase64 = require("image-to-base64");
@@ -101,41 +101,6 @@ export function handleMessageDelete(bot: Bot, message: Message): boolean {
     bot.cache.snipe[message.guild.id][message.channel.id].set(message.id, message);
 
     return true;
-}
-
-/**
- * Stores a message containing a mention in the database.
- * @param message The message that may or may not contain a mention.
- */
-export async function handleMentionDelete(message: Message): Promise<boolean> {
-    if (message.author.bot) return false;
-    if (message.channel.type != "text") return false;
-
-    if (!message.mentions.users.size && !message.mentions.roles.size && !message.mentions.everyone) return false;
-
-    return new Promise(resolve => {
-        Server.findOne({
-            id: message.guild.id
-        }, (err, server: ServerModel) => {
-            if (err) return resolve(false);
-
-            if (!server) {
-                server = new Server({
-                    id: message.channel.id
-                });
-            } else {
-                if (!server.mentions) server.mentions = {};
-                if (!server.mentions[message.channel.id]) server.mentions[message.channel.id] = [];
-
-                server.mentions[message.channel.id].unshift(message);
-
-                server.save(err => {
-                    if (err) console.log(err);
-                    else console.log("Added mention to server data.");
-                });
-            }
-        });
-    });
 }
 
 /**

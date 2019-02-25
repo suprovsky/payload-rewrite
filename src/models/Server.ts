@@ -1,10 +1,6 @@
 import mongoose from "mongoose";
 import { Message } from "discord.js";
 
-export type ServerMentionsObject = {
-    [channelID: string]: Array<Message>
-}
-
 export type ServerModel = mongoose.Document & {
     id?: string,
 
@@ -18,9 +14,7 @@ export type ServerModel = mongoose.Document & {
         redTeamChannelID: string,
         blueTeamChannelID: string,
         captainsChannelID: string
-    },
-
-    mentions?: ServerMentionsObject
+    }
 };
 
 const serverSchema = new mongoose.Schema({
@@ -39,9 +33,7 @@ const serverSchema = new mongoose.Schema({
         redTeamChannelID: String,
         blueTeamChannelID: String,
         captainsChannelID: String
-    },
-
-    mentions: Object
+    }
 });
 
 export const Server = mongoose.model("Server", serverSchema);
