@@ -2,10 +2,10 @@
   "name": "payload-rewrite",
   "version": "0.0.1",
   "description": "The open-source rewrite for the popular TF2 Discord bot.",
-  "main": "index.js",
+  "main": "./dist/src/index.js",
   "scripts": {
-    "start": "node ./dist/index.js",
-    "debug": "ts-node -P tsconfig.json index.ts",
+    "start": "node ./dist/src/index.js",
+    "debug": "ts-node -P tsconfig.json ./src/index.ts",
     "test": "mocha --exit --require ts-node/register \"test/**/*.ts\"",
     "build": "tsc --build tsconfig.json; ts-node buildscripts/copy-static-assets.ts"
   },
