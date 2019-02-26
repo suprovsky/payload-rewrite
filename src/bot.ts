@@ -74,9 +74,9 @@ bot.on("messageUpdate", (oldMsg, newMsg) => {
     cleanCache(bot, oldMsg);
 });
 
-bot.on("message", msg => {
-    let didHandleCommand = handleCommand(bot, msg);
-    if (!didHandleCommand) handleAutoResponse(bot, msg);
+bot.on("message", async msg => {
+    let didHandleCommand = await handleCommand(bot, msg);
+    if (!didHandleCommand) await handleAutoResponse(bot, msg);
 });
 
 bot.on("ready", () => {
