@@ -1,6 +1,6 @@
 import { User, UserModel } from "../models/User";
 import got from "got";
-import SteamID from "SteamID";
+import SteamID from "steamid";
 import { LogData } from "../types";
 
 async function saveToUser(data: LogData, id64: string): Promise<boolean> {
