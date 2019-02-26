@@ -1,6 +1,5 @@
 import { Message, TextChannel, Permissions, PermissionResolvable } from "discord.js";
 import { Bot, Command, AutoResponse } from "../types";
-import config from "../../secure-config";
 
 export default async function handleAutoResponse(bot: Bot, msg: Message): Promise<boolean> {
     if (msg.author.bot) return false;
