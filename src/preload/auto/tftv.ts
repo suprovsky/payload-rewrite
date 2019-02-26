@@ -1,6 +1,7 @@
 import { Bot } from "../../types";
 import { Message, RichEmbed } from "discord.js";
 import got from "got";
+import htmlToText from "html-to-text";
 import cheerio from "cheerio";
 
 export const name = "tftv";
@@ -17,12 +18,14 @@ export async function run(bot: Bot, msg: Message) {
     const title = $(".thread-header-title").text().trim();
     const $post = $("#thread-container > .post:first-child");
     const author = $post.find(".post-header .post-author").text().trim();
-    const body = $post.find(".post-body").text().trim();
+    const body = htmlToText.fromString($post.find(".post-body").html() as string, {
+        ignoreImage: true
+    });
 
     let embed = new RichEmbed();
-        embed.setAuthor(author);
+        embed.setAuthor("by " + author, "https://yt3.ggpht.com/a-/AAuE7mCQ_tSDWtAXQXehczA4eq3x7d5mPobERTUnhA=s900-mo-c-c0xffffffff-rj-k-no");
         embed.setTitle(title);
-        embed.setDescription(body.length > 500 ? body.slice(0, 500) + "..." : body);
+        embed.setDescription("```" + (body.length > 500 ? body.slice(0, 500) + "..." : body) + "```");
         embed.setFooter(`${frags} frags`);
         embed.setTimestamp();
 
