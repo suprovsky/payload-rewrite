@@ -23,9 +23,8 @@ export async function run(bot: Bot, msg: Message) {
     });
 
     let embed = new RichEmbed();
-        embed.setAuthor(author + ":", "https://yt3.ggpht.com/a-/AAuE7mCQ_tSDWtAXQXehczA4eq3x7d5mPobERTUnhA=s900-mo-c-c0xffffffff-rj-k-no");
         embed.setTitle(title);
-        embed.setDescription("\n" + (body.length > 500 ? body.slice(0, 500) + "..." : body) + "\n");
+        embed.addField(author, body.length > 500 ? body.slice(0, 500) + "..." : body);
         embed.setFooter(`${frags} frags`);
         embed.setTimestamp();
 
