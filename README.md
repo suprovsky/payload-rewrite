@@ -1,8 +1,9 @@
 # Payload-Rewrite
 God this is going to take so much time.
+**READY TO GO LIVE**
 
 ## Changes in Payload v2
-- pugging features
+- [ ] pugging features
 
 ## TODO
 
