@@ -23,9 +23,9 @@ export async function run(bot: Bot, msg: Message) {
     });
 
     let embed = new RichEmbed();
-        embed.setAuthor("by " + author, "https://yt3.ggpht.com/a-/AAuE7mCQ_tSDWtAXQXehczA4eq3x7d5mPobERTUnhA=s900-mo-c-c0xffffffff-rj-k-no");
+        embed.setAuthor(author + ":", "https://yt3.ggpht.com/a-/AAuE7mCQ_tSDWtAXQXehczA4eq3x7d5mPobERTUnhA=s900-mo-c-c0xffffffff-rj-k-no");
         embed.setTitle(title);
-        embed.setDescription("```" + (body.length > 500 ? body.slice(0, 500) + "..." : body) + "```");
+        embed.setDescription("\n" + (body.length > 500 ? body.slice(0, 500) + "..." : body) + "\n");
         embed.setFooter(`${frags} frags`);
         embed.setTimestamp();
 
