@@ -12,18 +12,11 @@ export const zones = ["text", "dm"];
 export async function run(bot: Bot, msg: Message) {
     let link = matchMsg(msg);
 
-    let placeholder = await msg.channel.send({
-        files: [
-            config.files.LOADING
-        ]
-    }) as Message;
-
     let screenshotBuffer = await render(link);
     
     msg.channel.send({
         files: [screenshotBuffer]
     });
-    placeholder.delete();
 }
 
 function matchMsg(msg: Message) {

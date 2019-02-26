@@ -51,18 +51,11 @@ export async function run(bot: Bot, msg: Message) {
 
         msg.channel.send("**Done!** http://logs.tf/" + res.body.log_id);
 
-        let placeholder = await msg.channel.send({
-            files: [
-                config.files.LOADING
-            ]
-        }) as Message;
-
         let screenshotBuffer = await render("http://logs.tf/" + res.body.log_id);
 
         msg.channel.send({
             files: [screenshotBuffer]
         });
-        placeholder.delete();
     }).catch(err => {
         msg.channel.send("Error combining logs.");
     });
