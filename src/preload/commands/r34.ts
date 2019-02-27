@@ -30,7 +30,7 @@ export async function run(bot: Bot, msg: Message) {
         let xml = resp.body;
 
         xml2js.parseString(xml, (err, data) => {
-            if (err) {
+            if (err || !data.posts) {
                 msg.channel.send("Error retrieving posts from r34.");
                 return resolve();
             }
