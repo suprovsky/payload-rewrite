@@ -34,18 +34,11 @@ export async function run(bot: Bot, msg: Message) {
         let data = res.body;
 
         let logID = data.logs[data.logs.length - 1].id;
-
-        let placeholder = await msg.channel.send({
-            files: [
-                config.files.LOADING
-            ]
-        }) as Message;
     
         let screenshotBuffer = await render("http://logs.tf/" + logID + "#" + user.steamID);
         
         msg.channel.send({
             files: [screenshotBuffer]
         });
-        placeholder.delete();
     });
 }
