@@ -21,35 +21,40 @@ export async function run(bot: Bot, msg: Message) {
     let args = getArgs(sliceCmd(msg, name)).map(arg => arg.replace(/ +/g, "_"));
 
     return new Promise(async resolve => {
-        let initialResp = await got("https://rule34.xxx/index.php?page=dapi&s=post&q=index&limit=0&tags=" + args.join("+"));
-        let totalPostCount = (initialResp.body.match(/count="(\d+)"/) as RegExpMatchArray)[1];
-        let pageNum = random(0, Number(totalPostCount) / 100);
+        try {
+            let initialResp = await got("https://rule34.xxx/index.php?page=dapi&s=post&q=index&limit=0&tags=" + args.join("+"));
+            let totalPostCount = (initialResp.body.match(/count="(\d+)"/) as RegExpMatchArray)[1];
+            let pageNum = random(0, Number(totalPostCount) / 100);
 
-        let resp = await got("https://rule34.xxx/index.php?page=dapi&s=post&q=index&limit=100&pid=" + pageNum + "&tags=" + args.join("+"));
+            let resp = await got("https://rule34.xxx/index.php?page=dapi&s=post&q=index&limit=100&pid=" + pageNum + "&tags=" + args.join("+"));
 
-        let xml = resp.body;
+            let xml = resp.body;
 
-        xml2js.parseString(xml, (err, data) => {
-            if (err || !data.posts) {
-                msg.channel.send("Error retrieving posts from r34.");
-                return resolve();
-            }
+            xml2js.parseString(xml, (err, data) => {
+                if (err || !data.posts) {
+                    msg.channel.send("Error retrieving posts from r34.");
+                    return resolve();
+                }
 
-            if (data.posts.$.count == 0) {
-                msg.channel.send("No results found.");
-                return resolve();
-            }
+                if (data.posts.$.count == 0) {
+                    msg.channel.send("No results found.");
+                    return resolve();
+                }
 
-            let bestScored = {url: "", score: -1};
-            data.posts.post.forEach((post: any) => {
-                if (post.$.score > bestScored.score) bestScored = {
-                    url: post.$.file_url,
-                    score: Number(post.$.score)
-                };
+                let bestScored = {url: "", score: -1};
+                data.posts.post.forEach((post: any) => {
+                    if (post.$.score > bestScored.score) bestScored = {
+                        url: post.$.file_url,
+                        score: Number(post.$.score)
+                    };
+                });
+
+                msg.channel.send(bestScored.url);
+                resolve();
             });
-
-            msg.channel.send(bestScored.url);
+        } catch (err) {
+            msg.channel.send("Error retrieving posts from r34.");
             resolve();
-        });
+        }
     });
 }
