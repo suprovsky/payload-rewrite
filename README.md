@@ -30,6 +30,8 @@ God this is going to take so much time.
     * restrict
 * Removed the `rgl` command until further notice.
 * Removed the special admin syntax (**command).
+### 2.0.1
+* Added variety to the output of the `r34` command.
 
 ## Changes in Payload v2
 - [ ] pugging features
