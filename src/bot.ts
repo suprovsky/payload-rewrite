@@ -39,6 +39,8 @@ readdir(__dirname + "/preload/commands", (err, files) => {
     files.forEach(file => {
         let command: Command = require(__dirname + "/preload/commands/" + file);
 
+        if (!command.name) return console.warn("\tFile " + file + " is not a valid command module.");
+
         bot.commands.set(command.name, command);
 
         console.log("\tLoaded " + command.name);
@@ -57,6 +59,8 @@ readdir(__dirname + "/preload/auto", (err, files) => {
 
     files.forEach(file => {
         let autoResponse: AutoResponse = require(__dirname + "/preload/auto/" + file);
+
+        if (!autoResponse.name) return console.warn("\tFile " + file + " is not a valid autoresponse module.");
 
         bot.autoResponses.set(autoResponse.name, autoResponse);
         
