@@ -26,6 +26,24 @@ export async function listen(port: number, bot: Bot): Promise<void> {
         });
     });
 
+    server.get("/all-data", (req, res) => {
+        res.json({
+            commands: {
+                count: bot.commands.size,
+                data: bot.commands.array()
+            },
+            autoResponses: {
+                count: bot.autoResponses.size,
+                data: bot.commands.array()
+            },
+            stats: {
+                users: bot.users.size,
+                servers: bot.guilds.size,
+                uptime: bot.uptime
+            }
+        });
+    });
+
     return new Promise(resolve => {
         server.listen(port, resolve);
     });
