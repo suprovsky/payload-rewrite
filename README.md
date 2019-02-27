@@ -20,7 +20,7 @@ God this is going to take so much time.
     * r34
     * server
     * user
-* Added ability to find out more about a command by using the help command (pls help <command>)
+* Added ability to find out more about a command by using the help command (pls help command)
 * Added the following automatic link previews:
     * etf2l teams
 * Removed outdated commands:
@@ -29,7 +29,7 @@ God this is going to take so much time.
     * rcon
     * restrict
 * Removed the `rgl` command until further notice.
-* Removed the special admin syntax (**<command>).
+* Removed the special admin syntax (**command).
 
 ## Changes in Payload v2
 - [ ] pugging features
