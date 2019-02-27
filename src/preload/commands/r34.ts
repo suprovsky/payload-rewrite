@@ -24,7 +24,8 @@ export async function run(bot: Bot, msg: Message) {
         try {
             let initialResp = await got("https://rule34.xxx/index.php?page=dapi&s=post&q=index&limit=0&tags=" + args.join("+"));
             let totalPostCount = (initialResp.body.match(/count="(\d+)"/) as RegExpMatchArray)[1];
-            let pageNum = random(0, Number(totalPostCount) / 100);
+
+            let pageNum = random(0, Number(totalPostCount) / 100 - 1);
 
             let resp = await got("https://rule34.xxx/index.php?page=dapi&s=post&q=index&limit=100&pid=" + pageNum + "&tags=" + args.join("+"));
 
