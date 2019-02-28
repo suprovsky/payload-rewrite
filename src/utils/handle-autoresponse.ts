@@ -27,8 +27,6 @@ export default async function handleAutoResponse(bot: Bot, msg: Message): Promis
         if (!((msg.channel as TextChannel).permissionsFor(bot.user) as Permissions).has(autoResponse.permissions as PermissionResolvable)) return false;
     }
 
-    msg.channel.startTyping();
-
     try {
         await autoResponse.run(bot, msg);
     } catch (err) {

@@ -20,6 +20,8 @@ export async function run(bot: Bot, msg: Message) {
 
     let args = getArgs(sliceCmd(msg, name)).map(arg => arg.replace(/ +/g, "_"));
 
+    msg.channel.startTyping();
+
     return new Promise(async resolve => {
         try {
             let initialResp = await got("https://rule34.xxx/index.php?page=dapi&s=post&q=index&limit=0&tags=" + args.join("+"));

@@ -18,6 +18,8 @@ export async function run(bot: Bot, msg: Message) {
 
     if (!args[0]) return msg.channel.send("Missing <league> argument.");
 
+    msg.channel.startTyping();
+
     let playerData: Array<{ nickname: string, id3: string }> = [];
 
     msg.content.split("\n").forEach(line => {

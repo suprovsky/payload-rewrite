@@ -17,6 +17,8 @@ export async function run(bot: Bot, msg: Message) {
         return msg.channel.send("No messages to snipe!");
     }
 
+    msg.channel.startTyping();
+
     if (number.length == 0 || isNaN(number)) {
         let targetMessage = getCache(bot, msg).last();
 

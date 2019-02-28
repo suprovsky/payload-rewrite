@@ -39,24 +39,30 @@ export async function run(bot: Bot, msg: Message) {
         form.append("map", map);
         form.append("ids", ids);
 
-    got("https://sharkyy.io/api/logify/v3", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: form,
-        json: true
-    }).then(async res => {
-        if (!res.body.success) return msg.channel.send("Error combining logs.");
+    msg.channel.startTyping();
 
-        msg.channel.send("**Done!** http://logs.tf/" + res.body.log_id);
+    return new Promise(resolve => {
+        got("https://sharkyy.io/api/logify/v3", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: form,
+            json: true
+        }).then(async res => {
+            if (!res.body.success) return msg.channel.send("Error combining logs.");
 
-        let screenshotBuffer = await render("http://logs.tf/" + res.body.log_id);
+            msg.channel.send("**Done!** http://logs.tf/" + res.body.log_id);
 
-        msg.channel.send({
-            files: [screenshotBuffer]
+            let screenshotBuffer = await render("http://logs.tf/" + res.body.log_id);
+
+            msg.channel.send({
+                files: [screenshotBuffer]
+            });
+            resolve();
+        }).catch(err => {
+            msg.channel.send("Error combining logs.");
+            resolve();
         });
-    }).catch(err => {
-        msg.channel.send("Error combining logs.");
     });
 }

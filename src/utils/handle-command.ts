@@ -24,8 +24,6 @@ export default async function handleCommand(bot: Bot, msg: Message): Promise<boo
         if (!((msg.channel as TextChannel).permissionsFor(bot.user) as Permissions).has(permissionsNeeded)) return false;
     }
 
-    msg.channel.startTyping();
-
     try {
         await executableCommand.run(bot, msg);
     } catch (err) {

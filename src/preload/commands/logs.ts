@@ -21,24 +21,28 @@ export async function run(bot: Bot, msg: Message) {
         target = msg.author;
     }
 
-    User.findOne({
-        id: target.id
-    }, async (err, user: UserModel) => {
-        if (err) return msg.channel.send("Error retrieving Steam ID. This is most likely a problem with the database.");
-
-        if (!user || !user.steamID) return msg.channel.send("User does not have their Steam ID linked. Steam IDs can be linked to your account using `" + config.PREFIX + "link <SteamID>`.");
+    return new Promise(resolve => {
+        User.findOne({
+            id: target.id
+        }, async (err, user: UserModel) => {
+            if (err) return msg.channel.send("Error retrieving Steam ID. This is most likely a problem with the database.");
     
-        let res = await got("http://logs.tf/api/v1/log?limit=1&player=" + user.steamID, {
-            json: true
-        });
-        let data = res.body;
-
-        let logID = data.logs[data.logs.length - 1].id;
-    
-        let screenshotBuffer = await render("http://logs.tf/" + logID + "#" + user.steamID);
+            if (!user || !user.steamID) return msg.channel.send("User does not have their Steam ID linked. Steam IDs can be linked to your account using `" + config.PREFIX + "link <SteamID>`.");
         
-        msg.channel.send({
-            files: [screenshotBuffer]
+            let res = await got("http://logs.tf/api/v1/log?limit=1&player=" + user.steamID, {
+                json: true
+            });
+            let data = res.body;
+    
+            let logID = data.logs[data.logs.length - 1].id;
+        
+            let screenshotBuffer = await render("http://logs.tf/" + logID + "#" + user.steamID);
+            
+            msg.channel.send({
+                files: [screenshotBuffer]
+            });
+
+            resolve();
         });
     });
 }
