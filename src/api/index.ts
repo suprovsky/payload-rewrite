@@ -34,7 +34,7 @@ export async function listen(port: number, bot: Bot): Promise<void> {
             },
             autoResponses: {
                 count: bot.autoResponses.size,
-                data: bot.commands.array()
+                data: bot.autoResponses.array()
             },
             stats: {
                 users: bot.users.size,
