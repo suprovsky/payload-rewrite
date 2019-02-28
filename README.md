@@ -32,6 +32,8 @@ God this is going to take so much time.
 * Removed the special admin syntax (**command).
 ### 2.0.1
 * Added variety to the output of the `r34` command.
+### 2.0.2
+* Fixed a bug where TFTV thread previews would have the wrong post timestamp.
 
 ## Changes in Payload v2
 - [ ] pugging features

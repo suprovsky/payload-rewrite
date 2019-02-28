@@ -21,12 +21,13 @@ export async function run(bot: Bot, msg: Message) {
     const body = htmlToText.fromString($post.find(".post-body").html() as string, {
         ignoreImage: true
     });
+    const date = $post.find(".post-footer .js-date-toggle").attr("title").replace(/at (\d+:\d+).+$/, "$1");
 
     let embed = new RichEmbed();
         embed.setTitle(title);
         embed.addField(author, body.length > 500 ? body.slice(0, 500) + "..." : body);
         embed.setFooter(`${frags} frags`);
-        embed.setTimestamp();
+        embed.setTimestamp(new Date(date));
 
     msg.channel.send(embed);
 }
