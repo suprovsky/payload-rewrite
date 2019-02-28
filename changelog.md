@@ -29,3 +29,5 @@
 * Added variety to the output of the `r34` command.
 ### 2.0.2
 * Fixed a bug where TFTV thread previews would have the wrong post timestamp.
+### 2.1.0
+* Added the `changelog` command.
