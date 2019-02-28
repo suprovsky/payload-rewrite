@@ -14,7 +14,7 @@ export const canBeExecutedBy = ["SEND_MESSAGES"];
 export const zones = ["text", "dm"];
 
 export async function run(bot: Bot, msg: Message) {
-    if (!(msg.channel as TextChannel).nsfw) return;
+    if (!(msg.channel as TextChannel).nsfw) return msg.channel.stopTyping(true);
 
     if (!(msg.channel as TextChannel).topic.includes("pl_x")) return msg.channel.send("This command cannot be executed in this channel. Use `" + config.PREFIX + "help " + name + "` to see how to allow this command here.");
 
