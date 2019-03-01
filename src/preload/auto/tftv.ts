@@ -11,7 +11,8 @@ export const permissions = ["SEND_MESSAGES", "EMBED_LINKS"];
 export const zones = ["text", "dm"];
 
 export async function run(bot: Bot, msg: Message) {
-    const resp = await got("https://" + matchMsg(msg));
+    const url = "https://" + matchMsg(msg);
+    const resp = await got(url);
     const $ = cheerio.load(resp.body);
 
     const frags = $("#thread-frag-count").text().trim();
@@ -25,10 +26,12 @@ export async function run(bot: Bot, msg: Message) {
 
     let embed = new RichEmbed();
         embed.setTitle(title);
-        embed.setURL("https://" + matchMsg(msg));
-        embed.addField(author, (body.length > 500 ? body.slice(0, 500) + "..." : body) + "\n[read more](https://" + matchMsg(msg) + ")");
+        embed.setURL(url);
+        embed.setDescription(author);
+        embed.addField(url, (body.length > 500 ? body.slice(0, 500) + "..." : body) + "\n[read more](" + url+ ")");
         embed.setFooter(`${frags} frags`);
         embed.setTimestamp(new Date(date));
+        embed.setColor("#50759D");
 
     msg.channel.send(embed);
 }
