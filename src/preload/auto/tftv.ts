@@ -25,7 +25,8 @@ export async function run(bot: Bot, msg: Message) {
 
     let embed = new RichEmbed();
         embed.setTitle(title);
-        embed.addField(author, body.length > 500 ? body.slice(0, 500) + "..." : body);
+        embed.setURL("https://" + matchMsg(msg));
+        embed.addField(author, (body.length > 500 ? body.slice(0, 500) + "..." : body) + "\n[read more](https://" + matchMsg(msg) + ")");
         embed.setFooter(`${frags} frags`);
         embed.setTimestamp(new Date(date));
 
