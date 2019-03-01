@@ -26,7 +26,6 @@ export async function run(bot: Bot, msg: Message) {
 
     let embed = new RichEmbed();
         embed.setTitle(title);
-        embed.setURL(url);
         embed.setDescription(author);
         embed.addField(url, (body.length > 500 ? body.slice(0, 500) + "..." : body) + "\n[read more](" + url+ ")");
         embed.setFooter(`${frags} frags`);
