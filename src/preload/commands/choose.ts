@@ -22,6 +22,8 @@ export async function run(bot: Bot, msg: Message) {
     let options = args.slice(1);
     let chosen = [];
     for(let i = 0; i < amount; i++) {
+        if (options.length == 0) break;
+
         let chosenIndex = random(0, options.length - 1);
 
         chosen.push(options.splice(chosenIndex, 1));
