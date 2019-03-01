@@ -18,11 +18,13 @@ export async function run(bot: Bot, msg: Message) {
 
     let version = args[0] || info.version;
 
-    if (!version.match(/\d+\.\d+.\d+/)) return msg.channel.send("Invalid version.");
+    if (!version.match(/\d+\.\d+.\d+/)) return msg.channel.send("Invalid version format.");
 
     let changelogText = readFileSync(resolve(__dirname, "../../../changelog.md"), { encoding: "utf8" });
 
-    if (!changelogText.includes("### " + version)) return msg.channel.send("Version does not exist in changelog.");
+    let availableVersions = (changelogText.match(/### \d+\.\d+\.\d+/g) as RegExpMatchArray).map(str => str.replace("### ", ""));
+
+    if (!availableVersions.includes(version)) return msg.channel.send("Version does not exist in changelog. Valid versions: ```\n" + availableVersions.join("\n") + "\n```");
 
     let versionRegExp = new RegExp(`### ${version.replace(/\./g, "\\.")}(\\n[^#]+)+`);
     console.log(versionRegExp);
