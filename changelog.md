@@ -31,3 +31,5 @@
 * Fixed a bug where TFTV thread previews would have the wrong post timestamp.
 ### 2.1.0
 * Added the `changelog` command.
+### 2.2.0
+* Added the `choose` command.
