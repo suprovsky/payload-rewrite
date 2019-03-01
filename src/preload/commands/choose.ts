@@ -15,9 +15,8 @@ export async function run(bot: Bot, msg: Message) {
     let args = getArgs(sliceCmd(msg, name));
 
     if (!args[0]) return msg.channel.send("Missing <amount> argument.");
-    if (args.slice(1).length < 2) return msg.channel.send("You must provide at least 2 options to choose from.");
-
     if (!Number(args[0])) return msg.channel.send("<amount> argument must be a number.");
+    if (args.slice(1).length < 2) return msg.channel.send("You must provide at least 2 options to choose from.");
 
     let amount = Number(args[0]);
     let options = args.slice(1);
