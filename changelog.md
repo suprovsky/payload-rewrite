@@ -37,3 +37,5 @@
 * Updated `r34` to determine the top rated post from a smaller random sample size to increase potential results (it's hard to explain just look at `src/preload/commands/r34.ts`).
 ### 2.3.0
 * Added the `music` command.
+### 2.3.1
+* Disabled the `music` command temporarily.
