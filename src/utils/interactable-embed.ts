@@ -63,7 +63,7 @@ export class AudioPlayerControls {
         if (reaction && reaction.me) {
             reaction.remove();
         } else {
-            this._controlsMessage.react(reaction.emoji);
+            this._controlsMessage.react(emojiName);
         }
     }
 
