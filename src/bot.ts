@@ -11,7 +11,8 @@ const bot: Bot = new Discord.Client() as Bot;
 bot.commands = new Discord.Collection();
 bot.autoResponses = new Discord.Collection();
 bot.cache = {
-    snipe: {}
+    snipe: {},
+    music: {}
 };
 
 /**

@@ -33,6 +33,15 @@ export interface Bot extends Client {
             [guild: string]: {
                 [channel: string]: Collection<string, Message>
             }
+        },
+
+        /**
+         * Music cache.
+         */
+        music: {
+            [guild: string]: {
+                isPlaying?: boolean,
+            }
         }
     }
 }

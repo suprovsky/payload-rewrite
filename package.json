@@ -16,17 +16,21 @@
     "discord.js": "^11.4.2",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
+    "ffmpeg-binaries": "^4.0.0",
     "form-data": "^2.3.3",
     "got": "^9.6.0",
     "html-to-text": "^4.0.0",
     "image-to-base64": "^2.0.1",
     "moment": "^2.24.0",
     "mongoose": "^5.4.14",
+    "node-opus": "^0.3.1",
     "puppeteer": "^1.12.2",
     "srcds-rcon": "^2.2.1",
     "steamid": "^1.1.0",
     "text-table": "^0.2.0",
-    "xml2js": "^0.4.19"
+    "xml2js": "^0.4.19",
+    "youtube-search": "^1.1.4",
+    "ytdl-core": "^0.29.1"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
