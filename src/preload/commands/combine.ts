@@ -33,24 +33,29 @@ export async function run(bot: Bot, msg: Message) {
         ids.push(id[0]);
     }
 
-    let form = new FormData();
-        form.append("token", config.LOGSTF_API_KEY);
-        form.append("title", title);
-        form.append("map", map);
-        form.append("ids", ids);
-
     msg.channel.startTyping();
+
+    let requestBody = {
+        token: config.LOGSTF_API_KEY,
+        title: title,
+        map: map,
+        ids: ids
+    };
 
     return new Promise(resolve => {
         got("https://sharkyy.io/api/logify/v3", {
             method: "POST",
             headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
+                "Content-Type": "application/json"
             },
-            body: form,
-            json: true
+            json: true,
+            body: requestBody
         }).then(async res => {
-            if (!res.body.success) return msg.channel.send("Error combining logs.");
+            if (!res.body.success) {
+                console.log(res.body);
+                msg.channel.send("Error combining logs.");
+                return resolve();
+            }
 
             msg.channel.send("**Done!** http://logs.tf/" + res.body.log_id);
 
@@ -61,6 +66,7 @@ export async function run(bot: Bot, msg: Message) {
             });
             resolve();
         }).catch(err => {
+            console.log(err);
             msg.channel.send("Error combining logs.");
             resolve();
         });
