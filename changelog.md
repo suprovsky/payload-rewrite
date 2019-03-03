@@ -33,3 +33,5 @@
 * Added the `changelog` command.
 ### 2.2.0
 * Added the `choose` command.
+### 2.2.1
+* Updated `r34` to determine the top rated post from a smaller random sample size to increase potential results (it's hard to explain just look at `src/preload/commands/r34.ts`).
