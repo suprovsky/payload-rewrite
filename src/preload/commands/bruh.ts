@@ -10,5 +10,5 @@ export const canBeExecutedBy = ["SEND_MESSAGES"];
 export const zones = ["text", "dm"];
 
 export async function run(bot: Bot, msg: Message) {
-    msg.channel.send("Bruh");
+    msg.channel.send("bruh");
 }
