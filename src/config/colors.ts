@@ -6,3 +6,5 @@ const colors = {
     red: "#FF4136",
     black: "#111111"
 };
+
+export default colors;
