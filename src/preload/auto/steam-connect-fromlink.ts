@@ -1,5 +1,7 @@
 import { Bot } from "../../types";
 import { Message, RichEmbed } from "discord.js";
+import SourceQuery from "sourcequery";
+import colors from "../../config/colors";
 
 export const name = "steam connect info";
 export const description = "Automatically sends steam connect links when raw connect info is posted.";
@@ -12,12 +14,28 @@ export async function run(bot: Bot, msg: Message) {
     let parts = connectLink[0].replace("steam://connect/", "").split("/");
 
     let ip = parts[0];
+    let ipNoPort = ip.split(":")[0];
+    let port = ip.split(":")[1] || "27015";
     let password = decodeURIComponent(parts[1]);
 
     let embed = new RichEmbed();
-        embed.setDescription(`connect ${ip}; password "${password}"`);
+        embed.setTitle(`connect ${ip}; password "${password}"`);
 
-    msg.channel.send(embed);
+    let connectInfoEmbed = await msg.channel.send(embed) as Message;
+
+    let sq = new SourceQuery(1000);
+    sq.open(ipNoPort, Number(port));
+    sq.getInfo((err, info) => {
+        if (err) {
+            embed.setColor(colors.red);
+            embed.setDescription("Server is offline.");
+        } else {
+            embed.setColor(colors.green);
+            embed.setDescription(`${info.name}\n${info.players}/${info.maxplayers} players`);
+        }
+
+        connectInfoEmbed.edit(embed);
+    });
 }
 
 function matchMsg(msg: Message) {

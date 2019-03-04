@@ -41,3 +41,5 @@
 * Disabled the `music` command temporarily.
 ### 2.3.2
 * Fixed a bug in the `combine` command where incorrect data would be sent to Logify resulting in an error.
+### 2.3.3
+* Added server querying for connect info generation.
