@@ -76,19 +76,15 @@ export class AudioPlayerControls {
 
         } else if (reaction.emoji.name == this.EMOJIS.rewind) {
             reaction.message.channel.send("Rewind.");
-            this._handleEmojiChange(this.EMOJIS.rewind);
 
         } else if (reaction.emoji.name == this.EMOJIS.arrow_forward) {
             if (this._dispatcher.paused) this._dispatcher.resume();
-            this._handleEmojiChange(this.EMOJIS.arrow_forward);
 
         } else if (reaction.emoji.name == this.EMOJIS.pause_button) {
             if (!this._dispatcher.paused) this._dispatcher.pause();
-            this._handleEmojiChange(this.EMOJIS.pause_button);
 
         } else if (reaction.emoji.name == this.EMOJIS.fast_forward) {
             reaction.message.channel.send("Fast-forward.");
-            this._handleEmojiChange(this.EMOJIS.fast_forward);
         }
     }
 
