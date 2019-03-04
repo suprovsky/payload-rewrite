@@ -25,6 +25,7 @@
     "mongoose": "^5.4.14",
     "node-opus": "^0.3.1",
     "puppeteer": "^1.12.2",
+    "sourcequery": "0.0.2",
     "srcds-rcon": "^2.2.1",
     "steamid": "^1.1.0",
     "text-table": "^0.2.0",
