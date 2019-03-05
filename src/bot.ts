@@ -50,7 +50,7 @@ readdir(__dirname + "/preload/commands", (err, files) => {
 
 /**
  * Load automatic responses.
- *//*
+ */
 readdir(__dirname + "/preload/auto", (err, files) => {
     if (err) {
         throw new Error("Error reading automatic responses directory: " + err);
@@ -68,7 +68,6 @@ readdir(__dirname + "/preload/auto", (err, files) => {
         console.log("\tLoaded " + autoResponse.name);
     });
 });
-*/
 
 bot.on("messageDelete", msg => {
     handleMessageDelete(bot, msg);
