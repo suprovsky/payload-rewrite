@@ -1,5 +1,5 @@
 import { Bot } from "../../types";
-import { Message, VoiceChannel } from "discord.js";
+import { Message, VoiceChannel, Role } from "discord.js";
 import { Server, ServerModel } from "../../models/Server";
 import config from "../../../secure-config";
 import { getArgs, sliceCmd } from "../../utils/command-parsing";
@@ -54,18 +54,21 @@ export async function run(bot: Bot, msg: Message) {
         for(let i = 0; i < waitingChannelUserIDs.length; i++) {
             let target = msg.guild.member(waitingChannelUserIDs[i]);
 
+            await target.addRole(msg.guild.roles.get(pugging.newbieRoleID) as Role);
             await target.setVoiceChannel(pickingChannel);
         }
 
         for(let i = 0; i < blueTeamChannelUserIDs.length; i++) {
             let target = msg.guild.member(blueTeamChannelUserIDs[i]);
 
+            await target.removeRole(msg.guild.roles.get(pugging.newbieRoleID) as Role);
             await target.setVoiceChannel(pickingChannel);
         }
 
         for(let i = 0; i < redTeamChannelUserIDs.length; i++) {
             let target = msg.guild.member(redTeamChannelUserIDs[i]);
 
+            await target.removeRole(msg.guild.roles.get(pugging.newbieRoleID) as Role);
             await target.setVoiceChannel(pickingChannel);
         }
     });
