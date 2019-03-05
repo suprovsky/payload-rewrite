@@ -50,26 +50,30 @@ export async function run(bot: Bot, msg: Message) {
         let pickingChannelUserIDs = pickingChannel.members.map(member => member.id);
         let blueTeamChannelUserIDs = blueTeamChannel.members.map(member => member.id);
         let redTeamChannelUserIDs = redTeamChannel.members.map(member => member.id);
+        let plusOneUserIDs = msg.guild.members.filter(member => member.roles.has(pugging.newbieRoleID)).map(member => member.id);
 
         for(let i = 0; i < pickingChannelUserIDs.length; i++) {
             let target = msg.guild.member(pickingChannelUserIDs[i]);
 
-            await target.removeRole(msg.guild.roles.get(pugging.newbieRoleID) as Role);
             await target.setVoiceChannel(waitingChannel);
         }
 
         for(let i = 0; i < blueTeamChannelUserIDs.length; i++) {
             let target = msg.guild.member(blueTeamChannelUserIDs[i]);
 
-            await target.removeRole(msg.guild.roles.get(pugging.newbieRoleID) as Role);
             await target.setVoiceChannel(waitingChannel);
         }
 
         for(let i = 0; i < redTeamChannelUserIDs.length; i++) {
             let target = msg.guild.member(redTeamChannelUserIDs[i]);
 
-            await target.removeRole(msg.guild.roles.get(pugging.newbieRoleID) as Role);
             await target.setVoiceChannel(waitingChannel);
+        }
+
+        for (let i = 0; i < plusOneUserIDs.length; i++) {
+            let target = msg.guild.member(plusOneUserIDs[i]);
+
+            await target.removeRole(msg.guild.roles.get(pugging.newbieRoleID) as Role);
         }
     });
 }
