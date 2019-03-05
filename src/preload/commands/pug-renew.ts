@@ -1,11 +1,11 @@
 import { Bot } from "../../types";
-import { Message, VoiceChannel, Role } from "discord.js";
+import { Message, VoiceChannel } from "discord.js";
 import { Server, ServerModel } from "../../models/Server";
 import config from "../../../secure-config";
 import { getArgs, sliceCmd } from "../../utils/command-parsing";
 
-export const name = "pug-start";
-export const description = "Moves all users from the waiting channel to the picking channel.";
+export const name = "pug-renew";
+export const description = "Moves all users from the team channels to the picking channel.";
 export const usage = config.PREFIX + name;
 export const permissions = ["ADMINISTRATOR"];
 export const canBeExecutedBy = ["MOVE_MEMBERS"];
@@ -44,14 +44,29 @@ export async function run(bot: Bot, msg: Message) {
 
         let waitingChannel = channels.get(pugging.waitingChannelID) as VoiceChannel;
         let pickingChannel = channels.get(pugging.pickingChannelID) as VoiceChannel;
+        let blueTeamChannel = channels.get(pugging.blueTeamChannelID) as VoiceChannel;
+        let redTeamChannel = channels.get(pugging.redTeamChannelID) as VoiceChannel;
 
         let waitingChannelUserIDs = waitingChannel.members.map(member => member.id);
+        let blueTeamChannelUserIDs = blueTeamChannel.members.map(member => member.id);
+        let redTeamChannelUserIDs = redTeamChannel.members.map(member => member.id);
 
         for(let i = 0; i < waitingChannelUserIDs.length; i++) {
             let target = msg.guild.member(waitingChannelUserIDs[i]);
 
             await target.setVoiceChannel(pickingChannel);
-            await target.addRole(msg.guild.roles.get(pugging.newbieRoleID) as Role);
+        }
+
+        for(let i = 0; i < blueTeamChannelUserIDs.length; i++) {
+            let target = msg.guild.member(blueTeamChannelUserIDs[i]);
+
+            await target.setVoiceChannel(pickingChannel);
+        }
+
+        for(let i = 0; i < redTeamChannelUserIDs.length; i++) {
+            let target = msg.guild.member(redTeamChannelUserIDs[i]);
+
+            await target.setVoiceChannel(pickingChannel);
         }
     });
 }

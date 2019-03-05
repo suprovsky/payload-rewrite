@@ -4,8 +4,8 @@ import { Server, ServerModel } from "../../models/Server";
 import config from "../../../secure-config";
 import { getArgs, sliceCmd } from "../../utils/command-parsing";
 
-export const name = "pug-start";
-export const description = "Moves all users from the waiting channel to the picking channel.";
+export const name = "pug-end";
+export const description = "Ends the pug and moves all users to the waiting channel.";
 export const usage = config.PREFIX + name;
 export const permissions = ["ADMINISTRATOR"];
 export const canBeExecutedBy = ["MOVE_MEMBERS"];
@@ -42,23 +42,31 @@ export async function run(bot: Bot, msg: Message) {
         if (!channels.has(pugging.captainsChannelID)) return msg.channel.send("Captains channel couldn't be found. Try resetting it.");
         if (!msg.guild.roles.has(pugging.newbieRoleID)) return msg.channel.send("+1 role couldn't be found. Try resetting it.");
 
+        let waitingChannel = channels.get(pugging.waitingChannelID) as VoiceChannel;
         let pickingChannel = channels.get(pugging.pickingChannelID) as VoiceChannel;
         let blueTeamChannel = channels.get(pugging.blueTeamChannelID) as VoiceChannel;
         let redTeamChannel = channels.get(pugging.redTeamChannelID) as VoiceChannel;
 
+        let pickingChannelUserIDs = pickingChannel.members.map(member => member.id);
         let blueTeamChannelUserIDs = blueTeamChannel.members.map(member => member.id);
         let redTeamChannelUserIDs = redTeamChannel.members.map(member => member.id);
+
+        for(let i = 0; i < pickingChannelUserIDs.length; i++) {
+            let target = msg.guild.member(pickingChannelUserIDs[i]);
+
+            await target.setVoiceChannel(waitingChannel);
+        }
 
         for(let i = 0; i < blueTeamChannelUserIDs.length; i++) {
             let target = msg.guild.member(blueTeamChannelUserIDs[i]);
 
-            await target.setVoiceChannel(pickingChannel);
+            await target.setVoiceChannel(waitingChannel);
         }
 
         for(let i = 0; i < redTeamChannelUserIDs.length; i++) {
             let target = msg.guild.member(redTeamChannelUserIDs[i]);
 
-            await target.setVoiceChannel(pickingChannel);
+            await target.setVoiceChannel(waitingChannel);
         }
     });
 }
