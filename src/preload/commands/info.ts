@@ -12,9 +12,9 @@ export const zones = ["text", "dm"];
 
 export async function run(bot: Bot, msg: Message) {
     let embed = new RichEmbed();
-        embed.setAuthor("Payload", bot.user.avatarURL);
+        embed.setAuthor("Payload BETA", bot.user.avatarURL);
         embed.setTitle(`Currently serving **${bot.users.size}** users in **${bot.guilds.size}** servers!`);
-        embed.setDescription("Visit https://docs.payload.tf to view available commands.\n\nInvite the bot to your server with `" + config.PREFIX + "invite`.");
+        embed.setDescription("Visit https://docs.payload.tf to view available commands.");
         embed.setFooter(`Created by ${(bot.users.get(info.sharkyID) as User).tag} | Version ${info.version}`, (bot.users.get(info.sharkyID) as User).avatarURL);
     msg.channel.send(embed);
 }

@@ -21,4 +21,5 @@ import bot from "./bot";
 import { listen } from "./api";
 
 bot.login(config.TOKEN);
-listen(4201, bot);
+// Disable API in dev.
+// listen(4201, bot);
