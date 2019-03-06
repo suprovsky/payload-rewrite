@@ -45,3 +45,5 @@
 * Added server querying for connect info generation.
 ### 2.3.4
 * Added `bruh`.
+### 2.3.5
+* Added `bigtext`.
