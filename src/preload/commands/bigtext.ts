@@ -17,8 +17,9 @@ export async function run(bot: Bot, msg: Message) {
     if (text.length == 0) return msg.channel.send("Missing <text> argument.");
 
     let resp = await got("http://artii.herokuapp.com/make?text=" + text);
+    let body = resp.body.trim();
 
-    if (resp.body.length > 2000 - 6) return msg.channel.send("Result will be greater than 2000 characters; can't display it sorry.");
+    if (body.length > 2000 - 6) return msg.channel.send("Result will be greater than 2000 characters; can't display it sorry.");
 
-    msg.channel.send("```" + resp.body + "```");
+    msg.channel.send("```" + body + "```");
 }
