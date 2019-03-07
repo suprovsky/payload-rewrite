@@ -4,6 +4,8 @@
   "description": "The open-source rewrite for the popular TF2 Discord bot.",
   "main": "./dist/src/index.js",
   "scripts": {
+    "start-pm2": "pm2 start dist/src/index.js --name payload-dev",
+    "update": "git pull && npm run build && pm2 restart payload-dev --update-env",
     "start": "node ./dist/src/index.js",
     "debug": "ts-node -P tsconfig.json ./src/index.ts",
     "test": "mocha --exit --require ts-node/register \"test/**/*.ts\"",
