@@ -23,6 +23,6 @@
 - [x] esea match previews
 - [x] tftv thread previews
 - [ ] ugc team previews
-- [ ] esea team previews
+- [x] esea team previews
 - [x] rgl team previews
 - [x] etf2l team previews
