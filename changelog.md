@@ -47,3 +47,5 @@
 * Added `bruh`.
 ### 2.3.5
 * Added highlander.tf thread previews.
+### 2.3.6
+* Fixed URL matching for highlander.tf thread previews.

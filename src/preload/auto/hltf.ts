@@ -6,12 +6,12 @@ import cheerio from "cheerio";
 
 export const name = "hltf";
 export const description = "Creates thread previews for highlander.tf threads.";
-export const pattern = /forums\.highlander.tf\/thread\-\d+\.html/;
+export const pattern = /forums\.highlander.tf\/thread\-\d+/;
 export const permissions = ["SEND_MESSAGES", "EMBED_LINKS"];
 export const zones = ["text", "dm"];
 
 export async function run(bot: Bot, msg: Message) {
-    const url = "https://" + matchMsg(msg);
+    const url = "https://" + matchMsg(msg) + ".html";
     const resp = await got(url);
     const $ = cheerio.load(resp.body);
 
