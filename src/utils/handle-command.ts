@@ -5,7 +5,7 @@ import config from "../../secure-config";
 export default async function handleCommand(bot: Bot, msg: Message): Promise<boolean> {
     if (msg.author.bot) return false;
 
-    if (!msg.content.startsWith(config.PREFIX)) return false;
+    if (!msg.content.toLowerCase().startsWith(config.PREFIX)) return false;
 
     let command = msg.content.slice(config.PREFIX.length).trim().split(" ")[0];
 

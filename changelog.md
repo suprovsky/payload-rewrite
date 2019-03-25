@@ -49,3 +49,5 @@
 * Added highlander.tf thread previews.
 ### 2.3.6
 * Fixed URL matching for highlander.tf thread previews.
+### 2.3.7
+* Added case insensitivity for the command prefix.
