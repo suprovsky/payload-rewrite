@@ -21,6 +21,8 @@ export async function run(bot: Bot, msg: Message) {
         target = msg.author;
     }
 
+    msg.channel.startTyping();
+
     return new Promise(resolve => {
         User.findOne({
             id: target.id
