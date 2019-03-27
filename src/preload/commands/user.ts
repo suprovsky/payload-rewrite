@@ -28,7 +28,7 @@ export async function run(bot: Bot, msg: Message) {
         let data = [
             ["Name", "::", target.tag],
             ["ID", "::", target.id],
-            ["Avatar", "::", target.displayAvatarURL]
+            ["Avatar", "::", `https://sharky.cool/a/davatar/${target.id}`]
         ];
 
         msg.guild.member(target).roles.map(role => role.name).forEach((role, roleIndex) => {
