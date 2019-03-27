@@ -27,7 +27,8 @@ export async function run(bot: Bot, msg: Message) {
 
         let data = [
             ["Name", "::", target.tag],
-            ["ID", "::", target.id]
+            ["ID", "::", target.id],
+            ["Avatar", "::", target.displayAvatarURL]
         ];
 
         msg.guild.member(target).roles.map(role => role.name).forEach((role, roleIndex) => {

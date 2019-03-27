@@ -51,3 +51,5 @@
 * Fixed URL matching for highlander.tf thread previews.
 ### 2.3.7
 * Added case insensitivity for the command prefix.
+### 2.3.8
+* Added avatar URL to `user` command.
