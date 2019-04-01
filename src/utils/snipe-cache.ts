@@ -42,7 +42,7 @@ export async function renderMessage(message: Message): Promise<{buffer: Buffer, 
     $("#gen_avatar").attr("style", `background-image: url('data:image/png;base64,${avatarBase64}');`);
     $("#gen_username").attr("style", "color: " + color).text(username);
     $("#gen_timestamp").text(timestamp);
-    $("#gen_messageContent").html(message.cleanContent.replace(/\n/g, "<br>"));
+    $("#gen_messageContent").html(/*message.cleanContent.replace(/\n/g, "<br>")*/"Payload is the best bot! :D");
 
     let attachments = "";
     if (message.attachments.size > 0) {
