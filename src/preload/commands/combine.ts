@@ -3,7 +3,6 @@ import { Message } from "discord.js";
 import config from "../../../secure-config";
 import { getArgs, sliceCmd } from "../../utils/command-parsing";
 import got from "got";
-import FormData from "form-data";
 import { render } from "../../utils/render-log";
 
 export const name = "combine";
@@ -20,9 +19,9 @@ export async function run(bot: Bot, msg: Message) {
     let title = args[1];
     let logs = args.slice(2);
 
-    if (!map) return msg.channel.send("Missing <map> argument.");
-    if (!title) return msg.channel.send("Missing <title> argument.");
-    if (logs.length < 2) return msg.channel.send("Missing log url(s).");
+    if (!map || map.match(/logs\.tf\/\d+/)) return msg.channel.send("Missing <map> argument.");
+    if (!title || title.match(/logs\.tf\/\d+/)) return msg.channel.send("Missing <title> argument.");
+    if (logs.length < 2) return msg.channel.send("Invalid syntax. Make sure to specify the map and title before the log URLs. Type `pls help combine` to learn more.");
 
     let ids: Array<string> = [];
     for(let i = 0; i < logs.length; i++) {
