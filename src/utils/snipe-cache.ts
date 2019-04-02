@@ -42,7 +42,7 @@ export async function renderMessage(message: Message): Promise<{buffer: Buffer, 
     $("#gen_avatar").attr("style", `background-image: url('data:image/png;base64,${avatarBase64}');`);
     $("#gen_username").attr("style", "color: " + color).text(username);
     $("#gen_timestamp").text(timestamp);
-    $("#gen_messageContent").html(/*message.cleanContent.replace(/\n/g, "<br>")*/"The FitnessGram Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly but gets faster each minute after you hear this signal bode");
+    $("#gen_messageContent").html(message.cleanContent.replace(/\n/g, "<br>"));
 
     let attachments = "";
     if (message.attachments.size > 0) {
