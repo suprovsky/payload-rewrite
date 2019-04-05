@@ -7,7 +7,7 @@ export const name = "purge";
 export const description = "Purges a certain number of messages sent by a user or everyone if no user is mentioned.";
 export const usage = `${config.PREFIX + name} [amount] [user mention 1] [user mention 2]...`;
 export const permissions = ["MANAGE_MESSAGES"];
-export const canBeExecutedBy = ["MANAGE_MESSAGES"];
+export const canBeExecutedBy = ["SEND_MESSAGES", "MANAGE_MESSAGES"];
 export const zones = ["text"];
 
 export async function run(bot: Bot, msg: Message) {
