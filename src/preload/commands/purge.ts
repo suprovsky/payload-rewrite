@@ -12,6 +12,7 @@ export const zones = ["text"];
 
 export async function run(bot: Bot, msg: Message) {
     let args = getArgs(sliceCmd(msg, name));
+    console.log(args);
 
     if (args.length < 1) {
         return msg.channel.send(`Missing arguments. Use \`${config.PREFIX} help ${name}\` to find out more.`);
