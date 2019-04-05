@@ -1,9 +1,9 @@
 import { Bot } from "../../types";
-import { Message, MessageCollector } from "discord.js";
+import { Message } from "discord.js";
 import config from "../../../secure-config";
 import { getArgs, sliceCmd } from "../../utils/command-parsing";
 
-export const name = "purge";
+export const name = "DISABLED purge";
 export const description = "Purges a certain number of messages sent by a user or everyone if no user is mentioned.";
 export const usage = `${config.PREFIX + name} [amount] [user mention 1] [user mention 2]...`;
 export const permissions = ["MANAGE_MESSAGES"];
