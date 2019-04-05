@@ -14,8 +14,6 @@ export default async function handleCommand(bot: Bot, msg: Message): Promise<boo
     let executableCommand = bot.commands.get(command) as Command;
 
     if (!executableCommand.zones.includes(msg.channel.type)) return false;
-
-    console.log("in channel");
     
     if (msg.channel.type == "text") {
         let canBeExecutedBy = executableCommand.canBeExecutedBy as PermissionResolvable;
