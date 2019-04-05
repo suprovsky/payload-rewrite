@@ -3,7 +3,7 @@ import { Message } from "discord.js";
 import config from "../../../secure-config";
 import { getArgs, sliceCmd } from "../../utils/command-parsing";
 
-export const name = "DISABLED purge";
+export const name = "purge";
 export const description = "Purges a certain number of messages sent by a user or everyone if no user is mentioned.";
 export const usage = `${config.PREFIX + name} [amount] [user mention 1] [user mention 2]...`;
 export const permissions = ["MANAGE_MESSAGES"];
@@ -25,24 +25,13 @@ export async function run(bot: Bot, msg: Message) {
 
     await msg.delete();
 
-    let found = 0;
-
     let channelMessages = await msg.channel.fetchMessages();
 
     if (msg.mentions.members.size > 0) {
-        channelMessages.filter(foundMsg =>{
-            if (msg.mentions.members.map(member => member.id).includes(foundMsg.author.id)) {
-                if (found == amount) return false;
-
-                found++;
-                return true;
-            }
-
-            return false;
+        channelMessages.filter(foundMsg => {
+            return msg.mentions.members.map(member => member.id).includes(foundMsg.author.id);
         });
-
-        msg.channel.bulkDelete(channelMessages);
-    } else {
-        msg.channel.bulkDelete(channelMessages.map(channelMessage => channelMessage.id).slice(0, amount));
     }
+
+    msg.channel.bulkDelete(channelMessages.map(channelMessage => channelMessage.id).slice(0, amount));
 }
