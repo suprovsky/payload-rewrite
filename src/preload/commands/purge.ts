@@ -1,7 +1,7 @@
 import { Bot } from "../../types";
 import { Message, MessageCollector } from "discord.js";
 import config from "../../../secure-config";
-import { getArgs } from "../../utils/command-parsing";
+import { getArgs, sliceCmd } from "../../utils/command-parsing";
 
 export const name = "purge";
 export const description = "Purges a certain number of messages sent by a user or everyone if no user is mentioned.";
@@ -11,7 +11,7 @@ export const canBeExecutedBy = ["MANAGE_MESSAGES"];
 export const zones = ["text"];
 
 export async function run(bot: Bot, msg: Message) {
-    let args = getArgs(msg.content);
+    let args = getArgs(sliceCmd(msg, name));
 
     if (args.length < 1) {
         return msg.channel.send(`Missing arguments. Use \`${config.PREFIX} help ${name}\` to find out more.`);
