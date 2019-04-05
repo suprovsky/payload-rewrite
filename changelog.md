@@ -53,3 +53,6 @@
 * Added case insensitivity for the command prefix.
 ### 2.3.8
 * Added avatar URL to `user` command.
+### 2.4.0
+* Added `purge`.
+* Payload will now show information in its status.

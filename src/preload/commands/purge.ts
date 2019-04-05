@@ -19,23 +19,30 @@ export async function run(bot: Bot, msg: Message) {
 
     let amount = Number(args[0]);
 
-    if (amount == NaN) {
-        return msg.channel.send("Amount argument must be a number.");
+    if (amount == NaN || amount == 0) {
+        return msg.channel.send("Amount argument must be a number greater than 0.");
     }
 
-    msg.delete();
+    await msg.delete();
+
+    let found = 0;
+
+    let channelMessages = await msg.channel.fetchMessages();
 
     if (msg.mentions.members.size > 0) {
-        let collector = new MessageCollector(msg.channel, (memberMsg: Message) => {
-            return msg.mentions.members.map(member => member.id).includes(memberMsg.author.id);
+        channelMessages.filter(foundMsg =>{
+            if (msg.mentions.members.map(member => member.id).includes(foundMsg.author.id)) {
+                if (found == amount) return false;
+
+                found++;
+                return true;
+            }
+
+            return false;
         });
 
-        collector.on("collect", collectedMsg => {
-            console.log(collectedMsg);
-        });
-
-        //msg.channel.bulkDelete(collector.collected);
+        msg.channel.bulkDelete(channelMessages);
     } else {
-        msg.channel.bulkDelete(amount);
+        msg.channel.bulkDelete(channelMessages.map(channelMessage => channelMessage.id).slice(0, amount));
     }
 }

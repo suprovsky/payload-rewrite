@@ -6,6 +6,7 @@ import { handleMessageDelete, cleanCache } from "./utils/snipe-cache";
 import handleCommand from "./utils/handle-command";
 import handleAutoResponse from "./utils/handle-autoresponse";
 import mongoose from "mongoose";
+import info from "./config/info";
 
 const bot: Bot = new Discord.Client() as Bot;
 bot.commands = new Discord.Collection();
@@ -85,6 +86,8 @@ bot.on("message", async msg => {
 });
 
 bot.on("ready", () => {
+    bot.user.setActivity(`payload.tf | v${info.version}`);
+
     console.log("Payload is running and listening for commands!");
 });
 
