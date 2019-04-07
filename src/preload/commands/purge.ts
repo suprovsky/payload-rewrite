@@ -28,7 +28,7 @@ export async function run(bot: Bot, msg: Message) {
     let channelMessages = await msg.channel.fetchMessages();
 
     if (msg.mentions.members.size > 0) {
-        channelMessages.filter(foundMsg => {
+        channelMessages = channelMessages.filter(foundMsg => {
             return msg.mentions.members.map(member => member.id).includes(foundMsg.author.id);
         });
     }
