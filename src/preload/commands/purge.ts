@@ -23,7 +23,11 @@ export async function run(bot: Bot, msg: Message) {
         return msg.channel.send("Amount argument must be a number greater than 0.");
     }
 
+    msg.channel.startTyping();
+
     await msg.delete();
+
+    let startTime = Date.now();
 
     let channelMessages = await msg.channel.fetchMessages();
 
@@ -33,5 +37,11 @@ export async function run(bot: Bot, msg: Message) {
         });
     }
 
-    msg.channel.bulkDelete(channelMessages.map(channelMessage => channelMessage.id).slice(0, amount));
+    channelMessages = channelMessages.filter(channelMessage => {
+        return Date.now() - channelMessage.createdTimestamp < 1000 * 60 * 60 * 24 * 14;
+    });
+
+    let deletedMessages = await msg.channel.bulkDelete(channelMessages.map(channelMessage => channelMessage.id).slice(0, amount));
+
+    msg.channel.send(`🗑 Deleted **${deletedMessages.size}** messages in **${(Date.now() - startTime) / 1000}** seconds.`);
 }
