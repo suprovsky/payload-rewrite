@@ -29,7 +29,9 @@ export async function run(bot: Bot, msg: Message) {
 
     let startTime = Date.now();
 
-    let channelMessages = await msg.channel.fetchMessages();
+    let channelMessages = await msg.channel.fetchMessages({
+        limit: 1000
+    });
 
     if (msg.mentions.members.size > 0) {
         channelMessages = channelMessages.filter(foundMsg => {
