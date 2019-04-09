@@ -30,7 +30,7 @@ export async function run(bot: Bot, msg: Message) {
     let startTime = Date.now();
 
     let channelMessages = await msg.channel.fetchMessages({
-        limit: 1000
+        limit: 100
     });
 
     if (msg.mentions.members.size > 0) {
