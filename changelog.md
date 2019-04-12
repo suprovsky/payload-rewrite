@@ -58,3 +58,5 @@
 * Payload will now show information in its status.
 ### 2.5.0
 * Added `findping`.
+### 2.5.1
+* Added a good bot response.
