@@ -17,7 +17,11 @@ export async function run(bot: Bot, msg: Message) {
 
     msg.channel.startTyping();
 
-    let targetMessage = getPingCache(bot, msg).last();
+    let targetMessages = getPingCache(bot, msg).filter(message => !!message.mentions.members.find(member => member.id == msg.author.id));
+
+    if (targetMessages.size < 1) return msg.channel.send("You haven't been pinged in any deleted messages.");
+
+    let targetMessage = targetMessages.last();
 
     let msgData = await renderMessage(targetMessage);
 
