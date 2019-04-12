@@ -15,6 +15,8 @@ export async function run(bot: Bot, msg: Message) {
 
     if (Date.now() - lastBotMessage.createdTimestamp > 1000 * 60) return;
 
+    if (Math.random() < 0.9) return;
+
     msg.channel.send("<:SmilingWithHearts:566326252055560212>");
 }
 
