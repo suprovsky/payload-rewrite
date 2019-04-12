@@ -13,6 +13,7 @@ bot.commands = new Discord.Collection();
 bot.autoResponses = new Discord.Collection();
 bot.cache = {
     snipe: {},
+    pings: {},
     music: {}
 };
 

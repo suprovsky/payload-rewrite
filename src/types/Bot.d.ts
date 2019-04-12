@@ -35,6 +35,12 @@ export interface Bot extends Client {
             }
         },
 
+        pings: {
+            [guild: string]: {
+                [channel: string]: Collection<string, Message>
+            }
+        },
+
         /**
          * Music cache.
          */

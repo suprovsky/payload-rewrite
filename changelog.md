@@ -56,3 +56,5 @@
 ### 2.4.0
 * Added `purge`.
 * Payload will now show information in its status.
+### 2.5.0
+* Added `findping`.

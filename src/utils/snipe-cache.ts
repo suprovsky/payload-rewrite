@@ -75,6 +75,11 @@ export function ensureChannel(bot: Bot, message: Message): void {
     if (!bot.cache.snipe[message.guild.id][message.channel.id]) bot.cache.snipe[message.guild.id][message.channel.id] = new Collection();
 }
 
+export function ensurePingChannel(bot: Bot, message: Message): void {
+    if (!bot.cache.pings[message.guild.id]) bot.cache.pings[message.guild.id] = {};
+    if (!bot.cache.pings[message.guild.id][message.channel.id]) bot.cache.pings[message.guild.id][message.channel.id] = new Collection();
+}
+
 export function channelCacheExists(bot: Bot, message: Message): boolean {
     if (!bot.cache.snipe[message.guild.id]) return false;
     if (!bot.cache.snipe[message.guild.id][message.channel.id]) return false;
@@ -82,8 +87,19 @@ export function channelCacheExists(bot: Bot, message: Message): boolean {
     return true;
 }
 
+export function pingChannelCacheExists(bot: Bot, message: Message): boolean {
+    if (!bot.cache.pings[message.guild.id]) return false;
+    if (!bot.cache.pings[message.guild.id][message.channel.id]) return false;
+
+    return true;
+}
+
 export function getCache(bot: Bot, message: Message): Collection<String, Message> {
     return bot.cache.snipe[message.guild.id][message.channel.id];
+}
+
+export function getPingCache(bot: Bot, message: Message): Collection<String, Message> {
+    return bot.cache.pings[message.guild.id][message.channel.id];
 }
 
 /**
@@ -98,6 +114,12 @@ export function handleMessageDelete(bot: Bot, message: Message): boolean {
     ensureChannel(bot, message);
 
     bot.cache.snipe[message.guild.id][message.channel.id].set(message.id, message);
+
+    if (message.mentions.members.size > 0 || message.mentions.everyone) {
+        ensurePingChannel(bot, message);
+
+        bot.cache.pings[message.guild.id][message.channel.id].set(message.id, message);
+    }
 
     return true;
 }
