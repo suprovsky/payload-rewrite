@@ -16,9 +16,10 @@ export async function run(bot: Bot, msg: Message) {
     let messages = await msg.channel.fetchMessages({ limit: 5 });
 
     let img = messages.find(message => message.author.id == msg.author.id && message.attachments.size > 0);
-    let attachment = img.attachments.first();
 
     if (!img) return msg.channel.send("No image found.");
+
+    let attachment = img.attachments.first();
 
     msg.channel.startTyping();
 
