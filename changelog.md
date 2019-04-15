@@ -60,6 +60,11 @@
 * Added `findping`.
 ### 2.5.1
 * Added a good bot response.
-### 2.6.1
+### 2.6.0
 * Added a framework for image manipulation commands!
 * Added a way to remove iFunny watermarks: `nofunny`.
+### 2.6.1
+* Added new image modification commands:
+    * `focus`
+    * `sans`
+* Use `pls help` on each of these commands to learn more!
