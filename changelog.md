@@ -68,3 +68,5 @@
     * `focus`
     * `sans`
 * Use `pls help` on each of these commands to learn more!
+### 2.6.2
+* Added the `avatar` command.
