@@ -9,7 +9,7 @@ import path from "path";
 export const name = "focus";
 export const description = "Makes an image very cool. Must be used right after posting an image.";
 export const usage = config.PREFIX + name;
-export const permissions = ["SEND_MESSAGES"];
+export const permissions = ["SEND_MESSAGES", "ATTACH_FILES"];
 export const canBeExecutedBy = ["SEND_MESSAGES"];
 export const zones = ["text", "dm"];
 

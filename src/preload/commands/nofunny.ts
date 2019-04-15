@@ -8,7 +8,7 @@ import AWS from "aws-sdk";
 export const name = "nofunny";
 export const description = "Removes an iFunny watermark from an image. Must be used right after posting an image.";
 export const usage = config.PREFIX + name;
-export const permissions = ["SEND_MESSAGES"];
+export const permissions = ["SEND_MESSAGES", "ATTACH_FILES"];
 export const canBeExecutedBy = ["SEND_MESSAGES"];
 export const zones = ["text", "dm"];
 
