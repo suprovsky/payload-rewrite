@@ -68,7 +68,7 @@ export async function run(bot: Bot, msg: Message) {
                 let left = attachment.width * face.BoundingBox.Left;
                 let top = attachment.height * face.BoundingBox.Top;
 
-                ctx.drawImage(hat, left, top - height + (width * (269 / 272) / 2), width, width * (269 / 272));
+                ctx.drawImage(hat, left, top - height + (width * 1.5 * (269 / 272) / 2), width * 1.5, width * 1.5 * (269 / 272));
             });
 
             if (!headsFound) {
