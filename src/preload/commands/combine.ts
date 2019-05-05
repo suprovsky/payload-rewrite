@@ -13,6 +13,8 @@ export const canBeExecutedBy = ["SEND_MESSAGES"];
 export const zones = ["text", "dm"];
 
 export async function run(bot: Bot, msg: Message) {
+    return msg.channel.send("Combine has been temporarily diabled, click here: https://forums.highlander.tf/thread-661.html for more information. Thanks for understanding.");
+
     let args = getArgs(sliceCmd(msg, name));
 
     let map = args[0];
