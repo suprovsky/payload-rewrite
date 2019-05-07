@@ -35,12 +35,17 @@ export async function run(bot: Bot, msg: Message) {
                 json: true
             });
             let data = res.body;
+
+            if (data.logs.length < 1) {
+                msg.channel.send("User does not have a log history.");
+                return resolve();
+            }
     
             let logID = data.logs[data.logs.length - 1].id;
         
             let screenshotBuffer = await render("http://logs.tf/" + logID + "#" + user.steamID);
             
-            msg.channel.send("http://logs.tf/" + logID + "#" + user.steamID, {
+            msg.channel.send("<http://logs.tf/" + logID + "#" + user.steamID + ">", {
                 files: [screenshotBuffer]
             });
 
