@@ -12,6 +12,8 @@ export type UserModel = mongoose.Document & {
     steamID?: string,
     getSteam3ID?: Steam3IDFunction,
 
+    logsTfApiKey?: string,
+
     servers?: Servers,
 
     logs?: Array<LogData>
@@ -21,6 +23,8 @@ const userSchema = new mongoose.Schema({
     id: String,
 
     steamID: String,
+
+    logsTfApiKey: String,
 
     servers: [{
         name: String,
