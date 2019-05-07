@@ -1,8 +1,9 @@
 import { Bot } from "../../types";
-import { Message } from "discord.js";
+import { Message, User } from "discord.js";
 import config from "../../../secure-config";
 import { getArgs, sliceCmd } from "../../utils/command-parsing";
 import got from "got";
+import { User as DBUser, UserModel } from "../../models/User";
 import { render } from "../../utils/render-log";
 
 export const name = "combine";
@@ -13,16 +14,14 @@ export const canBeExecutedBy = ["SEND_MESSAGES"];
 export const zones = ["text", "dm"];
 
 export async function run(bot: Bot, msg: Message) {
-    return msg.channel.send("Combine has been temporarily diabled, click here: https://forums.highlander.tf/thread-661.html for more information. Thanks for understanding.");
-
     let args = getArgs(sliceCmd(msg, name));
 
     let map = args[0];
     let title = args[1];
     let logs = args.slice(2);
 
-    if (!map || map.match(/logs\.tf\/\d+/)) return msg.channel.send("Missing <map> argument.");
-    if (!title || title.match(/logs\.tf\/\d+/)) return msg.channel.send("Missing <title> argument.");
+    if (!map || map.match(/logs\.tf\/\d+/)) return msg.channel.send("Invalid syntax. Make sure to specify the map and title before the log URLs. Type `pls help combine` to learn more.");
+    if (!title || title.match(/logs\.tf\/\d+/)) return msg.channel.send("Invalid syntax. Make sure to specify the map and title before the log URLs. Type `pls help combine` to learn more.");
     if (logs.length < 2) return msg.channel.send("Invalid syntax. Make sure to specify the map and title before the log URLs. Type `pls help combine` to learn more.");
 
     let ids: Array<string> = [];
@@ -36,40 +35,53 @@ export async function run(bot: Bot, msg: Message) {
 
     msg.channel.startTyping();
 
-    let requestBody = {
-        token: config.LOGSTF_API_KEY,
-        title: title,
-        map: map,
-        ids: ids
-    };
-
     return new Promise(resolve => {
-        got("https://sharkyy.io/api/logify/v3", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            json: true,
-            body: requestBody
-        }).then(async res => {
-            if (!res.body.success) {
-                console.log(res.body);
-                msg.channel.send("Error combining logs.");
+        DBUser.findOne({
+            id: msg.author.id
+        }, (err, user: UserModel) => {
+            if (err) {
+                msg.channel.send("Error while fetching your user data.");
                 return resolve();
             }
 
-            msg.channel.send("**Done!** http://logs.tf/" + res.body.log_id);
+            if (!user.logsTfApiKey) {
+                msg.channel.send("You have not set a logs.tf API key. Type `pls help config` to find out more.");
+                return resolve();
+            }
 
-            let screenshotBuffer = await render("http://logs.tf/" + res.body.log_id);
+            let requestBody = {
+                token: user.logsTfApiKey,
+                title: title,
+                map: map,
+                ids: ids
+            };
 
-            msg.channel.send({
-                files: [screenshotBuffer]
+            got("https://sharkyy.io/api/logify/v3", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                json: true,
+                body: requestBody
+            }).then(async res => {
+                if (!res.body.success) {
+                    msg.channel.send("Error combining logs.");
+                    return resolve();
+                }
+
+                msg.channel.send("**Done!** http://logs.tf/" + res.body.log_id);
+
+                let screenshotBuffer = await render("http://logs.tf/" + res.body.log_id);
+
+                msg.channel.send({
+                    files: [screenshotBuffer]
+                });
+                resolve();
+            }).catch(err => {
+                console.log(err);
+                msg.channel.send("Error combining logs.");
+                resolve();
             });
-            resolve();
-        }).catch(err => {
-            console.log(err);
-            msg.channel.send("Error combining logs.");
-            resolve();
         });
     });
 }
