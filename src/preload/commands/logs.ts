@@ -7,7 +7,7 @@ import { render } from "../../utils/render-log";
 
 export const name = "logs";
 export const description = "Retrieves the latest log from a user's Steam ID. Only works if the user has their accounts linked.";
-export const usage = config.PREFIX + name + " [SteamID]";
+export const usage = config.PREFIX + name + " [user mention]";
 export const permissions = ["SEND_MESSAGES", "ATTACH_FILES"];
 export const canBeExecutedBy = ["SEND_MESSAGES"];
 export const zones = ["text", "dm"];
