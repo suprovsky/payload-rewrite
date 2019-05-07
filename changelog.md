@@ -75,3 +75,7 @@
 ### 2.6.4
 * Added preparations for new log combiner update.
 * Fixed `link` thinking numerical steam IDs are invalid.
+### 2.7.0
+* Now enforcing unique logs.tf API keys.
+* Added `config`.
+* Added clickable link to `logs` response.
