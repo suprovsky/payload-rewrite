@@ -25,7 +25,7 @@ export async function ensureSteamID(id: string): Promise<string | undefined> {
         }
     }
 
-    if (steamID.isValid()) return undefined;
+    if (!steamID.isValid()) return undefined;
 
     return steamID.getSteamID64();
 }
