@@ -40,7 +40,7 @@ export async function run(bot: Bot, msg: Message) {
         
             let screenshotBuffer = await render("http://logs.tf/" + logID + "#" + user.steamID);
             
-            msg.channel.send({
+            msg.channel.send("http://logs.tf/" + logID + "#" + user.steamID, {
                 files: [screenshotBuffer]
             });
 
