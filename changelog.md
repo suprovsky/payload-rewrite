@@ -72,3 +72,6 @@
 * Added the `avatar` command.
 ### 2.6.3
 * Added the `gibus` command.
+### 2.6.4
+* Added preparations for new log combiner update.
+* Fixed `link` thinking numerical steam IDs are invalid.
