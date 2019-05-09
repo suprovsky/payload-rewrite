@@ -27,7 +27,7 @@ export async function run(bot: Bot, msg: Message) {
     let embed = new RichEmbed();
         embed.setTitle(title);
         embed.setDescription(author);
-        embed.addField(url, (body.length > 1000 ? body.slice(0, 1000) + "..." : body) + "\n[read more](" + url+ ")");
+        embed.addField(url, (body.length > 400 ? body.slice(0, 400) + "..." : body) + "\n[read more](" + url+ ")");
         embed.setFooter(`${frags} frags`);
         embed.setTimestamp(new Date(date));
         embed.setColor("#50759D");

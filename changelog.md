@@ -79,3 +79,6 @@
 * Now enforcing unique logs.tf API keys.
 * Added `config`.
 * Added clickable link to `logs` response.
+### 2.7.1
+* Reduced the character limit of forum post previews to 400 (from 1000).
+    * Applies to both TFTV and HLTF forums post previews.

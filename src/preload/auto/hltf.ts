@@ -25,7 +25,7 @@ export async function run(bot: Bot, msg: Message) {
     let embed = new RichEmbed();
         embed.setTitle(title);
         embed.setDescription(author);
-        embed.addField(url, (body.length > 900 ? body.slice(0, 900) + "..." : body) + "\n[read more](" + url+ ")");
+        embed.addField(url, (body.length > 400 ? body.slice(0, 400) + "..." : body) + "\n[read more](" + url+ ")");
         embed.setColor("#e29455");
 
     msg.channel.send(embed);
