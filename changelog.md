@@ -92,3 +92,5 @@
 * Fixed a bug in the `config` command where a user without prior db entry creation using the command would break everything.
 * Fixed `snipe` crashing the bot when scanning messages in DMs.
 * Yes, I've noticed that payload.tf is down and will eventually get it back up.
+### 2.8.1
+* Fixed the `combine` command (finally).

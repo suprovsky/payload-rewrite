@@ -116,7 +116,7 @@ bot.on("ready", () => {
                         text: "To opt out of these notifications, use the `pls config notifications` command."
                     }
                 }), info.version);
-                console.log(`Notification: ${guilds[i].ownerID} | ${notif}`);
+                console.log(`Notification: ${guilds[i].ownerID} | ${notif} | ${i + 1} of ${guilds.length}`);
             }
         } else {
             console.log("Waiting for MongoDB connection...");

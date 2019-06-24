@@ -44,6 +44,12 @@ export async function run(bot: Bot, msg: Message) {
                 return resolve();
             }
 
+            if (!user) {
+                user = new DBUser({
+                    id: msg.author.id
+                });
+            }
+
             if (!user.logsTfApiKey) {
                 msg.channel.send("You have not set a logs.tf API key. Type `pls help config` to find out more.");
                 return resolve();
