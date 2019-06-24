@@ -7,6 +7,8 @@ import handleCommand from "./utils/handle-command";
 import handleAutoResponse from "./utils/handle-autoresponse";
 import mongoose from "mongoose";
 import info from "./config/info";
+import { pushNotification } from "./utils/pushNotification";
+import { getChangelog } from "./utils/get-changelog";
 
 const bot: Bot = new Discord.Client() as Bot;
 bot.commands = new Discord.Collection();
@@ -89,9 +91,38 @@ bot.on("message", async msg => {
 bot.on("ready", () => {
     bot.user.setActivity(`payload.tf | v${info.version}`);
 
+    let waitingInterval: NodeJS.Timeout;
+    waitingInterval = setInterval(async () => {
+        if (mongoose.connection.readyState === 1) {
+            clearInterval(waitingInterval);
+
+            let guilds = bot.guilds.array();
+
+            let changelog = getChangelog(info.version);
+
+            if (!changelog) return console.warn("Error fetching changelog!");
+
+            for (let i = 0; i < guilds.length; i++) {
+                await pushNotification(bot, guilds[i].ownerID, 1, new Discord.RichEmbed({
+                    title: `Payload updated to v${info.version}!`,
+                    description: "A new update has been released to Payload!",
+                    fields: [
+                        {
+                            name: "Changelog",
+                            value: changelog
+                        }
+                    ],
+                    footer: {
+                        text: "To opt out of these notifications, use the `pls config notifications` command."
+                    }
+                }), info.version);
+            }
+        }
+    }, 500);
+
     console.log("Payload is running and listening for commands!");
 });
 
-bot.on("error", console.log);
+bot.on("error", console.warn);
 
 export default bot;

@@ -24,6 +24,12 @@ export async function run(bot: Bot, msg: Message) {
             id: msg.author.id
         }, (err, user: UserModel) => {
             if (err) return msg.channel.send("Error while fetching your user data.");
+
+            if (!user) {
+                user = new User({
+                    id: msg.author.id
+                });
+            }
     
             if (args[0] == "logs-api-key") {
                 if (!args[1]) {
