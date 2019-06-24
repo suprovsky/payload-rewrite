@@ -109,7 +109,7 @@ bot.on("ready", () => {
                     fields: [
                         {
                             name: "Changelog",
-                            value: changelog
+                            value: `\`\`\`\n${changelog}\n\`\`\``
                         }
                     ],
                     footer: {
