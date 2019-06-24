@@ -40,8 +40,9 @@ export async function pushNotification(bot: Bot, id: string, level: number, embe
                         }
                     }
 
-                    let discordUser = await bot.fetchUser(id);
-                    
+                    let discordUser = bot.users.get(id);
+                    if (!discordUser) discordUser = await bot.fetchUser(id);
+
                     await discordUser.send(embed);
 
                     if (version) {
