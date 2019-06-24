@@ -12,6 +12,9 @@ export type UserModel = mongoose.Document & {
     steamID?: string,
     getSteam3ID?: Steam3IDFunction,
 
+    notificationsLevel?: number,
+    latestUpdateNotifcation?: string,
+
     logsTfApiKey?: string,
 
     servers?: Servers,
@@ -23,6 +26,9 @@ const userSchema = new mongoose.Schema({
     id: String,
 
     steamID: String,
+
+    notificationsLevel: Boolean,
+    latestUpdateNotifcation: String,
 
     logsTfApiKey: String,
 

@@ -82,3 +82,7 @@
 ### 2.7.1
 * Reduced the character limit of forum post previews to 400 (from 1000).
     * Applies to both TFTV and HLTF forums post previews.
+### 2.7.2
+* Preparing for a semi-major update:
+    * Added user config option for notifications.
+    * Updated user database schema to include `notificationsLevel` and `latestUpdateNotifcation`.
