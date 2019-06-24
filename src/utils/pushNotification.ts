@@ -43,7 +43,7 @@ export async function pushNotification(bot: Bot, id: string, level: number, embe
                     let discordUser = bot.users.get(id);
                     if (!discordUser) discordUser = await bot.fetchUser(id);
 
-                    discordUser.send(embed);
+                    discordUser.send(embed).catch(err => resolve(false));
 
                     if (version) {
                         user.latestUpdateNotifcation = version;
