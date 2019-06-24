@@ -1,28 +1,9 @@
 # Payload-Rewrite
 
-## Changes in Payload v2
-- [ ] pugging features
+### A really cool TF2 Discord bot.
 
-## TODO
 
-### Commands
-- [x] 8ball
-- [x] rtd
-- [x] steam linking
-- [x] logs from profile
-- [x] log combiner
-- [x] players in a server
-- [x] exec command in tf2 server
-- [ ] setup tf2 server for gamemode
-- [ ] pugging commands
-- [x] snipe
 
-### Automatic Functions
-- [x] steam connect link
-- [x] log previews
-- [x] esea match previews
-- [x] tftv thread previews
-- [ ] ugc team previews
-- [x] esea team previews
-- [x] rgl team previews
-- [x] etf2l team previews
+[Changelog](https://github.com/jdeurt/payload-rewrite/blob/master/changelog.md)
+
+Contact me: [juan@sharky.cool](mailto:juan@sharky.cool)
