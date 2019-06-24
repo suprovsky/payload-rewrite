@@ -103,7 +103,7 @@ bot.on("ready", () => {
             if (!changelog) return console.warn("Error fetching changelog!");
 
             for (let i = 0; i < guilds.length; i++) {
-                await pushNotification(bot, guilds[i].ownerID, 1, new Discord.RichEmbed({
+                let notif = await pushNotification(bot, guilds[i].ownerID, 1, new Discord.RichEmbed({
                     title: `Payload updated to v${info.version}!`,
                     description: "A new update has been released to Payload!",
                     fields: [
@@ -116,7 +116,10 @@ bot.on("ready", () => {
                         text: "To opt out of these notifications, use the `pls config notifications` command."
                     }
                 }), info.version);
+                console.log(`Notification: ${guilds[i].ownerID} | ${notif}`);
             }
+        } else {
+            console.log("Waiting for MongoDB connection...");
         }
     }, 500);
 

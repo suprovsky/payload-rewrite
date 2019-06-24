@@ -12,7 +12,7 @@ async function saveUser(user: UserModel): Promise<boolean> {
     });
 }
 
-export async function pushNotification(bot: Bot, id: string, level: number, embed: RichEmbed, update?: string): Promise<boolean> {
+export async function pushNotification(bot: Bot, id: string, level: number, embed: RichEmbed, version?: string): Promise<boolean> {
     return new Promise(resolve => {
         User.findOne({
             id
@@ -27,12 +27,16 @@ export async function pushNotification(bot: Bot, id: string, level: number, embe
                 });
             }
 
-            if (user.notificationsLevel! >= level) {
+            if (!user.notificationsLevel) user.notificationsLevel = 2;
+            if (!user.latestUpdateNotifcation) user.latestUpdateNotifcation = "0.0.0";
+
+            if (user.notificationsLevel >= level) {
+                console.log(`User notification level is ${user.notificationsLevel}/${level}.`);
                 try {
-                    if (update) {
-                        if (user.latestUpdateNotifcation! == update) {
+                    if (version) {
+                        if (user.latestUpdateNotifcation! == version) {
                             await saveUser(user);
-                            return resolve(true);
+                            return resolve(false);
                         }
                     }
 
@@ -40,8 +44,8 @@ export async function pushNotification(bot: Bot, id: string, level: number, embe
                     
                     await discordUser.send(embed);
 
-                    if (update) {
-                        user.latestUpdateNotifcation = update;
+                    if (version) {
+                        user.latestUpdateNotifcation = version;
                     }
 
                     await saveUser(user);
@@ -53,7 +57,7 @@ export async function pushNotification(bot: Bot, id: string, level: number, embe
             } else {
                 await saveUser(user);
 
-                resolve(true);
+                resolve(false);
             }
         });
     });

@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
 
     steamID: String,
 
-    notificationsLevel: Boolean,
+    notificationsLevel: Number,
     latestUpdateNotifcation: String,
 
     logsTfApiKey: String,

@@ -81,6 +81,7 @@ export function ensurePingChannel(bot: Bot, message: Message): void {
 }
 
 export function channelCacheExists(bot: Bot, message: Message): boolean {
+    if (message.channel.type != "text") return false;
     if (!bot.cache.snipe[message.guild.id]) return false;
     if (!bot.cache.snipe[message.guild.id][message.channel.id]) return false;
 
