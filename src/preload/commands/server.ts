@@ -6,7 +6,7 @@ import { User, UserModel, Servers } from "../../models/User";
 import Rcon from "srcds-rcon";
 
 export const name = "server";
-export const description = "list: Lists your servers.\nset: Adds a server to your list.\nremove: Removes a server from your list.\nexec: Executes a command on one of your servers.\nsetup: Automatically sets up one of your servers for a map in a certain league and gamemode.\n\nNOTES: <name> is a name you give your server to retrieve later.";
+export const description = "**USING THESE COMMANDS IN A PUBLIC SERVER PUTS YOUR TF2 SERVERS AT RISK OF BEING HIJACKED! MAKE SURE TO USE THESE COMMANDS ONLY IN BOT DMS!**\n\Nlist: Lists your servers.\nset: Adds a server to your list.\nremove: Removes a server from your list.\nexec: Executes a command on one of your servers.\nsetup: Automatically sets up one of your servers for a map in a certain league and gamemode.\n\nNOTES: <name> is a name you give your server to retrieve later.";
 export const usage = `${config.PREFIX}${name} list\n${config.PREFIX}${name} set <name> <address> <rcon password>\n${config.PREFIX}${name} remove <name>\n${config.PREFIX}${name} exec <name> <command>\n${config.PREFIX}${name} setup <league> <gamemode> <map>`;
 export const permissions = ["SEND_MESSAGES"];
 export const canBeExecutedBy = ["SEND_MESSAGES"];

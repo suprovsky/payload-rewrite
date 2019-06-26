@@ -5,7 +5,7 @@ import { getArgs, sliceCmd } from "../../utils/command-parsing";
 import { User, UserModel } from "../../models/User";
 
 export const name = "config";
-export const description = "MAKE SURE TO USE THESE COMMANDS ONLY IN BOT DMS!"
+export const description = "**USING THESE COMMANDS IN A PUBLIC SERVER PUTS YOUR ACCOUNT AT RISK OF BEING HIJACKED! MAKE SURE TO USE THESE COMMANDS ONLY IN BOT DMS!**\n"
     + "\nlogs-api-key: Sets your logs.tf API key to <key>. Your API key can be retrieved from http://logs.tf/uploader."
     + "\nnotifications: Sets your Payload update notifications level. 2 for major, 1 for minor, 0 for none.";
 export const usage = `${config.PREFIX}${name} logs-api-key <key>`

@@ -113,7 +113,7 @@ bot.on("ready", () => {
                         }
                     ],
                     footer: {
-                        text: "To opt out of these notifications, use the `pls config notifications` command."
+                        text: "To find out how to opt out of these notifications, type `pls help config`."
                     }
                 }), info.version);
                 console.log(`Notification: ${guilds[i].ownerID} | ${notif} | ${i + 1} of ${guilds.length}`);
