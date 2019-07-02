@@ -94,3 +94,12 @@
 * Yes, I've noticed that payload.tf is down and will eventually get it back up.
 ### 2.8.1
 * Fixed the `combine` command (finally).
+### 2.9.0
+* Added the `translate` command.
+* Improved opt-out message for update notifications.
+* Re-organized notification opt-in levels to the following:
+    * 2: Send major and minor notifcations.
+    * 1: Send only major notifications.
+    * 0: Don't send notifications.
+* Changed help and feedback text in various commands to be more clear.
+* Updated localization files.

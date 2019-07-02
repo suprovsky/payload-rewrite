@@ -1,4 +1,4 @@
 export default {
-    version: "2.8.1",
+    version: "2.9.0",
     sharkyID: "151044827738275840"
 };

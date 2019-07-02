@@ -7,7 +7,7 @@ import handleCommand from "./utils/handle-command";
 import handleAutoResponse from "./utils/handle-autoresponse";
 import mongoose from "mongoose";
 import info from "./config/info";
-import { pushNotification } from "./utils/pushNotification";
+import { pushNotification } from "./utils/push-notification";
 import { getChangelog } from "./utils/get-changelog";
 
 const bot: Bot = new Discord.Client() as Bot;
@@ -103,9 +103,9 @@ bot.on("ready", () => {
             if (!changelog) return console.warn("Error fetching changelog!");
 
             for (let i = 0; i < guilds.length; i++) {
-                let notif = await pushNotification(bot, guilds[i].ownerID, 1, new Discord.RichEmbed({
+                let notif = await pushNotification(bot, guilds[i].ownerID, 2, new Discord.RichEmbed({
                     title: `Payload updated to v${info.version}!`,
-                    description: "A new update has been released to Payload!",
+                    description: "A new update has been released to Payload!\nTo opt-out of these update notifications, type `pls config notifications 1`.",
                     fields: [
                         {
                             name: "Changelog",
