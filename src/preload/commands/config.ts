@@ -54,7 +54,7 @@ export async function run(bot: Bot, msg: Message) {
                     return;
                 }
 
-                if (!Number(args[1]) || [0, 1, 2].includes(Number(args[1]))) {
+                if (!Number(args[1]) || ![0, 1, 2].includes(Number(args[1]))) {
                     msg.channel.send("Notifications level invalid. Type `pls help config` to learn more.");
                     return;
                 }
