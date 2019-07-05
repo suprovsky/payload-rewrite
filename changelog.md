@@ -103,3 +103,5 @@
     * 0: Don't send notifications.
 * Changed help and feedback text in various commands to be more clear.
 * Updated localization files.
+### 2.9.1
+* Fixed the `translate` command having shitty regex checks and crashing the bot.
