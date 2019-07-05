@@ -10,7 +10,9 @@ const config = {
     },
 
     LOGSTF_API_KEY: "",
-    GOOGLE_API_KEY: ""
+    GOOGLE_API_KEY: "",
+    GOOGLE_CREDENTIALS_PATH: "",
+    GCP_ID: ""
 };
 
 export default config;

@@ -10,6 +10,8 @@ import info from "./config/info";
 import { pushNotification } from "./utils/push-notification";
 import { getChangelog } from "./utils/get-changelog";
 
+process.env["GOOGLE_APPLICATION_CREDENTIALS"] = config.GOOGLE_CREDENTIALS_PATH;
+
 const bot: Bot = new Discord.Client() as Bot;
 bot.commands = new Discord.Collection();
 bot.autoResponses = new Discord.Collection();
