@@ -11,6 +11,8 @@ export const canBeExecutedBy = ["SEND_MESSAGES"];
 export const zones = ["text", "dm"];
 
 export async function run(bot: Bot, msg: Message) {
+    msg.channel.startTyping();
+
     const translator = new Translate({ projectId: config.GCP_ID });
 
     const phrase = msg.content.slice(config.PREFIX.length + name.length);
