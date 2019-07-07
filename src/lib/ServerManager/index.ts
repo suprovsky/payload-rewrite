@@ -30,18 +30,28 @@ export class ServerEditable {
         this.server = model;
     }
 
-    getCommandRestrictions(): Array<{channelID: string, commands: Array<string>}> {
-        return this.server.disabled || [];
+    getCommandRestrictions(channelID?: string) {
+        this.server.commandRestrictions = this.server.commandRestrictions || [];
+
+        if (channelID) {
+            let channelRestrictions = this.server.commandRestrictions.find(restrictions => restrictions.channelID == channelID);
+
+            if (!channelRestrictions) return [];
+
+            return channelRestrictions.commands;
+        }
+
+        return this.server.commandRestrictions;
     }
 
     addCommandRestrictions(restrictions: Array<{channelID: string, commands: Array<string>}>): Array<{channelID: string, commands: Array<string>}> {
-        this.server.disabled = this.server.disabled || [];
+        this.server.commandRestrictions = this.server.commandRestrictions || [];
 
         // Loop through each channel to match them up.
         for (let i = 0; i < restrictions.length; i++) {
-            let existing = this.server.disabled.find(val => val.channelID == restrictions[i].channelID);
+            let existing = this.server.commandRestrictions.find(val => val.channelID == restrictions[i].channelID);
 
-            if (!existing) this.server.disabled.push(restrictions[i]);
+            if (!existing) this.server.commandRestrictions.push(restrictions[i]);
             else {
                 let commandsRaw = [...existing.commands, ...restrictions[i].commands];
 
@@ -49,32 +59,32 @@ export class ServerEditable {
             }
         }
 
-        return this.server.disabled;
+        return this.server.commandRestrictions;
     }
 
     removeCommandRestrictions(restrictions: Array<{channelID: string, commands: Array<string>}>): Array<{channelID: string, commands: Array<string>}> {
-        if (!this.server.disabled) return [];
+        if (!this.server.commandRestrictions) return [];
 
         // Loop through each channel to match them up.
         for (let i = 0; i < restrictions.length; i++) {
-            let existing = this.server.disabled.find(val => val.channelID == restrictions[i].channelID);
+            let existing = this.server.commandRestrictions.find(val => val.channelID == restrictions[i].channelID);
 
             if (existing) {
                 existing.commands = existing.commands.filter(existingCommand => !restrictions[i].commands.includes(existingCommand));
             }
         }
 
-        return this.server.disabled;
+        return this.server.commandRestrictions;
     }
 
-    addCartMiles(miles: number) {
+    addCartFeet(miles: number) {
         this.server.fun = this.server.fun || {
-            payloadMilesPushed: 0
+            payloadFeetPushed: 0
         };
 
-        this.server.fun.payloadMilesPushed = this.server.fun.payloadMilesPushed || 0;
+        this.server.fun.payloadFeetPushed = this.server.fun.payloadFeetPushed || 0;
 
-        return this.server.fun.payloadMilesPushed += miles;
+        return this.server.fun.payloadFeetPushed += miles;
     }
 
     async refresh() {

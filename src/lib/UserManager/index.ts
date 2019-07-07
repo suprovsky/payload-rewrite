@@ -51,14 +51,14 @@ export class UserEditable {
         return this;
     }
 
-    addCartMiles(miles: number) {
+    addCartFeet(miles: number) {
         this.user.fun = this.user.fun || {
-            payloadMilesPushed: 0
+            payloadFeetPushed: 0
         };
 
-        this.user.fun.payloadMilesPushed = this.user.fun.payloadMilesPushed || 0;
+        this.user.fun.payloadFeetPushed = this.user.fun.payloadFeetPushed || 0;
 
-        return this.user.fun.payloadMilesPushed += miles;
+        return this.user.fun.payloadFeetPushed += miles;
     }
 
     async refresh() {

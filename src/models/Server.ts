@@ -4,9 +4,9 @@ import { Message } from "discord.js";
 export type ServerModel = mongoose.Document & {
     id?: string,
 
-    disabled?: Array<{channelID: string, commands: Array<string>}>,
+    commandRestrictions?: Array<{channelID: string, commands: Array<string>}>,
     fun?: {
-        payloadMilesPushed: number
+        payloadFeetPushed: number
     }
 
     pugging?: {
@@ -23,12 +23,14 @@ export type ServerModel = mongoose.Document & {
 const serverSchema = new mongoose.Schema({
     id: String,
 
-    disabled: [{
+    commandRestrictions: [{
         channelID: String,
         commands: [String]
     }],
 
-    fun: Object,
+    fun: {
+        payloadFeetPushed: Number
+    },
 
     pugging: {
         newbieRoleID: String,
