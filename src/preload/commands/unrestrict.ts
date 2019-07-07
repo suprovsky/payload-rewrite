@@ -2,7 +2,6 @@ import { Bot } from "../../types";
 import { Message } from "discord.js";
 import config from "../../../secure-config";
 import { getArgs, sliceCmd } from "../../utils/command-parsing";
-import ServerManager from "../../lib/ServerManager";
 
 export const name = "unrestrict";
 export const description = "Unrestricts a command from being used in a channel.";
@@ -14,7 +13,7 @@ export const zones = ["text"];
 export async function run(bot: Bot, msg: Message) {
     let args = getArgs(sliceCmd(msg, name));
 
-    let serverManager = new ServerManager(bot);
+    let serverManager = bot.serverManager;
     let server = await serverManager.ensureServer(msg.guild.id);
 
     server.removeCommandRestrictions([

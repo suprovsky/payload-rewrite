@@ -5,9 +5,15 @@ import SteamID from "steamid";
 
 export default class UserManager {
     discordClient: Discord.Client;
+    users: Map<string, UserEditable>;
 
     constructor(bot: Discord.Client) {
         this.discordClient = bot;
+        this.users = new Map();
+    }
+
+    async getUser(discordID: string) {
+        return this.users.get(discordID) || this.ensureUser(discordID);
     }
 
     async ensureUser(discordID: string) {
@@ -20,7 +26,10 @@ export default class UserManager {
             });
         }
 
-        return new UserEditable(user);
+        let userEditable = new UserEditable(user);
+        this.users.set(discordID, userEditable);
+
+        return userEditable;
     }
 }
 

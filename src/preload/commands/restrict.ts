@@ -2,7 +2,6 @@ import { Bot } from "../../types";
 import { Message } from "discord.js";
 import config from "../../../secure-config";
 import { getArgs, sliceCmd } from "../../utils/command-parsing";
-import ServerManager from "../../lib/ServerManager";
 
 export const name = "restrict";
 export const description = "Restricts a command from being used in a channel.";
@@ -16,7 +15,7 @@ export async function run(bot: Bot, msg: Message) {
 
     if (args.includes(name)) return msg.channel.send("Restricting this command from being used here is probably not what you want to do...");
 
-    let serverManager = new ServerManager(bot);
+    let serverManager = bot.serverManager;
     let server = await serverManager.ensureServer(msg.guild.id);
 
     server.addCommandRestrictions([

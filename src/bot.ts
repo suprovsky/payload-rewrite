@@ -9,12 +9,16 @@ import mongoose from "mongoose";
 import info from "./config/info";
 import { pushNotification } from "./utils/push-notification";
 import { getChangelog } from "./utils/get-changelog";
+import UserManager from "./lib/UserManager";
+import ServerManager from "./lib/ServerManager";
 
 process.env["GOOGLE_APPLICATION_CREDENTIALS"] = config.GOOGLE_CREDENTIALS_PATH;
 
 const bot: Bot = new Discord.Client() as Bot;
 bot.commands = new Discord.Collection();
 bot.autoResponses = new Discord.Collection();
+bot.userManager = new UserManager(bot);
+bot.serverManager = new ServerManager(bot);
 bot.cache = {
     snipe: {},
     pings: {},

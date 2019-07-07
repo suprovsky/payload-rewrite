@@ -4,9 +4,15 @@ import * as Mongoose from "mongoose";
 
 export default class UserManager {
     discordClient: Discord.Client;
+    servers: Map<string, ServerEditable>;
 
     constructor(bot: Discord.Client) {
         this.discordClient = bot;
+        this.servers = new Map();
+    }
+
+    async getServer(guildID: string) {
+        return this.servers.get(guildID) || this.ensureServer(guildID);
     }
 
     async ensureServer(guildID: string) {
@@ -19,7 +25,10 @@ export default class UserManager {
             });
         }
 
-        return new ServerEditable(server);
+        let serverEditable = new ServerEditable(server);
+        this.servers.set(guildID, serverEditable);
+
+        return serverEditable;
     }
 }
 

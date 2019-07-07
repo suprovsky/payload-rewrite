@@ -17,8 +17,8 @@ export default async function handleCommand(bot: Bot, msg: Message): Promise<boo
     if (!executableCommand.zones.includes(msg.channel.type)) return false;
 
     if (msg.channel.type == "text") {
-        let serverManager = new ServerManager(bot);
-        let server = await serverManager.ensureServer(msg.guild.id);
+        let serverManager = bot.serverManager;
+        let server = await serverManager.getServer(msg.guild.id);
         let commandRestrictions = server.getCommandRestrictions(msg.channel.id);
 
         if ((commandRestrictions as Array<string>).includes(executableCommand.name)) return false;

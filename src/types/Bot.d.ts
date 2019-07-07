@@ -1,6 +1,8 @@
 import { Client, Collection, Message } from "discord.js";
 import { Command } from "./Command";
 import { AutoResponse } from "./AutoResponse";
+import UserManager from "../lib/UserManager";
+import ServerManager from "../lib/ServerManager";
 
 /**
  * Payload Bot interface.
@@ -20,6 +22,9 @@ export interface Bot extends Client {
      * A collection of automatic responses indexed by each of their names.
      */
     autoResponses: Collection<string, AutoResponse>,
+
+    userManager: UserManager,
+    serverManager: ServerManager
 
     /**
      * The bot's temporary cache.
