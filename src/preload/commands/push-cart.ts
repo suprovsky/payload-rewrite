@@ -10,7 +10,7 @@ export const description = "Pushes the cart.";
 export const usage = config.PREFIX + name;
 export const permissions = ["SEND_MESSAGES"];
 export const canBeExecutedBy = ["SEND_MESSAGES"];
-export const zones = ["text", "dm"];
+export const zones = ["text"];
 
 export async function run(bot: Bot, msg: Message) {
     let userManager = new UserManager(bot);
@@ -22,10 +22,10 @@ export async function run(bot: Bot, msg: Message) {
     let user = await userManager.ensureUser(msg.author.id);
     let server = await serverManager.ensureServer(msg.guild.id);
 
-    let feetPushed = random(8, 12);
+    let feetPushed = random(7, 13);
 
-    user.addCartMiles(feetPushed / 5280);
-    server.addCartMiles(feetPushed / 5280);
+    user.addCartFeet(feetPushed);
+    server.addCartFeet(feetPushed);
 
     await Promise.all([
         user.save(),
@@ -33,5 +33,5 @@ export async function run(bot: Bot, msg: Message) {
     ]);
 
     pushMessage.delete();
-    msg.channel.send(`<:payload:597506053021630464> Pushed the cart forward **${feetPushed}** feet (${server.server.fun!.payloadMilesPushed} miles total).`);
+    msg.channel.send(`<:payload:597506053021630464> Pushed the cart forward **${feetPushed}** feet (${server.server.fun!.payloadFeetPushed} total).`);
 }
