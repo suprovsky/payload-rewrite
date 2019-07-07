@@ -105,3 +105,7 @@
 * Updated localization files.
 ### 2.9.1
 * Fixed the `translate` command having shitty regex checks and crashing the bot.
+### 2.10.0
+* Added the ability to restrict commands from being used in specific channels.
+    * Find out more with `pls help restrict` and `pls help unrestrict`.
+* Added the `pushcart` command.
