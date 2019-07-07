@@ -1,6 +1,7 @@
 import { Message, PermissionResolvable, TextChannel, Permissions } from "discord.js";
 import { Bot, Command } from "../types";
 import config from "../../secure-config";
+import ServerManager from "../lib/ServerManager";
 
 export default async function handleCommand(bot: Bot, msg: Message): Promise<boolean> {
     if (msg.author.bot) return false;
@@ -14,8 +15,14 @@ export default async function handleCommand(bot: Bot, msg: Message): Promise<boo
     let executableCommand = bot.commands.get(command) as Command;
 
     if (!executableCommand.zones.includes(msg.channel.type)) return false;
-    
+
     if (msg.channel.type == "text") {
+        let serverManager = new ServerManager(bot);
+        let server = await serverManager.ensureServer(msg.guild.id);
+        let commandRestrictions = server.getCommandRestrictions(msg.channel.id);
+
+        if ((commandRestrictions as Array<string>).includes(executableCommand.name)) return false;
+
         let canBeExecutedBy = executableCommand.canBeExecutedBy as PermissionResolvable;
         let permissionsNeeded = executableCommand.permissions as PermissionResolvable;
 
