@@ -32,6 +32,8 @@ export async function run(bot: Bot, msg: Message) {
         server.save()
     ]);
 
+    await server.refresh();
+
     pushMessage.delete();
     msg.channel.send(`<:payload:597506053021630464> Pushed the cart forward **${feetPushed}** feet (${Math.round(5280 * server.server.fun!.payloadMilesPushed)} total).`);
 }

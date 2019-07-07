@@ -61,6 +61,12 @@ export class UserEditable {
         return this.user.fun.payloadMilesPushed += miles;
     }
 
+    async refresh() {
+        this.user = (await User.findOne({ id: this.user.id })) as UserModel;
+
+        return this;
+    }
+
     async save() {
         return await this.user.save();
     }

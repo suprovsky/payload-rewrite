@@ -77,6 +77,12 @@ export class ServerEditable {
         return this.server.fun.payloadMilesPushed += miles;
     }
 
+    async refresh() {
+        this.server = (await Server.findOne({ id: this.server.id })) as ServerModel;
+
+        return this;
+    }
+
     async save() {
         return await this.server.save();
     }
