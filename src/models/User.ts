@@ -15,6 +15,10 @@ export type UserModel = mongoose.Document & {
     notificationsLevel?: number,
     latestUpdateNotifcation?: string,
 
+    fun?: {
+        payloadMilesPushed: number
+    }
+
     logsTfApiKey?: string,
 
     servers?: Servers,
@@ -29,6 +33,8 @@ const userSchema = new mongoose.Schema({
 
     notificationsLevel: Number,
     latestUpdateNotifcation: String,
+
+    fun: Object,
 
     logsTfApiKey: String,
 

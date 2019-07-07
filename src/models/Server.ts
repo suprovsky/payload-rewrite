@@ -5,6 +5,9 @@ export type ServerModel = mongoose.Document & {
     id?: string,
 
     disabled?: Array<{channelID: string, commands: Array<string>}>,
+    fun?: {
+        payloadMilesPushed: number
+    }
 
     pugging?: {
         newbieRoleID: string,
@@ -24,6 +27,8 @@ const serverSchema = new mongoose.Schema({
         channelID: String,
         commands: [String]
     }],
+
+    fun: Object,
 
     pugging: {
         newbieRoleID: String,
