@@ -119,3 +119,4 @@
 * Added the `leaderboard` command.
     * View the global pushcart leaderboard!
 * Internal changes to allow for scheduled tasks to be easier to write.
+* Fixed the alignment of the gibus hat in the `gibus` command.
