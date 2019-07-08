@@ -7,7 +7,7 @@ export const name = "restrict";
 export const description = "Restricts a command from being used in a channel. Using `#{all}` as a channel argument restricts the commands in all text channels.";
 export const usage = `${config.PREFIX}${name} <command 1> [command 2]... <command 1> [command 2]... [channel 1] [channel 2]...`;
 export const permissions = ["SEND_MESSAGES"];
-export const canBeExecutedBy = ["SEND_MESSAGES", "ADMINISTRATOR"];
+export const canBeExecutedBy = ["SEND_MESSAGES", "MANAGE_CHANNELS"];
 export const zones = ["text"];
 
 export async function run(bot: Bot, msg: Message) {
