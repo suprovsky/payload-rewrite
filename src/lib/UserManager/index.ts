@@ -1,6 +1,5 @@
 import { User, UserModel } from "../../models/User";
 import * as Discord from "discord.js";
-import * as Mongoose from "mongoose";
 import SteamID from "steamid";
 
 export default class UserManager {

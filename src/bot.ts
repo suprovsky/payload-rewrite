@@ -1,6 +1,6 @@
 import Discord from "discord.js";
 import config from "../secure-config";
-import { Command, AutoResponse, Bot } from "./types"
+import { Command, AutoResponse, Bot, ScheduledScript } from "./types"
 import { readdir } from "fs";
 import { handleMessageDelete, cleanCache } from "./utils/snipe-cache";
 import handleCommand from "./utils/handle-command";
@@ -15,6 +15,7 @@ import ServerManager from "./lib/ServerManager";
 process.env["GOOGLE_APPLICATION_CREDENTIALS"] = config.GOOGLE_CREDENTIALS_PATH;
 
 const bot: Bot = new Discord.Client() as Bot;
+bot.scheduled = [];
 bot.commands = new Discord.Collection();
 bot.autoResponses = new Discord.Collection();
 bot.userManager = new UserManager(bot);
@@ -35,6 +36,25 @@ mongoose.connect(config.MONGODB_URI, {
 }).catch(() => {
     console.error("Error connecting to MongoDB. Make sure you used the correct password.");
     process.exit(1);
+});
+
+/**
+ * Load schedules scripts.
+ */
+readdir(__dirname + "/scheduled", (err, files) => {
+    if (err) {
+        throw new Error("Error reading schedule directory: " + err);
+    }
+
+    console.log("Loading scheduled scripts...");
+
+    files.forEach(file => {
+        let script: ScheduledScript = require(__dirname + "/scheduled/" + file);
+
+        bot.scheduled.push(script);
+
+        console.log("\tLoaded " + file);
+    });
 });
 
 /**
@@ -101,6 +121,14 @@ bot.on("ready", () => {
     waitingInterval = setInterval(async () => {
         if (mongoose.connection.readyState === 1) {
             clearInterval(waitingInterval);
+
+            // Run scheduled scripts
+            for (let i = 0; i < bot.scheduled.length; i++) {
+                let script = bot.scheduled[i];
+
+                if (script.every < 0) script.run(bot);
+                else setInterval(() => script.run(bot), script.every);
+            }
 
             let guilds = bot.guilds.array();
 

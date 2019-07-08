@@ -109,3 +109,13 @@
 * Added the ability to restrict commands from being used in specific channels.
     * Find out more with `pls help restrict` and `pls help unrestrict`.
 * Added the `pushcart` command.
+### 2.10.1
+* Improved the `restrict` and `unrestrict` syntax to allow for more versatility:
+    * Added the ability to select channels.
+    * Added the ability to select all commands with `{all}`.
+    * Added the ability to select all channels with `#{all}`.
+    * Example: `pls restrict pushcart #{all}`.
+        * Restricts the pushcart command in all text channels.
+* Added the `leaderboard` command.
+    * View the global pushcart leaderboard!
+* Internal changes to allow for scheduled tasks to be easier to write.

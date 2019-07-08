@@ -88,12 +88,22 @@ export class ServerEditable {
 
     addCartFeet(miles: number) {
         this.server.fun = this.server.fun || {
-            payloadFeetPushed: 0
+            payloadFeetPushed: 0,
+            payloadBeingDefended: false,
+            payloadDefendTimeout: -1
         };
 
         this.server.fun.payloadFeetPushed = this.server.fun.payloadFeetPushed || 0;
 
         return this.server.fun.payloadFeetPushed += miles;
+    }
+
+    defendCart(time: number) {
+        this.server.fun = this.server.fun || {
+            payloadFeetPushed: 0,
+            payloadBeingDefended: false,
+            payloadDefendTimeout: -1
+        };
     }
 
     async refresh() {

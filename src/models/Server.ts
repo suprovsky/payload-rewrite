@@ -6,7 +6,9 @@ export type ServerModel = mongoose.Document & {
 
     commandRestrictions?: Array<{channelID: string, commands: Array<string>}>,
     fun?: {
-        payloadFeetPushed: number
+        payloadFeetPushed: number,
+        payloadBeingDefended: boolean,
+        payloadDefendTimeout: number
     }
 
     pugging?: {
@@ -29,7 +31,9 @@ const serverSchema = new mongoose.Schema({
     }],
 
     fun: {
-        payloadFeetPushed: Number
+        payloadFeetPushed: Number,
+        payloadBeingDefended: Boolean,
+        payloadDefendTimeout: Number
     },
 
     pugging: {
