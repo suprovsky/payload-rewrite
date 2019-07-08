@@ -29,9 +29,9 @@ export async function run(bot: Bot, msg: Message) {
         }
     }
 
-    if (!isTop10) leaderboardString += `...\n> ${bot.leaderboard.users.findIndex(user => user.id == msg.author.id) + 1}: ${msg.author.tag} (${(bot.leaderboard.users.find(user => user.id == msg.author.id) || { pushed: 0 }).pushed})\n\`\`\``;
+    if (!isTop10) leaderboardString += `...\n> ${bot.leaderboard.users.findIndex(user => user.id == msg.author.id) + 1}: ${msg.author.tag} (${(bot.leaderboard.users.find(user => user.id == msg.author.id) || { pushed: 0 }).pushed})\n`;
 
-    leaderboardString += `\nLast updated: ${bot.leaderboard.updated.toLocaleString()}`;
+    leaderboardString += "```" + `\nLast updated: ${bot.leaderboard.updated.toLocaleString()}`;
 
     msg.channel.send(leaderboardString);
 }
