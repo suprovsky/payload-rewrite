@@ -31,7 +31,7 @@ export async function run(bot: Bot, msg: Message) {
         }
     }
 
-    if (!isTop10) leaderboardString += `...\n> ${bot.leaderboard.users.findIndex(user => user.id == msg.author.id) + 1}: ${(bot.leaderboard.users.find(user => user.id == msg.author.id) || { pushed: 0 }).pushed}\`\`\``;
+    if (!isTop10) leaderboardString += `...\n> ${bot.leaderboard.users.findIndex(user => user.id == msg.author.id) + 1}: ${msg.author.tag} (${(bot.leaderboard.users.find(user => user.id == msg.author.id) || { pushed: 0 }).pushed})\`\`\``;
 
     msg.channel.send(new RichEmbed({
         title: "Pushcart Leaderboard",
