@@ -13,12 +13,10 @@ export const zones = ["text", "dm"];
 export async function run(bot: Bot, msg: Message) {
     if (!bot.leaderboard) return msg.channel.send("Leaderboard has not yet been generated. Try again in a couple minutes.");
 
-    msg.channel.startTyping();
-
     let top10 = bot.leaderboard.users.slice(0, 10);
 
     let isTop10 = false;
-    let leaderboardString = "```";
+    let leaderboardString = "```md\n";
 
     for (let i = 0; i < top10.length; i++) {
         let tag = (bot.users.get(top10[i].id) || await bot.fetchUser(top10[i].id)).tag;
