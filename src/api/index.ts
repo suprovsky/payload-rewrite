@@ -6,8 +6,8 @@ export async function listen(port: number, bot: Bot): Promise<void> {
 
     server.get("/commands", (req, res) => {
         res.json({
-            count: bot.commands.size,
-            data: bot.commands.array()
+            count: bot.commands.filter(command => !command.requiresRoot).size,
+            data: bot.commands.filter(command => !command.requiresRoot).array()
         });
     });
 
@@ -29,8 +29,8 @@ export async function listen(port: number, bot: Bot): Promise<void> {
     server.get("/all-data", (req, res) => {
         res.json({
             commands: {
-                count: bot.commands.size,
-                data: bot.commands.array()
+                count: bot.commands.filter(command => !command.requiresRoot).size,
+                data: bot.commands.filter(command => !command.requiresRoot).array()
             },
             autoResponses: {
                 count: bot.autoResponses.size,

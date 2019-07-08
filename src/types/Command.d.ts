@@ -8,6 +8,7 @@ export interface Command {
     permissions: Array<string>;
     canBeExecutedBy: Array<string>;
     zones: Array<Channel["type"]>;
+    requiresRoot?: boolean;
 
     run: (bot: Bot, msg: Message) => void;
 }
