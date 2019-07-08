@@ -11,9 +11,9 @@ export const canBeExecutedBy = ["SEND_MESSAGES"];
 export const zones = ["text", "dm"];
 
 export async function run(bot: Bot, msg: Message) {
-    msg.channel.startTyping();
-
     if (!bot.leaderboard) return msg.channel.send("Leaderboard has not yet been generated. Try again in a couple minutes.");
+
+    msg.channel.startTyping();
 
     let top10 = bot.leaderboard.users.slice(0, 10);
 
