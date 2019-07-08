@@ -1,6 +1,5 @@
 import { Server, ServerModel } from "../../models/Server";
 import * as Discord from "discord.js";
-import * as Mongoose from "mongoose";
 
 export default class UserManager {
     discordClient: Discord.Client;

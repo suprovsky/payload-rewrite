@@ -1,5 +1,6 @@
 import { Bot } from "../types/Bot";
 import { User, UserModel } from "../models/User";
+import { Bot as BotDoc, BotModel } from "../models/Bot";
 
 export const every = 1000 * 60 * 5;
 
@@ -23,4 +24,27 @@ export async function run(bot: Bot) {
         users: leaderboard,
         updated: new Date()
     };
+
+    let botDoc: BotModel | null = await BotDoc.findOne({
+        id: 0
+    });
+
+    botDoc = botDoc || new BotDoc({
+        id: 0,
+        leaderboard: {
+            pushcart: {
+                users: leaderboard,
+                updated: bot.leaderboard.updated
+            }
+        },
+    });
+
+    botDoc.leaderboard!.pushcart = {
+        users: leaderboard,
+        updated: bot.leaderboard.updated
+    }
+
+    await botDoc.save();
+
+    console.log("Updated leaderboard.");
 }
