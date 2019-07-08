@@ -26,7 +26,7 @@ export async function run(bot: Bot, msg: Message) {
         }
         else if (args[i].toLowerCase() == "{all}") {
             allCommands = true;
-            commands.push(...bot.commands.map(command => command.name));
+            commands.push(...bot.commands.filter(command => !["restrict", "unrestrict"].includes(command.name)).map(command => command.name));
         }
         else commands.push(args[i]);
     }
@@ -35,7 +35,7 @@ export async function run(bot: Bot, msg: Message) {
         channels = [ msg.channel.id ];
     }
 
-    if (commands.includes(name)) return msg.channel.send("Restricting this command from being used here is probably not what you want to do...");
+    if (commands.includes("restrict") || commands.includes("unrestrict")) return msg.channel.send("Restricting the restriction commands from being used is probably not what you want to do...");
 
     let serverManager = bot.serverManager;
     let server = await serverManager.ensureServer(msg.guild.id);
