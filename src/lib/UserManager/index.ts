@@ -59,14 +59,32 @@ export class UserEditable {
         return this;
     }
 
-    addCartFeet(miles: number) {
+    addCartFeet(feet: number) {
         this.user.fun = this.user.fun || {
-            payloadFeetPushed: 0
+            payload: {
+                feetPushed: 0,
+                pushing: false,
+                lastPushed: 0
+            }
         };
 
-        this.user.fun.payloadFeetPushed = this.user.fun.payloadFeetPushed || 0;
+        this.user.fun.payload = this.user.fun.payload || {
+            feetPushed: 0,
+            pushing: false,
+            lastPushed: 0
+        }
 
-        return this.user.fun.payloadFeetPushed += miles;
+        this.user.fun.payload.feetPushed = this.user.fun.payload.feetPushed || 0;
+
+        if (this.user.fun.payload.pushing || Date.now() - this.user.fun.payload.feetPushed < 1000 * 60 * 5) {
+            return false;
+        }
+
+        this.user.fun.payload.feetPushed += feet;
+        this.user.fun.payload.pushing = true;
+        this.user.fun.payload.lastPushed = Date.now();
+
+        return true;
     }
 
     async refresh() {

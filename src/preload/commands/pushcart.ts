@@ -16,7 +16,6 @@ export async function run(bot: Bot, msg: Message) {
     let userManager = new UserManager(bot);
     let serverManager = new ServerManager(bot);
 
-    let pushMessage = (await msg.channel.send("Pushing the cart...")) as Message;
     msg.channel.startTyping();
 
     let user = await userManager.ensureUser(msg.author.id);
@@ -40,7 +39,10 @@ export async function run(bot: Bot, msg: Message) {
         { number: 17, weight: 1 },
     ]);
 
-    user.addCartFeet(feetPushed);
+    let pushResult = user.addCartFeet(feetPushed);
+
+    if (!pushResult) return msg.channel.send("You must wait 5 minutes before pushing the cart again.");
+
     server.addCartFeet(feetPushed);
 
     await Promise.all([
@@ -48,6 +50,5 @@ export async function run(bot: Bot, msg: Message) {
         server.save()
     ]);
 
-    pushMessage.delete();
     msg.channel.send(`<:payload:597506053021630464> Pushed the cart forward **${feetPushed}** feet (${server.server.fun!.payloadFeetPushed} total).`);
 }
