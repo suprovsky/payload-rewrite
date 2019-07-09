@@ -4,6 +4,7 @@ import config from "../../../secure-config";
 import UserManager from "../../lib/UserManager";
 import ServerManager from "../../lib/ServerManager";
 import { weightedRandom } from "../../utils/random";
+import { flash } from "../../utils/flash";
 
 export const name = "pushcart";
 export const description = "Pushes the cart.";
@@ -41,7 +42,7 @@ export async function run(bot: Bot, msg: Message) {
 
     let pushResult = user.addCartFeet(feetPushed);
 
-    if (!pushResult) return msg.channel.send("You must wait 5 minutes before pushing the cart again.");
+    if (!pushResult) return flash(msg.channel.send("You must wait 5 minutes before pushing the cart again."), 5000);
 
     server.addCartFeet(feetPushed);
 
