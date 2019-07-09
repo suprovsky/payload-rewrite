@@ -18,7 +18,7 @@ export async function pushNotification(bot: Bot, id: string, level: number, embe
             id
         }, async (err, user: UserModel) => {
             if (err) return resolve(false);
-    
+
             if (!user) {
                 user = new User({
                     id,

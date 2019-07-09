@@ -14,13 +14,17 @@ export const canBeExecutedBy = ["SEND_MESSAGES"];
 export const zones = ["text"];
 
 export async function run(bot: Bot, msg: Message) {
-    let userManager = new UserManager(bot);
-    let serverManager = new ServerManager(bot);
+    let userManager = bot.userManager
+    let serverManager = bot.serverManager;
 
     msg.channel.startTyping();
 
-    let user = await userManager.ensureUser(msg.author.id);
-    let server = await serverManager.ensureServer(msg.guild.id);
+    console.log("getting ready to push");
+
+    let user = await userManager.getUser(msg.author.id);
+    console.log("got user");
+    let server = await serverManager.getServer(msg.guild.id);
+    console.log("got server");
 
     let feetPushed = weightedRandom([
         { number: 3, weight: 1 },
@@ -41,6 +45,8 @@ export async function run(bot: Bot, msg: Message) {
     ]);
 
     let pushResult = user.addCartFeet(feetPushed);
+
+    console.log("got push");
 
     if (!pushResult) return flash(msg.channel.send("You must wait 5 minutes before pushing the cart again."), 5000);
 

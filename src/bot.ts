@@ -11,6 +11,7 @@ import { pushNotification } from "./utils/push-notification";
 import { getChangelog } from "./utils/get-changelog";
 import UserManager from "./lib/UserManager";
 import ServerManager from "./lib/ServerManager";
+import { Bot as BotDoc, BotModel } from "./models/Bot";
 
 process.env["GOOGLE_APPLICATION_CREDENTIALS"] = config.GOOGLE_CREDENTIALS_PATH;
 
@@ -136,6 +137,10 @@ bot.on("ready", () => {
 
             if (!changelog) return console.warn("Error fetching changelog!");
 
+            let botDoc: BotModel | null = await BotDoc.findOne({ id: 0 });
+
+            if (botDoc && botDoc.startupVersion && botDoc.startupVersion == info.version) return console.log("No new version.");
+
             for (let i = 0; i < guilds.length; i++) {
                 let notif = await pushNotification(bot, guilds[i].ownerID, 2, new Discord.RichEmbed({
                     title: `Payload updated to v${info.version}!`,
@@ -152,6 +157,12 @@ bot.on("ready", () => {
                 }), info.version);
                 console.log(`Notification: ${guilds[i].ownerID} | ${notif} | ${i + 1} of ${guilds.length}`);
             }
+
+            if (!botDoc) return console.log("No bot db entry!");
+
+            botDoc.startupVersion = info.version;
+
+            await botDoc.save();
         } else {
             console.log("Waiting for MongoDB connection...");
         }

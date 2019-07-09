@@ -9,6 +9,8 @@ export type BotModel = mongoose.Document & {
             updated: Date
         }
     },
+
+    startupVersion?: string
 };
 
 const botSchema = new mongoose.Schema({
@@ -22,7 +24,9 @@ const botSchema = new mongoose.Schema({
             }],
             updated: Date
         }
-    }
+    },
+
+    startupVersion: String
 });
 
 export const Bot = mongoose.model("Bot", botSchema);
