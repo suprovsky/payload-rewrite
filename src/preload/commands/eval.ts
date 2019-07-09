@@ -6,6 +6,9 @@ import { Bot } from "../../types";
 import { Message } from "discord.js";
 import config from "../../../secure-config";
 import util from "util";
+import { User } from "../../models/User";
+import { Server } from "../../models/Server";
+import { Bot as BotDoc } from "../../models/Bot";
 
 export const name = "eval";
 export const description = "Remote JS execution for root users.";
