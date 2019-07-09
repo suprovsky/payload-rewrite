@@ -76,9 +76,7 @@ export class UserEditable {
 
         this.user.fun.payload.feetPushed = this.user.fun.payload.feetPushed || 0;
 
-        this.user.fun.payload.pushing = false;
-
-        if (this.user.fun.payload.pushing || Date.now() - this.user.fun.payload.feetPushed < 1000 * 60 * 5) {
+        if (Date.now() - this.user.fun.payload.lastPushed < 1000 * 60 * 5) {
             return false;
         }
 
