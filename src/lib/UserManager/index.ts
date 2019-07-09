@@ -81,7 +81,7 @@ export class UserEditable {
         }
 
         this.user.fun.payload.feetPushed += feet;
-        this.user.fun.payload.pushing = true;
+        this.user.fun.payload.pushing = false;
         this.user.fun.payload.lastPushed = Date.now();
 
         return true;
