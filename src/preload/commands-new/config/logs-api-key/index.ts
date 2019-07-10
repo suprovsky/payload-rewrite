@@ -7,7 +7,13 @@ export default class logsApiKey extends Command {
         super(
             "logs-api-key",
             "Sets your logs.tf API key to <key>",
-            "<key>"
+            "<key>",
+            undefined,
+            undefined,
+            ["dm"],
+            undefined,
+            undefined,
+            ["config"]
         );
     }
 

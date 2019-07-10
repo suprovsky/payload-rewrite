@@ -7,7 +7,13 @@ export default class logsApiKey extends Command {
         super(
             "notifications",
             "Sets your Payload notifications level. 2 = all, 1 = major, 0 = none.",
-            "<2|1|0>"
+            "<2|1|0>",
+            undefined,
+            undefined,
+            ["dm"],
+            undefined,
+            undefined,
+            ["config"]
         );
     }
 

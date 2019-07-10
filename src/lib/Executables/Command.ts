@@ -14,7 +14,8 @@ export abstract class Command {
     subCommands: {
         [name: string]: Command
     };
-    
+    commandLadder: Array<string>;
+
     constructor(
         name: string,
         description: string,
@@ -23,7 +24,8 @@ export abstract class Command {
         canBeExecutedBy?: Array<PermissionString>,
         zones?: Array<Channel["type"]>,
         requiresRoot?: boolean,
-        subCommands?: { [name: string]: Command }
+        subCommands?: { [name: string]: Command },
+        commandLadder?: Array<string>
     ) {
         this.name = name;
         this.description = description;
@@ -33,6 +35,7 @@ export abstract class Command {
         this.zones = zones || ["text", "dm"];
         this.requiresRoot = requiresRoot || false;
         this.subCommands = subCommands || {};
+        this.commandLadder = commandLadder || [];
     }
 
     getArgs(message: Message, commandLevel?: number): Array<string> {
@@ -44,11 +47,21 @@ export abstract class Command {
     }
 
     get getUsage(): string {
+        if (this.commandLadder.length > 0) {
+            return `${config.PREFIX}${this.commandLadder.join(" ")} ${this.name} ${this.usage}`;
+        }
+    
         return `${config.PREFIX}${this.name} ${this.usage}`;
     }
 
     async respond(message: Message, response: string): Promise<Message> {
         return await message.channel.send(response) as Message;
+    }
+
+    async fail(message: Message, reason: string): Promise<false> {
+        await message.channel.send(reason);
+
+        return false;
     }
 
     async flash(messagePromise: Promise<Message>, durationMS?: number): Promise<void> {

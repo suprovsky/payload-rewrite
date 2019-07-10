@@ -16,13 +16,12 @@ export class Config extends Command {
             undefined,
             undefined,
             ["dm"],
-            undefined
+            undefined,
+            {
+                "logs-api-key": new LogsApiKeyCommand(),
+                "notifications": new NotificationsCommand()
+            }
         );
-
-        this.subCommands = {
-            "logs-api-key": new LogsApiKeyCommand(),
-            "notifications": new NotificationsCommand()
-        };
     }
 
     async run(bot: Bot, msg: Message): Promise<boolean> {
