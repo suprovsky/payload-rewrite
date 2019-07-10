@@ -17,7 +17,7 @@ export const requiresRoot = true;
 
 export async function run(bot: Bot, msg: Message) {
     const code = msg.content.slice(config.PREFIX.length + name.length).trim();
-
+    
     try {
         let evaled = eval(code);
 

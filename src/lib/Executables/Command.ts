@@ -46,7 +46,7 @@ export abstract class Command {
         ).slice(commandLevel || 0);
     }
 
-    get getUsage(): string {
+    getUsage(): string {
         if (this.commandLadder.length > 0) {
             return `${config.PREFIX}${this.commandLadder.join(" ")} ${this.name} ${this.usage}`;
         }

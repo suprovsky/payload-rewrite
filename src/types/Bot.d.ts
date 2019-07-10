@@ -1,5 +1,5 @@
 import { Client, Collection, Message } from "discord.js";
-import { Command } from "./Command";
+import { Command } from "../lib/Executables/Command";
 import { AutoResponse } from "./AutoResponse";
 import UserManager from "../lib/UserManager";
 import ServerManager from "../lib/ServerManager";
