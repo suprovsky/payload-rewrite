@@ -76,7 +76,7 @@ export class UserEditable {
 
         this.user.fun.payload.feetPushed = this.user.fun.payload.feetPushed || 0;
 
-        if (Date.now() - this.user.fun.payload.lastPushed < 1000 * 60 * 5) {
+        if (Date.now() - this.user.fun.payload.lastPushed < 1000 * 30) {
             return false;
         }
 
@@ -84,6 +84,18 @@ export class UserEditable {
         this.user.fun.payload.lastPushed = Date.now();
 
         return true;
+    }
+
+    setProp(property: string, val: any) {
+        const propertyChain = property.split(".");
+
+        let currentProp: any = this.user;
+        for (let i = 0; i < propertyChain.length; i++) {
+            if (!currentProp[propertyChain[i]]) currentProp[propertyChain[i]] = {};
+            else currentProp = currentProp[propertyChain[i]];
+        }
+
+        currentProp = val;
     }
 
     async refresh() {
