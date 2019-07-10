@@ -40,7 +40,7 @@ export async function run(bot: Bot, msg: Message) {
 
     let pushResult = user.addCartFeet(feetPushed);
 
-    if (!pushResult) return flash(msg.channel.send("You must wait 5 minutes before pushing the cart again."), 5000);
+    if (!pushResult) return flash(msg.channel.send("You must wait 30 seconds before pushing the cart again."), 5000);
 
     server.addCartFeet(feetPushed);
 
