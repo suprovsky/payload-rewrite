@@ -7,6 +7,8 @@ type Steam3IDFunction = () => string | undefined;
 export type Servers = Array<{name: string, address: string, rconPassword: string}>;
 
 export type UserModel = mongoose.Document & {
+    [key: string]: any;
+
     id?: string,
 
     steamID?: string,
