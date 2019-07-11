@@ -59,31 +59,43 @@ export class UserEditable {
         return this;
     }
 
-    addCartFeet(feet: number) {
+    addCartFeet(feet: number): "SUCCESS" | "COOLDOWN" | "CAP" {
         this.user.fun = this.user.fun || {
             payload: {
                 feetPushed: 0,
                 pushing: false,
-                lastPushed: 0
+                lastPushed: 0,
+                pushedToday: 0,
+                lastActiveDate: (new Date()).getDate()
             }
         };
 
         this.user.fun.payload = this.user.fun.payload || {
             feetPushed: 0,
             pushing: false,
-            lastPushed: 0
+            lastPushed: 0,
+            pushedToday: 0,
+            lastActiveDate: (new Date()).getDate()
         }
 
         this.user.fun.payload.feetPushed = this.user.fun.payload.feetPushed || 0;
+        this.user.fun.payload.pushedToday = this.user.fun.payload.pushedToday || 0;
 
         if (Date.now() - this.user.fun.payload.lastPushed < 1000 * 30) {
-            return false;
+            return "COOLDOWN";
+        } else if (this.user.fun.payload.pushedToday >= 1000) {
+            if (this.user.fun.payload.lastActiveDate != (new Date()).getDate()) {
+                this.user.fun.payload.pushedToday = 0;
+            }
+            else return "CAP";
         }
 
         this.user.fun.payload.feetPushed += feet;
+        this.user.fun.payload.pushedToday += feet;
         this.user.fun.payload.lastPushed = Date.now();
+        this.user.fun.payload.lastActiveDate = (new Date()).getDate();
 
-        return true;
+        return "SUCCESS";
     }
 
     setProp(property: string, val: any) {
