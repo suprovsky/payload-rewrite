@@ -120,7 +120,7 @@
     * View the global pushcart leaderboard!
 * Internal changes to allow for scheduled tasks to be easier to write.
 * Fixed the alignment of the gibus hat in the `gibus` command.
-### 2.11.0
+### 2.11.1
 * Rewrote how commands are handled internally (took a long-ass time).
 * Lots of command changes:
     * help
