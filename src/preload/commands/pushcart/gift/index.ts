@@ -31,6 +31,10 @@ export default class Gift extends Command {
 
         amount = Math.round(amount);
 
+        if (amount < 20) {
+            return await this.fail(msg, "<amount> cannot be lower than 20.");
+        }
+
         const from = await bot.userManager.getUser(msg.author.id);
         const to = await bot.userManager.getUser(targetUser.id);
 

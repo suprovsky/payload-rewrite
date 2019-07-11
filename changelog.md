@@ -146,3 +146,5 @@
 * Made feedback messages more consistent in the way things are phrased.
 * `pls bruh` is 100% more bruh.
 * Fixed "Payload is typing..." issues across the board.
+###2.11.2
+* Fixed an issue with the `pls pushcart gift` command that would allow users to gift negative points.
