@@ -6,7 +6,7 @@ export default class List extends Command {
     constructor() {
         super(
             "list",
-            "Lists your servers.",
+            "**USING THESE COMMANDS IN A PUBLIC SERVER PUTS YOUR ACCOUNT AT RISK OF BEING HIJACKED! MAKE SURE TO USE THESE COMMANDS ONLY IN BOT DMS!**\n\nLists your servers.",
             undefined,
             undefined,
             undefined,

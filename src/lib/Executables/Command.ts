@@ -54,6 +54,10 @@ export abstract class Command {
         return `${config.PREFIX}${this.name} ${this.usage}`;
     }
 
+    getSubcommandArray(): string[] {
+        return Object.keys(this.subCommands);
+    }
+
     async respond(message: Message, response: string): Promise<Message> {
         return await message.channel.send(response) as Message;
     }
@@ -83,4 +87,8 @@ export abstract class Command {
     }
 
     abstract async run(bot: Bot, msg: Message): Promise<boolean>;
+}
+
+export interface CommandConstructor {
+    new(): Command;
 }

@@ -21,7 +21,7 @@ export default class Help extends Command {
             return false;
         }
 
-        const command = bot.commands.get(commandName)!;
+        let command = bot.commands.get(commandName)!;
 
         let usage: string;
         let permissionsNeeded: {
@@ -33,33 +33,29 @@ export default class Help extends Command {
         };
 
         if (subcommandNames) {
-            let currentCommand: Command = command;
             for (let i = 0; i < subcommandNames.length; i++) {
-                currentCommand = currentCommand.subCommands[subcommandNames[i].toLowerCase()];
+                command = command.subCommands[subcommandNames[i].toLowerCase()];
 
-                if (!currentCommand) {
+                if (!command) {
                     return false;
                 }
             }
-
-            usage = currentCommand.getUsage();
-            permissionsNeeded = {
-                user: currentCommand.canBeExecutedBy,
-                bot: currentCommand.permissions
-            };
-        } else {
-            usage = command.getUsage();
-            permissionsNeeded = {
-                user: command.canBeExecutedBy,
-                bot: command.permissions
-            };
         }
+
+        usage = command.getUsage();
+        permissionsNeeded = {
+            user: command.canBeExecutedBy,
+            bot: command.permissions
+        };
 
         let helpEmbed = new RichEmbed();
             helpEmbed.setTitle(command.name);
-            helpEmbed.addField("Description", command.description);
-            helpEmbed.addField("Usage", command.usage);
-            helpEmbed.addField("Permissions Needed", `\`\`\`md\n# For User #\n${command.canBeExecutedBy.join("\n")}\n\n# For Payload #\n${command.permissions.join("\n")}\n\`\`\``);
+            helpEmbed.setDescription(command.description);
+            helpEmbed.addField("Usage", usage);
+            helpEmbed.addField("Permissions Needed", `\`\`\`md\n# For User #\n${permissionsNeeded.user.join("\n")}\n\n# For Payload #\n${permissionsNeeded.bot.join("\n")}\n\`\`\``);
+            if (command.getSubcommandArray().length > 0) {
+                helpEmbed.addField("Subcommands", command.getSubcommandArray().join(", "));
+            }
 
         await msg.channel.send(helpEmbed);
 

@@ -6,7 +6,7 @@ export default class logsApiKey extends Command {
     constructor() {
         super(
             "logs-api-key",
-            "Sets your logs.tf API key to <key>",
+            "**USING THESE COMMANDS IN A PUBLIC SERVER PUTS YOUR ACCOUNT AT RISK OF BEING HIJACKED! MAKE SURE TO USE THESE COMMANDS ONLY IN BOT DMS!**\n\nSets your logs.tf API key to <key>",
             "<key>",
             undefined,
             undefined,

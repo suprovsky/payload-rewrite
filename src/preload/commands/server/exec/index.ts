@@ -7,7 +7,7 @@ export default class Exec extends Command {
     constructor() {
         super(
             "exec",
-            "Executes a command on one of your servers.",
+            "**USING THESE COMMANDS IN A PUBLIC SERVER PUTS YOUR ACCOUNT AT RISK OF BEING HIJACKED! MAKE SURE TO USE THESE COMMANDS ONLY IN BOT DMS!**\n\nExecutes a command on one of your servers.",
             "<name> <command>",
             undefined,
             undefined,

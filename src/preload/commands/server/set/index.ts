@@ -6,7 +6,7 @@ export default class Set extends Command {
     constructor() {
         super(
             "set",
-            "Adds a server to your list.",
+            "**USING THESE COMMANDS IN A PUBLIC SERVER PUTS YOUR ACCOUNT AT RISK OF BEING HIJACKED! MAKE SURE TO USE THESE COMMANDS ONLY IN BOT DMS!**\n\nAdds a server to your list.",
             "<name> <address> <rcon password>",
             undefined,
             undefined,

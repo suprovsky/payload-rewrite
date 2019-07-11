@@ -56,6 +56,8 @@ export default class PushCart extends Command {
             server.save()
         ]);
 
-        msg.channel.send(`<:payload:597506053021630464> Pushed the cart forward **${feetPushed}** feet (${server.server.fun!.payloadFeetPushed} total).`);
+        await this.respond(msg, `<:payload:597506053021630464> Pushed the cart forward **${feetPushed}** feet (${server.server.fun!.payloadFeetPushed} total).`);
+
+        return true;
     }
 }

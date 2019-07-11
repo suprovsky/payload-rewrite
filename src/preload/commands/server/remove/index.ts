@@ -6,7 +6,7 @@ export default class Remove extends Command {
     constructor() {
         super(
             "remove",
-            "Removes a server from your list.",
+            "**USING THESE COMMANDS IN A PUBLIC SERVER PUTS YOUR ACCOUNT AT RISK OF BEING HIJACKED! MAKE SURE TO USE THESE COMMANDS ONLY IN BOT DMS!**\n\nRemoves a server from your list.",
             "<name>",
             undefined,
             undefined,

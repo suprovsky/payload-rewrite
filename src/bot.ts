@@ -1,7 +1,7 @@
 import Discord from "discord.js";
 import config from "../secure-config";
 import { AutoResponse, Bot, ScheduledScript } from "./types";
-import { Command } from "./lib/Executables/Command";
+import { CommandConstructor } from "./lib/Executables/Command";
 import { readdir } from "fs";
 import { handleMessageDelete, cleanCache } from "./utils/snipe-cache";
 import handleCommand from "./utils/handle-command";
@@ -70,7 +70,8 @@ readdir(__dirname + "/preload/commands", (err, files) => {
     console.log("Loading commands...");
 
     files.forEach(folder => {
-        let command: Command = require(__dirname + "/preload/commands/" + folder);
+        const commandInit: CommandConstructor = require(__dirname + "/preload/commands/" + folder).default;
+        let command = new commandInit();
 
         if (!command.name) return console.warn("\t" + folder + " is not a valid command module.");
 

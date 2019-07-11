@@ -6,7 +6,7 @@ export default class logsApiKey extends Command {
     constructor() {
         super(
             "notifications",
-            "Sets your Payload notifications level. 2 = all, 1 = major, 0 = none.",
+            "**USING THESE COMMANDS IN A PUBLIC SERVER PUTS YOUR ACCOUNT AT RISK OF BEING HIJACKED! MAKE SURE TO USE THESE COMMANDS ONLY IN BOT DMS!**\n\nSets your Payload notifications level. 2 = all, 1 = major, 0 = none.",
             "<2|1|0>",
             undefined,
             undefined,
