@@ -120,3 +120,29 @@
     * View the global pushcart leaderboard!
 * Internal changes to allow for scheduled tasks to be easier to write.
 * Fixed the alignment of the gibus hat in the `gibus` command.
+### 2.11.0
+* Rewrote how commands are handled internally (took a long-ass time).
+* Lots of command changes:
+    * help
+        * No longer displays long blocks of text.
+        * Information for commands with subcommands is seperated by subcommand.
+            * e.g. `pls help config notifications` is now valid.
+    * pushcart
+        * Added a daily limit of 1000 points.
+        * Moved `leaderboard` and `rank` commands to be subcommands of `pushcart`.
+        * Added the ability to view other users' ranks.
+        * Added the `gift` subcommand. Gift points to other users!
+    * restrict/unrestrict
+        * Made feedback messages less spammy when using {all} tags.
+    * rtd
+        * Added the ability to roll multiple dice at once.
+    * server
+        * Cleaned up dead subcommands.
+    * user
+        * Fixed bug where users with no logs recorded would be missing info.
+        * Added point count to the user info display.
+* Internal changes:
+    * Added caching for DB in all commands. Things should be faster now.
+* Made feedback messages more consistent in the way things are phrased.
+* `pls bruh` is 100% more bruh.
+* Fixed "Payload is typing..." issues across the board.

@@ -9,7 +9,11 @@ export default class Reload extends Command {
         super(
             "reload",
             "Reloads a command. Useful for debugging.",
-            "<command>"
+            "<command>",
+            undefined,
+            undefined,
+            undefined,
+            true
         );
     }
 

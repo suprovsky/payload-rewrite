@@ -2,16 +2,41 @@ import { Command } from "../../../lib/Executables/Command";
 import { Bot } from "../../../types/Bot";
 import { Message } from "discord.js";
 import { weightedRandom } from "../../../utils/random";
+import LeaderboardCommand from "./leaderboard";
+import RankCommand from "./rank";
+import GiftCommand from "./gift";
 
 export default class PushCart extends Command {
     constructor() {
         super(
             "pushcart",
-            "Pushes the cart 3-17 feet."
+            "Pushes the cart 3-17 feet.",
+            "[subcommand]",
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            {
+                leaderboard: new LeaderboardCommand(),
+                rank: new RankCommand(),
+                gift: new GiftCommand()
+            }
         );
     }
 
     async run(bot: Bot, msg: Message): Promise<boolean> {
+        const args = this.getArgs(msg);
+
+        if (args[0]) {
+            if (!this.subCommands[args[0]]) {
+                await this.respond(msg, "Invalid subcommand. Type `pls help pushcart` to learn more.");
+    
+                return false;
+            }
+    
+            return await this.runSub(args[0], bot, msg);
+        }
+
         const user = await bot.userManager.getUser(msg.author.id);
         const server = await bot.serverManager.getServer(msg.guild.id);
 

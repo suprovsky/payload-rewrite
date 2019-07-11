@@ -59,6 +59,52 @@ export class UserEditable {
         return this;
     }
 
+    getFeetPushed(): number {
+        this.user.fun = this.user.fun || {
+            payload: {
+                feetPushed: 0,
+                pushing: false,
+                lastPushed: 0,
+                pushedToday: 0,
+                lastActiveDate: (new Date()).getDate()
+            }
+        };
+
+        this.user.fun.payload = this.user.fun.payload || {
+            feetPushed: 0,
+            pushing: false,
+            lastPushed: 0,
+            pushedToday: 0,
+            lastActiveDate: (new Date()).getDate()
+        };
+
+        return this.user.fun.payload.feetPushed || 0;
+    }
+
+    feetPushedTransaction(amount: number) {
+        this.user.fun = this.user.fun || {
+            payload: {
+                feetPushed: 0,
+                pushing: false,
+                lastPushed: 0,
+                pushedToday: 0,
+                lastActiveDate: (new Date()).getDate()
+            }
+        };
+
+        this.user.fun.payload = this.user.fun.payload || {
+            feetPushed: 0,
+            pushing: false,
+            lastPushed: 0,
+            pushedToday: 0,
+            lastActiveDate: (new Date()).getDate()
+        };
+
+        this.user.fun.payload.feetPushed = this.user.fun.payload.feetPushed || 0;
+
+        this.user.fun.payload.feetPushed += amount;
+    }
+
     addCartFeet(feet: number): "SUCCESS" | "COOLDOWN" | "CAP" {
         this.user.fun = this.user.fun || {
             payload: {
@@ -76,7 +122,7 @@ export class UserEditable {
             lastPushed: 0,
             pushedToday: 0,
             lastActiveDate: (new Date()).getDate()
-        }
+        };
 
         this.user.fun.payload.feetPushed = this.user.fun.payload.feetPushed || 0;
         this.user.fun.payload.pushedToday = this.user.fun.payload.pushedToday || 0;

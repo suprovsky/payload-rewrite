@@ -8,7 +8,10 @@ export default class User extends Command {
         super(
             "user",
             "Gets profile data for a user.",
-            "[user mention]"
+            "[user mention]",
+            undefined,
+            undefined,
+            ["text"]
         );
     }
 
@@ -20,7 +23,8 @@ export default class User extends Command {
         const data = [
             ["Name", "::", targetUser.tag],
             ["ID", "::", targetUser.id],
-            ["Avatar", "::", `https://sharky.cool/a/davatar/${targetUser.id}`]
+            ["Avatar", "::", `https://sharky.cool/a/davatar/${targetUser.id}`],
+            ["Points", "::", user.getFeetPushed()]
         ];
 
         msg.guild.member(targetUser).roles.map(role => role.name).forEach((role, roleIndex) => {
