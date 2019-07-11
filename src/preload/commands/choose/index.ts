@@ -19,11 +19,11 @@ export default class Choose extends Command {
         let list = args.slice(1);
 
         if (!amount) {
-            await this.respond(msg, "Missing <amount> argument.");
+            await this.respond(msg, "Missing `<amount>` argument.");
 
             return false;
         } else if (!Number(amount)) {
-            await this.respond(msg, "<amount> argument must be a whole number.");
+            await this.respond(msg, "`<amount>` argument must be a whole number.");
 
             return false;
         } else if (list.length < 2) {

@@ -24,7 +24,7 @@ export default class Snipe extends Command {
 
         if (args[0]) {
             if (!Number(args[0]) || Math.round(Number(args[0])) < 1) {
-                return await this.fail(msg, "[number] argument must be a number greater than 0.");
+                return await this.fail(msg, "`[number]` argument must be a number greater than 0.");
             }
         }
 

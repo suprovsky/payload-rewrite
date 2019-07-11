@@ -25,11 +25,11 @@ export default class Set extends Command {
         const rconPassword = args[3];
 
         if (!serverName) {
-            return await this.fail(msg, "Missing <name> argument.");
+            return await this.fail(msg, "Missing `<name>` argument.");
         } else if (!address) {
-            return await this.fail(msg, "Missing <address> argument.");
+            return await this.fail(msg, "Missing `<address>` argument.");
         } else if (!rconPassword) {
-            return await this.fail(msg, "Missing <rcon password> argument.");
+            return await this.fail(msg, "Missing `<rcon password>` argument.");
         }
 
         const user = await bot.userManager.getUser(msg.author.id);

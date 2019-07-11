@@ -27,9 +27,9 @@ export default class Exec extends Command {
         const command = args[1];
 
         if (!targetServer) {
-            return await this.fail(msg, "Missing <name> argument.");
+            return await this.fail(msg, "Missing `<name>` argument.");
         } else if (!command) {
-            return await this.fail(msg, "Missing <command> argument.");
+            return await this.fail(msg, "Missing `<command>` argument.");
         }
 
         if (!user.user.servers) {

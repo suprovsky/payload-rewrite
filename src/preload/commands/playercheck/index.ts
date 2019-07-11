@@ -18,7 +18,7 @@ export default class PlayerCheck extends Command {
         const args = this.getArgs(msg);
 
         if (!args[0]) {
-            return await this.fail(msg, "Missing <league> argument.");
+            return await this.fail(msg, "Missing `<league>` argument.");
         }
 
         let playerData: Array<{ nickname: string, id3: string }> = [];

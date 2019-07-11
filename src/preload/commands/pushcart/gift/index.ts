@@ -24,15 +24,15 @@ export default class Gift extends Command {
         const targetUser = msg.mentions.users.first();
 
         if (!amount) {
-            return await this.fail(msg, "Missing <amount> argument.");
+            return await this.fail(msg, "Missing `<amount>` argument.");
         } else if (!targetUser) {
-            return await this.fail(msg, "Missing or invalid <user mention> argument.");
+            return await this.fail(msg, "Missing or invalid `<user mention>` argument.");
         }
 
         amount = Math.round(amount);
 
         if (amount < 20) {
-            return await this.fail(msg, "<amount> cannot be lower than 20.");
+            return await this.fail(msg, "`<amount>` cannot be lower than 20.");
         }
 
         const from = await bot.userManager.getUser(msg.author.id);

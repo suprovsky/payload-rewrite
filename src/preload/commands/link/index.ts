@@ -16,13 +16,13 @@ export default class Link extends Command {
         const args = this.getArgs(msg);
 
         if (!args) {
-            return await this.fail(msg, "Missing <Steam ID> argument.");
+            return await this.fail(msg, "Missing `<Steam ID>` argument.");
         }
 
         const steamIDTestResult = await ensureSteamID(args[0]);
 
         if (!steamIDTestResult) {
-            return await this.fail(msg, "Invalid Steam ID.");
+            return await this.fail(msg, "Invalid `<Steam ID>` argument.");
         }
 
         const user = await bot.userManager.getUser(msg.author.id);

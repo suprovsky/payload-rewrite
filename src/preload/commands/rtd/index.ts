@@ -19,9 +19,9 @@ export default class RTD extends Command {
         const amount = args[1] || 1;
 
         if (!Number(sides) || Math.round(Number(sides)) < 2) {
-            return await this.fail(msg, "[sides] argument must be a number greater than 1.");
+            return await this.fail(msg, "`[sides]` argument must be a number greater than 1.");
         } else if (!Number(amount) || Math.round(Number(amount)) < 1 || Math.round(Number(amount)) > 50) {
-            return await this.fail(msg, "[amount] argument must be a number greater than 0 and less than or equal to 50.");
+            return await this.fail(msg, "`[amount]` argument must be a number greater than 0 and less than or equal to 50.");
         }
 
         let dice: number[] = [];

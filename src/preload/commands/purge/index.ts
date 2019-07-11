@@ -21,7 +21,7 @@ export default class Purge extends Command {
         const users = msg.mentions.users;
 
         if (!amount) {
-            return await this.fail(msg, "Missing <amount> argument.");
+            return await this.fail(msg, "Missing `<amount>` argument.");
         }
 
         if (!Number(amount) || Number(amount) < 1) {

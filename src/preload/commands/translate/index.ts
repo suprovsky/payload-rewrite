@@ -19,7 +19,7 @@ export default class Translate extends Command {
         const phrase = args[0];
 
         if (!phrase) {
-            return await this.fail(msg, "Missing <phrase> argument.");
+            return await this.fail(msg, "Missing `<phrase>` argument.");
         }
 
         const translator = new GTranslate({ projectId: config.GCP_ID });

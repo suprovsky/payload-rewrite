@@ -23,7 +23,7 @@ export default class Remove extends Command {
         const targetServer = args[0];
 
         if (!targetServer) {
-            return await this.fail(msg, "Missing <name> argument.");
+            return await this.fail(msg, "Missing `<name>` argument.");
         }
 
         const user = await bot.userManager.getUser(msg.author.id);

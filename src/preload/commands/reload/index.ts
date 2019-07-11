@@ -21,7 +21,7 @@ export default class Reload extends Command {
         const args = this.getArgs(msg);
 
         if (!args[0]) {
-            return await this.fail(msg, "Missing <command> argument.");
+            return await this.fail(msg, "Missing `<command>` argument.");
         }
 
         const commandName = args[0];
