@@ -10,7 +10,14 @@ export default class EightBall extends Command {
         super(
             "8ball",
             "Asks the 8ball a question",
-            "<question>"
+            [
+                {
+                    name: "question",
+                    description: "The question to ask the 8ball.",
+                    required: true,
+                    type: "string"
+                }
+            ]
         );
 
         this.responses = [

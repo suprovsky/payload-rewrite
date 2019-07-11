@@ -10,7 +10,20 @@ export default class R34 extends Command {
         super(
             "r34",
             "Finds an image on r34 based on search tags. **Only works in NSFW channels with pl_x in their topic.**",
-            "<tag> [tag 2]...",
+            [
+                {
+                    name: "tag",
+                    description: "A tag to search.",
+                    required: true,
+                    type: "string"
+                },
+                {
+                    name: "other tags",
+                    description: "More tags to search.",
+                    required: false,
+                    type: "string"
+                }
+            ],
             ["SEND_MESSAGES", "EMBED_LINKS"]
         );
     }
@@ -24,7 +37,11 @@ export default class R34 extends Command {
             }
         }
 
-        const args = this.getArgs(msg);
+        const args = await this.parseArgs(msg);
+
+        if (args === false) {
+            return false;
+        }
 
         msg.channel.startTyping();
 

@@ -7,7 +7,21 @@ export default class Gift extends Command {
         super(
             "gift",
             "Gifts <amount> points to a user.",
-            "<user mention> <amount>",
+            [
+                {
+                    name: "user mention",
+                    description: "The user to gift points to.",
+                    required: true,
+                    type: "string"
+                },
+                {
+                    name: "amount",
+                    description: "The amount of points to gift.",
+                    required: true,
+                    type: "number",
+                    min: 20
+                }
+            ],
             undefined,
             undefined,
             undefined,
@@ -18,21 +32,17 @@ export default class Gift extends Command {
     }
 
     async run(bot: Bot, msg: Message): Promise<boolean> {
-        const args = this.getArgs(msg, 2);
+        const args = await this.parseArgs(msg, 2);
 
-        let amount = Number(args[1]);
-        const targetUser = msg.mentions.users.first();
-
-        if (!amount) {
-            return await this.fail(msg, "Missing `<amount>` argument.");
-        } else if (!targetUser) {
-            return await this.fail(msg, "Missing or invalid `<user mention>` argument.");
+        if (args === false) {
+            return false;
         }
 
-        amount = Math.round(amount);
+        const amount = args[1] as number;
+        const targetUser = msg.mentions.users.first();
 
-        if (amount < 20) {
-            return await this.fail(msg, "`<amount>` cannot be lower than 20.");
+        if (!targetUser) {
+            return await this.fail(msg, `Invalid \`<user mention>\` argument. Type \`pls help ${this.getFullCommandName()}\` to learn more.`);
         }
 
         const from = await bot.userManager.getUser(msg.author.id);

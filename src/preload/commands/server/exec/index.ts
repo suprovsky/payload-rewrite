@@ -8,7 +8,20 @@ export default class Exec extends Command {
         super(
             "exec",
             "**USING THESE COMMANDS IN A PUBLIC SERVER PUTS YOUR ACCOUNT AT RISK OF BEING HIJACKED! MAKE SURE TO USE THESE COMMANDS ONLY IN BOT DMS!**\n\nExecutes a command on one of your servers.",
-            "<name> <command>",
+            [
+                {
+                    name: "name",
+                    description: "The name of the server to execute the command in.",
+                    required: true,
+                    type: "string"
+                },
+                {
+                    name: "command",
+                    description: "The command to execute.",
+                    required: true,
+                    type: "string"
+                }
+            ],
             undefined,
             undefined,
             ["dm"],
@@ -19,7 +32,11 @@ export default class Exec extends Command {
     }
 
     async run(bot: Bot, msg: Message): Promise<boolean> {
-        const args = this.getArgs(msg, 1);
+        const args = await this.parseArgs(msg, 1);
+
+        if (args === false) {
+            return false;
+        }
 
         const user = await bot.userManager.getUser(msg.author.id);
 

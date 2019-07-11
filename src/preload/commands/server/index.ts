@@ -11,7 +11,20 @@ export default class Server extends Command {
         super(
             "server",
             "**USING THESE COMMANDS IN A PUBLIC SERVER PUTS YOUR TF2 SERVERS AT RISK OF BEING HIJACKED! MAKE SURE TO USE THESE COMMANDS ONLY IN BOT DMS!**",
-            "<subcommand> <subcommand args>",
+            [
+                {
+                    name: "subcommand",
+                    description: "The subcommand to execute.",
+                    required: true,
+                    type: "string"
+                },
+                {
+                    name: "subcommand args",
+                    description: "The subcommand arguments.",
+                    required: false,
+                    type: "string"
+                }
+            ],
             undefined,
             undefined,
             ["dm"],

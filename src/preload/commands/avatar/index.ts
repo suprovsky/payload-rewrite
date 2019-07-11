@@ -7,7 +7,14 @@ export default class Avatar extends Command {
         super(
             "avatar",
             "Retrieves a user's avatar (or yours if no users are specified).",
-            "[user mention]"
+            [
+                {
+                    name: "user mention",
+                    description: "The user who's avatar you want to view.",
+                    required: false,
+                    type: "string"
+                }
+            ],
         );
     }
 

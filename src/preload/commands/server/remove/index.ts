@@ -7,7 +7,14 @@ export default class Remove extends Command {
         super(
             "remove",
             "**USING THESE COMMANDS IN A PUBLIC SERVER PUTS YOUR ACCOUNT AT RISK OF BEING HIJACKED! MAKE SURE TO USE THESE COMMANDS ONLY IN BOT DMS!**\n\nRemoves a server from your list.",
-            "<name>",
+            [
+                {
+                    name: "name",
+                    description: "The name of the server to remove.",
+                    required: true,
+                    type: "string"
+                }
+            ],
             undefined,
             undefined,
             ["dm"],
@@ -18,7 +25,11 @@ export default class Remove extends Command {
     }
 
     async run(bot: Bot, msg: Message): Promise<boolean> {
-        const args = this.getArgs(msg, 1);
+        const args = await this.parseArgs(msg, 1);
+
+        if (args === false) {
+            return false;
+        }
 
         const targetServer = args[0];
 

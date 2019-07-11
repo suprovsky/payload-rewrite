@@ -7,7 +7,26 @@ export default class Set extends Command {
         super(
             "set",
             "**USING THESE COMMANDS IN A PUBLIC SERVER PUTS YOUR ACCOUNT AT RISK OF BEING HIJACKED! MAKE SURE TO USE THESE COMMANDS ONLY IN BOT DMS!**\n\nAdds a server to your list.",
-            "<name> <address> <rcon password>",
+            [
+                {
+                    name: "name",
+                    description: "The name you want to save the server under.",
+                    required: true,
+                    type: "string"
+                },
+                {
+                    name: "address",
+                    description: "The server's address.",
+                    required: true,
+                    type: "string"
+                },
+                {
+                    name: "rcon password",
+                    description: "The server's Rcon password.",
+                    required: true,
+                    type: "string"
+                }
+            ],
             undefined,
             undefined,
             ["dm"],
@@ -18,19 +37,15 @@ export default class Set extends Command {
     }
 
     async run(bot: Bot, msg: Message): Promise<boolean> {
-        const args = this.getArgs(msg, 1);
+        const args = await this.parseArgs(msg, 1);
 
-        const serverName = args[0];
-        const address = args[1];
-        const rconPassword = args[3];
-
-        if (!serverName) {
-            return await this.fail(msg, "Missing `<name>` argument.");
-        } else if (!address) {
-            return await this.fail(msg, "Missing `<address>` argument.");
-        } else if (!rconPassword) {
-            return await this.fail(msg, "Missing `<rcon password>` argument.");
+        if (args === false) {
+            return false;
         }
+
+        const serverName = args[0] as string;
+        const address = args[1] as string;
+        const rconPassword = args[2] as string;
 
         const user = await bot.userManager.getUser(msg.author.id);
 

@@ -7,7 +7,32 @@ export default class Unrestrict extends Command {
         super(
             "unrestrict",
             "Unrestricts a command from being used in a channel. Using `{all}` as a command argument unrestrics all commands and using `#{all}` as a channel argument unrestricts the commands in all text channels.",
-            "<command> [command 2]... [channel mention] [channel mention 2]...",
+            [
+                {
+                    name: "command",
+                    description: "A command to unrestrict. Can be \"{all}\" to unrestrict all commands.",
+                    required: true,
+                    type: "string"
+                },
+                {
+                    name: "command 2",
+                    description: "More commands to unrestrict.",
+                    required: false,
+                    type: "string"
+                },
+                {
+                    name: "channel mention",
+                    description: "The text channel to unrestrict commands in. Can be \"#{all}\" to unrestrict commands in all text channels.",
+                    required: false,
+                    type: "string"
+                },
+                {
+                    name: "channel mention 2",
+                    description: "More text channels to unrestrict commands in.",
+                    required: false,
+                    type: "string"
+                }
+            ],
             undefined,
             ["SEND_MESSAGES", "MANAGE_CHANNELS"],
             ["text"]
@@ -15,10 +40,10 @@ export default class Unrestrict extends Command {
     }
 
     async run(bot: Bot, msg: Message): Promise<boolean> {
-        const args = this.getArgs(msg);
+        const args = await this.parseArgs(msg) as string[] | false;
 
-        if (!args[0]) {
-            return await this.fail(msg, "Missing `<command>` argument.");
+        if (args === false) {
+            return false;
         }
 
         let commands: string[] = [];

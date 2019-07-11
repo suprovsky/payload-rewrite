@@ -7,7 +7,14 @@ export default class logsApiKey extends Command {
         super(
             "logs-api-key",
             "**USING THESE COMMANDS IN A PUBLIC SERVER PUTS YOUR ACCOUNT AT RISK OF BEING HIJACKED! MAKE SURE TO USE THESE COMMANDS ONLY IN BOT DMS!**\n\nSets your logs.tf API key to <key>",
-            "<key>",
+            [
+                {
+                    name: "key",
+                    description: "Your logs.tf API key.",
+                    required: true,
+                    type: "string"
+                }
+            ],
             undefined,
             undefined,
             ["dm"],
@@ -18,11 +25,9 @@ export default class logsApiKey extends Command {
     }
 
     async run(bot: Bot, msg: Message): Promise<boolean> {
-        const args = this.getArgs(msg, 1);
+        const args = await this.parseArgs(msg, 1);
 
-        if (!args[0]) {
-            await this.respond(msg, "Missing API key. Type `pls help config` to learn more.");
-
+        if (args === false) {
             return false;
         }
 

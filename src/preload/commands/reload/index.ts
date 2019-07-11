@@ -9,7 +9,14 @@ export default class Reload extends Command {
         super(
             "reload",
             "Reloads a command. Useful for debugging.",
-            "<command>",
+            [
+                {
+                    name: "command",
+                    description: "The name of the command to reload.",
+                    required: true,
+                    type: "string"
+                }
+            ],
             undefined,
             undefined,
             undefined,
@@ -18,13 +25,13 @@ export default class Reload extends Command {
     }
 
     async run(bot: Bot, msg: Message): Promise<boolean> {
-        const args = this.getArgs(msg);
+        const args = await this.parseArgs(msg);
 
-        if (!args[0]) {
-            return await this.fail(msg, "Missing `<command>` argument.");
+        if (args === false) {
+            return false;
         }
 
-        const commandName = args[0];
+        const commandName = args[0] as string;
 
         if (!bot.commands.has(commandName)) {
             return await this.fail(msg, `\`${commandName}\` is not a valid command.`);

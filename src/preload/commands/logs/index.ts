@@ -9,7 +9,14 @@ export default class Logs extends Command {
         super(
             "logs",
             "Retrieves the latest log from a user's Steam ID. Only works if the user has their accounts linked.",
-            "[user mention]",
+            [
+                {
+                    name: "user mention",
+                    description: "The user to retrieve the latest log from.",
+                    required: false,
+                    type: "string"
+                }
+            ],
             ["SEND_MESSAGES", "ATTACH_FILES"]
         );
     }

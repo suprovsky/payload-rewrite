@@ -8,18 +8,25 @@ export default class Link extends Command {
         super(
             "link",
             "Links your steam account to your Discord account.",
-            "<Steam ID>"
+            [
+                {
+                    name: "Steam ID",
+                    description: "Your Steam ID. Can be in any of the popular Steam ID formats.",
+                    required: true,
+                    type: "string"
+                }
+            ]
         );
     }
 
     async run(bot: Bot, msg: Message): Promise<boolean> {
-        const args = this.getArgs(msg);
+        const args = await this.parseArgs(msg);
 
-        if (!args) {
-            return await this.fail(msg, "Missing `<Steam ID>` argument.");
+        if (args === false) {
+            return false;
         }
 
-        const steamIDTestResult = await ensureSteamID(args[0]);
+        const steamIDTestResult = await ensureSteamID(args[0] as string);
 
         if (!steamIDTestResult) {
             return await this.fail(msg, "Invalid `<Steam ID>` argument.");

@@ -9,7 +9,20 @@ export default class Config extends Command {
         super(
             "config",
             "**USING THESE COMMANDS IN A PUBLIC SERVER PUTS YOUR ACCOUNT AT RISK OF BEING HIJACKED! MAKE SURE TO USE THESE COMMANDS ONLY IN BOT DMS!**",
-            "<subcommand> <subcommand args>",
+            [
+                {
+                    name: "subcommand",
+                    description: "The subcommand to execute.",
+                    required: true,
+                    type: "string"
+                },
+                {
+                    name: "subcommand args",
+                    description: "The subcommand arguments.",
+                    required: true,
+                    type: "string"
+                }
+            ],
             undefined,
             undefined,
             ["dm"],

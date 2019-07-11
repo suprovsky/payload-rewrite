@@ -9,7 +9,14 @@ export default class Changelog extends Command {
         super(
             "changelog",
             "Retreives the changelog for the current version or [version]. Versions must follow the #.#.# format.",
-            "[version]"
+            [
+                {
+                    name: "version",
+                    description: "The version to view the changelog for.",
+                    required: false,
+                    type: "string"
+                }
+            ]
         );
     }
 

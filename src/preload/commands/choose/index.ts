@@ -8,29 +8,45 @@ export default class Choose extends Command {
         super(
             "choose",
             "Randomly chooses <amount> options from a list.",
-            "<amount> [option 1] [option 2]..."
+            [
+                {
+                    name: "amount",
+                    description: "The amount of options to choose from the list.",
+                    required: true,
+                    type: "number",
+                    min: 1
+                },
+                {
+                    name: "option 1",
+                    description: "An option in the list.",
+                    required: true,
+                    type: "string"
+                },
+                {
+                    name: "option 2",
+                    description: "Another option in the list.",
+                    required: true,
+                    type: "string"
+                },
+                {
+                    name: "option 3",
+                    description: "More options in the list.",
+                    required: false,
+                    type: "string"
+                }
+            ]
         );
     }
 
     async run(bot: Bot, msg: Message): Promise<boolean> {
-        const args = this.getArgs(msg);
+        const args = await this.parseArgs(msg);
+
+        if (args === false) {
+            return false;
+        }
 
         const amount = args[0];
         let list = args.slice(1);
-
-        if (!amount) {
-            await this.respond(msg, "Missing `<amount>` argument.");
-
-            return false;
-        } else if (!Number(amount)) {
-            await this.respond(msg, "`<amount>` argument must be a whole number.");
-
-            return false;
-        } else if (list.length < 2) {
-            await this.respond(msg, "You must provide at least 2 options to choose from.");
-
-            return false;
-        }
 
         let chosen = [];
         for (let i = 0; i < Number(amount); i++) {

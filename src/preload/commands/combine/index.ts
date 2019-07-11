@@ -9,7 +9,38 @@ export default class Combine extends Command {
         super(
             "combine",
             "Combines 2 or more logs into a bigger log.",
-            "<map> <title> <log url> <log url 2> [log url 3]...",
+            [
+                {
+                    name: "map",
+                    description: "The map name for the combined logs.",
+                    required: true,
+                    type: "string"
+                },
+                {
+                    name: "title",
+                    description: "The log title for the combined logs.",
+                    required: true,
+                    type: "string"
+                },
+                {
+                    name: "log url 1",
+                    description: "The first log to combine.",
+                    required: true,
+                    type: "string"
+                },
+                {
+                    name: "log url 2",
+                    description: "The second log to combine.",
+                    required: true,
+                    type: "string"
+                },
+                {
+                    name: "log url 3",
+                    description: "More logs to combine.",
+                    required: false,
+                    type: "string"
+                }
+            ],
             ["SEND_MESSAGES", "ATTACH_FILES"]
         );
     }

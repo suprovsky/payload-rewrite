@@ -8,7 +8,14 @@ export default class User extends Command {
         super(
             "user",
             "Gets profile data for a user.",
-            "[user mention]",
+            [
+                {
+                    name: "user mention",
+                    description: "The user to get profile data from.",
+                    required: false,
+                    type: "string"
+                }
+            ],
             undefined,
             undefined,
             ["text"]

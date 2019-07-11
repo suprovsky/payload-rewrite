@@ -11,7 +11,14 @@ export default class PushCart extends Command {
         super(
             "pushcart",
             "Pushes the cart 3-17 feet.",
-            "[subcommand]",
+            [
+                {
+                    name: "subcommand",
+                    description: "An optional subcommand can go here.",
+                    required: false,
+                    type: "string"
+                }
+            ],
             undefined,
             undefined,
             undefined,

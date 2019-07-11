@@ -9,18 +9,27 @@ export default class Translate extends Command {
         super(
             "translate",
             "Breaks a phrase in translation.",
-            "<phrase>"
+            [
+                {
+                    name: "phrase",
+                    description: "The phrase to translate.",
+                    required: true,
+                    type: "string",
+                    minLength: 10,
+                    maxLength: 100
+                }
+            ]
         );
     }
 
     async run(bot: Bot, msg: Message): Promise<boolean> {
-        const args = this.getArgs(msg);
+        const args = await this.parseArgs(msg);
 
-        const phrase = args[0];
-
-        if (!phrase) {
-            return await this.fail(msg, "Missing `<phrase>` argument.");
+        if (args === false) {
+            return false;
         }
+
+        const phrase = args[0] as string;
 
         const translator = new GTranslate({ projectId: config.GCP_ID });
 

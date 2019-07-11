@@ -7,15 +7,32 @@ export default class Help extends Command {
         super(
             "help",
             "Find out how to use commands.",
-            "<command> [subcommand] [sub-subcommand]..."
+            [
+                {
+                    name: "command",
+                    description: "The name of the command to view information on.",
+                    required: true,
+                    type: "string"
+                },
+                {
+                    name: "subcommand",
+                    description: "Subcommand to view information on.",
+                    required: false,
+                    type: "string"
+                }
+            ]
         );
     }
 
     async run(bot: Bot, msg: Message): Promise<boolean> {
-        const args = this.getArgs(msg);
+        const args  = await this.parseArgs(msg);
 
-        const commandName = args[0].toLowerCase();
-        const subcommandNames = args.slice(1);
+        if (args === false) {
+            return false;
+        }
+
+        const commandName = (args[0] as String).toLowerCase();
+        const subcommandNames = args.slice(1) as String[];
 
         if (!commandName || !bot.commands.has(commandName)) {
             return false;

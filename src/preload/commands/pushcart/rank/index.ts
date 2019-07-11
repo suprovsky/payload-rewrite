@@ -7,7 +7,14 @@ export default class Rank extends Command {
         super(
             "rank",
             "Shows a user's pushcart rank.",
-            "[user mention]",
+            [
+                {
+                    name: "user mention",
+                    description: "The user to pull the rank from.",
+                    required: false,
+                    type: "string"
+                }
+            ],
             undefined,
             undefined,
             undefined,

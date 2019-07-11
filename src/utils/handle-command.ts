@@ -1,5 +1,6 @@
 import { Message, PermissionResolvable, TextChannel, Permissions } from "discord.js";
-import { Bot, Command } from "../types";
+import { Bot } from "../types";
+import { Command } from "../lib/Executables/Command";
 import config from "../../secure-config";
 import info from "../config/info";
 import ServerManager from "../lib/ServerManager";

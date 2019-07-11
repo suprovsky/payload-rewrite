@@ -7,7 +7,15 @@ export default class logsApiKey extends Command {
         super(
             "notifications",
             "**USING THESE COMMANDS IN A PUBLIC SERVER PUTS YOUR ACCOUNT AT RISK OF BEING HIJACKED! MAKE SURE TO USE THESE COMMANDS ONLY IN BOT DMS!**\n\nSets your Payload notifications level. 2 = all, 1 = major, 0 = none.",
-            "<2|1|0>",
+            [
+                {
+                    name: "level",
+                    description: "Your desired notifications level. 2 = all, 1 = major, 0 = none.",
+                    required: true,
+                    type: "number",
+                    options: [2, 1, 0]
+                }
+            ],
             undefined,
             undefined,
             ["dm"],
@@ -18,15 +26,9 @@ export default class logsApiKey extends Command {
     }
 
     async run(bot: Bot, msg: Message): Promise<boolean> {
-        const args = this.getArgs(msg, 1);
+        const args = await this.parseArgs(msg, 1);
 
-        if (!args[0]) {
-            await this.respond(msg, "Missing notifications level. Type `pls help config` to learn more.");
-
-            return false;
-        } else if (!Number(args[0]) || ![0, 1, 2].includes(Number(args[0]))) {
-            await this.respond(msg, "Invalid notifications level. Type `pls help config` to learn more.");
-
+        if (args === false) {
             return false;
         }
 

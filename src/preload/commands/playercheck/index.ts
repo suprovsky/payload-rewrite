@@ -10,7 +10,20 @@ export default class PlayerCheck extends Command {
         super(
             "playercheck",
             "Uses the output of the `status` command in a TF2 server to verify players' identities. The <league> argument can be any of the following:\n- rgl",
-            "<league> <console output>"
+            [
+                {
+                    name: "league",
+                    description: "The competitive league to check against.",
+                    required: true,
+                    type: "string"
+                },
+                {
+                    name: "console output",
+                    description: "The output of the `status` command in the TF2 console.",
+                    required: true,
+                    type: "string"
+                }
+            ]
         );
     }
 
@@ -18,7 +31,7 @@ export default class PlayerCheck extends Command {
         const args = this.getArgs(msg);
 
         if (!args[0]) {
-            return await this.fail(msg, "Missing `<league>` argument.");
+            return await this.fail(msg, `Missing \`<league>\` argument. Type \`pls help ${this.getFullCommandName()}\` to learn more.`);
         }
 
         let playerData: Array<{ nickname: string, id3: string }> = [];

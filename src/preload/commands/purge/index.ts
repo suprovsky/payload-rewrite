@@ -7,7 +7,22 @@ export default class Purge extends Command {
         super(
             "purge",
             "Purges a certain number of messages sent by a user or everyone if no user is mentioned.",
-            "<amount> [user mention] [user mention 2]...",
+            [
+                {
+                    name: "amount",
+                    description: "The amount of messages to delete.",
+                    required: true,
+                    type: "number",
+                    min: 1,
+                    max: 100
+                },
+                {
+                    name: "user mentions",
+                    description: "The users to filter.",
+                    required: false,
+                    type: "string"
+                }
+            ],
             ["SEND_MESSAGES", "MANAGE_MESSAGES"],
             ["SEND_MESSAGES", "MANAGE_MESSAGES"],
             ["text"]
@@ -15,20 +30,14 @@ export default class Purge extends Command {
     }
 
     async run(bot: Bot, msg: Message): Promise<boolean> {
-        const args = this.getArgs(msg);
+        const args = await this.parseArgs(msg);
 
-        let amount: string | number = args[0];
+        if (args === false) {
+            return false;
+        }
+
+        const amount = args[0];
         const users = msg.mentions.users;
-
-        if (!amount) {
-            return await this.fail(msg, "Missing `<amount>` argument.");
-        }
-
-        if (!Number(amount) || Number(amount) < 1) {
-            return await this.fail(msg, "Amount argument must be a number greater than 0.");
-        }
-
-        amount = Math.round(Number(amount));
 
         msg.channel.startTyping();
 
@@ -50,7 +59,7 @@ export default class Purge extends Command {
             return Date.now() - channelMessage.createdTimestamp < 1000 * 60 * 60 * 24 * 14;
         });
 
-        const deletedMessages = await msg.channel.bulkDelete(channelMessages.map(channelMessage => channelMessage.id).slice(0, amount));
+        const deletedMessages = await msg.channel.bulkDelete(channelMessages.map(channelMessage => channelMessage.id).slice(0, amount as number));
 
         await this.respond(msg, `🗑 Deleted **${deletedMessages.size}** messages in **${(Date.now() - startTime) / 1000}** seconds.`);
 
