@@ -21,7 +21,9 @@ export type UserModel = mongoose.Document & {
         payload: {
             feetPushed: number,
             pushing: boolean,
-            lastPushed: number
+            lastPushed: number,
+            pushedToday: number,
+            lastActiveDate: number
         }
     }
 
@@ -44,7 +46,9 @@ const userSchema = new mongoose.Schema({
         payload: {
             feetPushed: Number,
             pushing: Boolean,
-            lastPushed: Number
+            lastPushed: Number,
+            pushedToday: Number,
+            lastActiveDate: Number
         }
     },
 

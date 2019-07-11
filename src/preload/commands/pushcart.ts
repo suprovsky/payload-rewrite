@@ -40,7 +40,8 @@ export async function run(bot: Bot, msg: Message) {
 
     let pushResult = user.addCartFeet(feetPushed);
 
-    if (!pushResult) return flash(msg.channel.send("You must wait 30 seconds before pushing the cart again."), 5000);
+    if (pushResult == "COOLDOWN") return flash(msg.channel.send("You must wait 30 seconds before pushing the cart again."), 5000);
+    else if (pushResult == "CAP") return flash(msg.channel.send("You have reached the max number of points for today."), 5000);
 
     server.addCartFeet(feetPushed);
 
