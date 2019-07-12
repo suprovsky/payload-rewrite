@@ -47,8 +47,6 @@ export default class User extends Command {
 
         await this.respond(msg, "```" + textTable(data) + "```");
 
-        console.log((two - one) / 1000);
-
         return true;
     }
 }
