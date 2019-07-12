@@ -25,11 +25,7 @@ export default class User extends Command {
     async run(bot: Bot, msg: Message): Promise<boolean> {
         const targetUser = msg.mentions.users.first() || msg.author;
 
-        let one = Date.now();
-
         const user = await bot.userManager.getUser(targetUser.id);
-
-        let two = Date.now();
 
         const data = [
             ["Name", "::", targetUser.tag],
