@@ -118,7 +118,7 @@ bot.on("message", async msg => {
 });
 
 bot.on("ready", () => {
-    bot.user.setActivity(`payload.tf | v${info.version}`);
+    bot.user.setActivity(`payload.tf/invite | v${info.version}`);
 
     let waitingInterval: NodeJS.Timeout;
     waitingInterval = setInterval(async () => {
