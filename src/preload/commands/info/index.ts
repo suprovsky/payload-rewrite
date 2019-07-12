@@ -15,7 +15,7 @@ export default class Info extends Command {
         const embed = new RichEmbed();
             embed.setAuthor("Payload", bot.user.avatarURL);
             embed.setTitle(`Currently serving **${bot.users.size}** users in **${bot.guilds.size}** servers!`);
-            embed.setDescription("Visit https://docs.payload.tf to view available commands.\n\nInvite the bot to your server with `pls invite`.");
+            embed.setDescription("Join the official Payload server for help and suggestions: https://discord.gg/pnMrgCa\n\nVisit https://docs.payload.tf to view available commands.\n\nInvite the bot to your server with `pls invite`.");
             embed.setFooter(`Created by ${(bot.users.get(info.sharkyID)!).tag} | Version ${info.version}`, (bot.users.get(info.sharkyID)!).avatarURL);
         await msg.channel.send(embed);
 
