@@ -121,7 +121,7 @@ export abstract class Command {
                 const argCheck = this.args[i] as NumberArgument;
                 let arg: string | number = args[i];
 
-                if (!Number(arg) || Number(arg) === Infinity) {
+                if (Number(arg) === NaN || Number(arg) === null || Number(arg) === Infinity) {
                     return await this.fail(message, `\`${argCheck.name}\` argument must be a number. Type \`${config.PREFIX}help ${this.getFullCommandName()}\` to learn more.`);
                 }
 
