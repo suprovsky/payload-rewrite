@@ -1,65 +1,38 @@
-import { User, UserModel } from "../models/User";
 import { Bot } from "../types/Bot";
 import { RichEmbed } from "discord.js";
 
-async function saveUser(user: UserModel): Promise<boolean> {
-    return new Promise(resolve => {
-        user.save().then(() => {
-            resolve(true);
-        }).catch(err => {
-            resolve(false);
-        });    
-    });
-}
-
 export async function pushNotification(bot: Bot, id: string, level: number, embed: RichEmbed, version?: string): Promise<boolean> {
-    return new Promise(resolve => {
-        User.findOne({
-            id
-        }, async (err, user: UserModel) => {
-            if (err) return resolve(false);
+    const userDBEntry = await bot.userManager.getUser(id);
 
-            if (!user) {
-                user = new User({
-                    id,
-                    notificationsLevel: 2,
-                    latestUpdateNotification: "0.0.0"
-                });
-            }
+    if (userDBEntry.user.notificationsLevel == undefined) {
+        userDBEntry.user.notificationsLevel = 2;
+    }
+    if (userDBEntry.user.latestUpdateNotifcation == undefined) {
+        userDBEntry.user.latestUpdateNotifcation = "0.0.0";
+    }
 
-            if (!user.notificationsLevel) user.notificationsLevel = 2;
-            if (!user.latestUpdateNotifcation) user.latestUpdateNotifcation = "0.0.0";
+    if (userDBEntry.user.notificationsLevel < level) {
+        return false;
+    }
 
-            if (user.notificationsLevel >= level) {
-                console.log(`User notification level is ${user.notificationsLevel}/${level}.`);
-                try {
-                    if (version) {
-                        if (user.latestUpdateNotifcation! == version) {
-                            await saveUser(user);
-                            return resolve(false);
-                        }
-                    }
+    if (version && userDBEntry.user.latestUpdateNotifcation == version) {
+        await userDBEntry.save();
 
-                    let discordUser = bot.users.get(id);
-                    if (!discordUser) discordUser = await bot.fetchUser(id);
+        return false;
+    }
 
-                    await discordUser.send(embed).catch(err => resolve(false));
+    let discordUser = bot.users.get(id);
+    if (!discordUser) {
+        discordUser = await bot.fetchUser(id);
+    }
 
-                    if (version) {
-                        user.latestUpdateNotifcation = version;
-                    }
+    await discordUser.send(embed);
 
-                    await saveUser(user);
+    if (version) {
+        userDBEntry.user.latestUpdateNotifcation = version;
+    }
 
-                    resolve(true);
-                } catch (err) {
-                    resolve(false);
-                }
-            } else {
-                await saveUser(user);
+    await userDBEntry.save();
 
-                resolve(false);
-            }
-        });
-    });
+    return true;
 }
