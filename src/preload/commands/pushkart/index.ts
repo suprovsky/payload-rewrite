@@ -6,8 +6,8 @@ import { weightedRandom } from "../../../utils/random";
 export default class PushCart extends Command {
     constructor() {
         super(
-            "pushcart",
-            "Pushes the cart 3-17 feet.",
+            "pushkart",
+            "Толкает тележку на 3-17 футов.",
             undefined,
             undefined,
             undefined,
