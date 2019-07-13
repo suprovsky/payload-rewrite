@@ -6,12 +6,24 @@ export default class Bruh extends Command {
     constructor() {
         super(
             "bruh",
-            "Bruh."
+            "Bruh.",
+            [
+                {
+                    name: "user mention",
+                    description: "The user to bruh.",
+                    required: false,
+                    type: "string"
+                }
+            ]
         );
     }
 
     async run(bot: Bot, msg: Message): Promise<boolean> {
-        await this.respond(msg, "bruh");
+        if (msg.mentions.users.size > 0) {
+            await this.respond(msg, "bruh");
+        } else {
+            await this.respond(msg, "bruh " + msg.mentions.users.first().toString());
+        }
 
         return true;
     }

@@ -148,3 +148,6 @@
 * Fixed "Payload is typing..." issues across the board.
 ### 2.11.2
 * Fixed an issue with the `pls pushcart gift` command that would allow users to gift negative points.
+### 2.11.3
+* Added the `pushkart` command.
+* Added an optional user mention argument to `bruh`.

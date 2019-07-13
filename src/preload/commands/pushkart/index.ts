@@ -2,48 +2,20 @@ import { Command } from "../../../lib/Executables/Command";
 import { Bot } from "../../../types/Bot";
 import { Message } from "discord.js";
 import { weightedRandom } from "../../../utils/random";
-import LeaderboardCommand from "./leaderboard";
-import RankCommand from "./rank";
-import GiftCommand from "./gift";
 
 export default class PushCart extends Command {
     constructor() {
         super(
             "pushcart",
             "Pushes the cart 3-17 feet.",
-            [
-                {
-                    name: "subcommand",
-                    description: "An optional subcommand can go here.",
-                    required: false,
-                    type: "string"
-                }
-            ],
             undefined,
             undefined,
-            ["text"],
             undefined,
-            {
-                leaderboard: new LeaderboardCommand(),
-                rank: new RankCommand(),
-                gift: new GiftCommand()
-            }
+            ["text"]
         );
     }
 
     async run(bot: Bot, msg: Message): Promise<boolean> {
-        const args = this.getArgs(msg);
-
-        if (args[0]) {
-            if (!this.subCommands[args[0]]) {
-                await this.respond(msg, "Invalid subcommand. Type `pls help pushcart` to learn more.");
-    
-                return false;
-            }
-    
-            return await this.runSub(args[0], bot, msg);
-        }
-
         const user = await bot.userManager.getUser(msg.author.id);
         const server = await bot.serverManager.getServer(msg.guild.id);
 
@@ -76,9 +48,9 @@ export default class PushCart extends Command {
                 / 1000
             );
 
-            return await this.fail(msg, `You must wait 30 seconds before pushing the cart again (${secondsRemaining} left).`)
+            return await this.fail(msg, `Вы должны подождать 30 секунд, прежде чем снова нажать тележку (${secondsRemaining} осталось).`);
         } else if (pushResult == "CAP") {
-            return await this.fail(msg, "You have reached the max number of points for today. Come back tomorrow!");
+            return await this.fail(msg, "Вы набрали максимальное количество баллов за сегодня. Вернуться завтра!");
         }
 
         server.addCartFeet(feetPushed);
@@ -88,7 +60,7 @@ export default class PushCart extends Command {
             server.save()
         ]);
 
-        await this.respond(msg, `<:payload:597506053021630464> Pushed the cart forward **${feetPushed}** feet (${server.server.fun!.payloadFeetPushed} total).`);
+        await this.respond(msg, `<:payload:597506053021630464> Толкнул тележку вперед на **${feetPushed}** футов (всего ${server.server.fun!.payloadFeetPushed}).`);
 
         return true;
     }
