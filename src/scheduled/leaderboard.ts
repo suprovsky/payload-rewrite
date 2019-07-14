@@ -9,15 +9,17 @@ export async function run(bot: Bot) {
         "fun.payload.feetPushed": {
             $exists: true
         }
-    }).sort({
+    });/*.sort({
         "fun.payload.feetPushed": -1
-    });
+    });*/
 
     let leaderboard = sortedUsers.map(user => {
         return {
             id: user.id,
             pushed: user.fun!.payload.feetPushed
         };
+    }).sort((userA, userB) => {
+        return userB.pushed - userA.pushed;
     });
 
     bot.leaderboard = {
