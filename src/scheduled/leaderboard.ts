@@ -1,6 +1,7 @@
 import { Bot } from "../types/Bot";
 import { User, UserModel } from "../models/User";
 import { Bot as BotDoc, BotModel } from "../models/Bot";
+import { qSort } from "../utils/sort";
 
 export const every = 1000 * 60 * 5;
 
@@ -13,12 +14,12 @@ export async function run(bot: Bot) {
         "fun.payload.feetPushed": -1
     });*/
 
-    let leaderboard = sortedUsers.map(user => {
+    let leaderboard = qSort(sortedUsers.map(user => {
         return {
             id: user.id,
             pushed: user.fun!.payload.feetPushed
         };
-    }).sort((userA, userB) => {
+    }), (userA, userB) => {
         return userB.pushed - userA.pushed;
     });
 
