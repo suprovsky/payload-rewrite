@@ -33,7 +33,7 @@ export default class logsApiKey extends Command {
         }
 
         const user = await bot.userManager.getUser(msg.author.id);
-        user.setProp("notificationsLevel", args[0]);
+        user.user.notificationsLevel = args[0] as number;
         await user.save();
 
         await this.respond(msg, `Set notifications to \`${args[0]}\``);

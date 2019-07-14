@@ -32,7 +32,7 @@ export default class logsApiKey extends Command {
         }
 
         const user = await bot.userManager.getUser(msg.author.id);
-        user.setProp("logsTfApiKey", args[0]);
+        user.user.logsTfApiKey = args[0] as string;
         await user.save();
 
         await this.respond(msg, `Set logs-api-key to \`${args[0]}\``);
