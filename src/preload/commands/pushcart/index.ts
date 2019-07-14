@@ -5,6 +5,7 @@ import { weightedRandom } from "../../../utils/random";
 import LeaderboardCommand from "./leaderboard";
 import RankCommand from "./rank";
 import GiftCommand from "./gift";
+import ServersCommand from "./servers";
 
 export default class PushCart extends Command {
     constructor() {
@@ -26,7 +27,8 @@ export default class PushCart extends Command {
             {
                 leaderboard: new LeaderboardCommand(),
                 rank: new RankCommand(),
-                gift: new GiftCommand()
+                gift: new GiftCommand(),
+                servers: new ServersCommand()
             }
         );
     }
