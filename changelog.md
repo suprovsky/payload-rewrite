@@ -151,3 +151,5 @@
 ### 2.11.3
 * Added the `pushkart` command.
 * Added an optional user mention argument to `bruh`.
+### 2.11.4
+* REJOICE. Notification settings have been fixed. You can now **actually** opt-out of these notifications using `pls config notifications 1`.
