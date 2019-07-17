@@ -73,6 +73,7 @@ export default class Help extends Command {
             if (command.getSubcommandArray().length > 0) {
                 helpEmbed.addField("Subcommands", command.getSubcommandArray().join(", "));
             }
+            helpEmbed.setFooter(`More information: https://docs.payload.tf/#${command.getFullCommandName().replace(/ /g, "-")}`);
 
         await msg.channel.send(helpEmbed);
 
