@@ -67,13 +67,13 @@ export default class Help extends Command {
 
         let helpEmbed = new RichEmbed();
             helpEmbed.setTitle(command.name);
-            helpEmbed.setDescription(command.description);
+            helpEmbed.setURL(`https://docs.payload.tf/#${command.getFullCommandName().replace(/ /g, "-")}`);
+            helpEmbed.setDescription(`${command.description}\n[more info](https://docs.payload.tf/#${command.getFullCommandName().replace(/ /g, "-")})`);
             helpEmbed.addField("Usage", usage);
             helpEmbed.addField("Permissions Needed", `\`\`\`md\n# For User #\n${permissionsNeeded.user.join("\n")}\n\n# For Payload #\n${permissionsNeeded.bot.join("\n")}\n\`\`\``);
             if (command.getSubcommandArray().length > 0) {
                 helpEmbed.addField("Subcommands", command.getSubcommandArray().join(", "));
             }
-            helpEmbed.setFooter(`More information: https://docs.payload.tf/#${command.getFullCommandName().replace(/ /g, "-")}`);
 
         await msg.channel.send(helpEmbed);
 
