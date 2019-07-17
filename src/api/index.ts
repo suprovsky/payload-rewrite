@@ -1,5 +1,6 @@
 import express from "express";
 import { Bot } from "../types";
+import info from "../config/info";
 
 export async function listen(port: number, bot: Bot): Promise<void> {
     const server = express();
@@ -39,7 +40,8 @@ export async function listen(port: number, bot: Bot): Promise<void> {
             stats: {
                 users: bot.users.size,
                 servers: bot.guilds.size,
-                uptime: bot.uptime
+                uptime: bot.uptime,
+                version: info.version
             }
         });
     });
