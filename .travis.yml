@@ -2,4 +2,4 @@ language: node_js
 node_js:
   - 10
 before-script:
-- mv example.config.ts secure-config.ts
+- mv example-config.ts secure-config.ts
