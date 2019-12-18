@@ -60,7 +60,7 @@ export default class PushCart extends Command {
             server.save()
         ]);
 
-        await this.respond(msg, `<:payload:597506053021630464> Толкнул тележку вперед на **${feetPushed}** футов (всего ${server.server.fun!.payloadFeetPushed}).`);
+        await this.respond(msg, `<:payload:656955124098269186> Толкнул тележку вперед на **${feetPushed}** футов (всего ${server.server.fun!.payloadFeetPushed}).`);
 
         return true;
     }
