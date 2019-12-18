@@ -3,7 +3,7 @@ import { expect } from "chai";
 import handleCommand from "../../src/utils/handle-command";
 import { Collection, Message } from "discord.js";
 import { Bot } from "../../src/types";
-import config from "../../example-config";
+import config from "../../secure-config";
 
 describe("handleCommand", () => {
     let bot: Bot = {
