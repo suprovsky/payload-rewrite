@@ -153,3 +153,8 @@
 * Added an optional user mention argument to `bruh`.
 ### 2.11.4
 * REJOICE. Notification settings have been fixed. You can now **actually** opt-out of these notifications using `pls config notifications 1`.
+### 2.11.5
+* updated `pls combine` command, thanks to mały and Czepeel for the code analyze and the fix.
+* updates `pls translate` command, so it translates directly to the English, also it doesn't need brackets to the multiple word phrases anymore.
+* added `pls pchajwozek`, basically `pls pushcart` in Polish,
+* updated :payload: emote with the new ID, so it shows up a proper emote an all servers while executing ``pls pushcart``, ``pls pushkart`` and ``pls pchajwozek`` commands.
