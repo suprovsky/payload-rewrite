@@ -2,6 +2,7 @@ import { Command } from "../../../lib/Executables/Command";
 import { Bot } from "../../../types/Bot";
 import { Message } from "discord.js";
 import { Translate as GTranslate } from "@google-cloud/translate";
+//const {GTranslate} = require('@google-cloud/translate').v2;
 import config from "../../../../secure-config";
 
 export default class Translate extends Command {
@@ -15,7 +16,7 @@ export default class Translate extends Command {
                     description: "The phrase to translate.",
                     required: true,
                     type: "string",
-                    minLength: 10,
+                    minLength: 2,
                     maxLength: 100
                 }
             ]
@@ -28,20 +29,18 @@ export default class Translate extends Command {
         if (args === false) {
             return false;
         }
-
-        const phrase = args[0] as string;
+        
+	const phrase = msg.toString().substr(13);
 
         const translator = new GTranslate({ projectId: config.GCP_ID });
 
         try {
-            const [latinPhrase] = await translator.translate(phrase, "la");
-            const [botchedPhrase] = await translator.translate(latinPhrase, "en");
-    
+            const [botchedPhrase] = await translator.translate(phrase, "en");
             await this.respond(msg, botchedPhrase);
 
             return true;
         } catch (err) {
-            return await this.fail(msg, "Error translating.");
+		return await this.fail(msg, "Error translating.");
         }
     }
 }
