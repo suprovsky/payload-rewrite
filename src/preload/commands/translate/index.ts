@@ -2,7 +2,6 @@ import { Command } from "../../../lib/Executables/Command";
 import { Bot } from "../../../types/Bot";
 import { Message } from "discord.js";
 import { Translate as GTranslate } from "@google-cloud/translate";
-//const {GTranslate} = require('@google-cloud/translate').v2;
 import config from "../../../../secure-config";
 
 export default class Translate extends Command {
