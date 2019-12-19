@@ -3,8 +3,8 @@
 ### A really cool TF2 Discord bot.
 
 
-[Docs](https://sharky.cool/s/payload-docs)
+[Docs](https://payload.supra.tf/payload-docs)
 
-[Changelog](https://github.com/jdeurt/payload-rewrite/blob/master/changelog.md)
+[Changelog](https://github.com/suprovsky/payload-rewrite/blob/master/changelog.md)
 
-Contact me: [juan@sharky.cool](mailto:juan@sharky.cool)
+Contact sharky (author): [juan@sharky.cool](mailto:juan@sharky.cool)
