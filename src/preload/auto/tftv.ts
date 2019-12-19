@@ -22,17 +22,20 @@ export async function run(bot: Bot, msg: Message) {
     const body = htmlToText.fromString($post.find(".post-body").html() as string, {
         ignoreImage: true
     });
-    const date = $post.find(".post-footer .js-date-toggle").attr("title").replace(/at (\d+:\d+).+$/, "$1");
+    const date = $post?.find(".post-footer .js-date-toggle")?.attr("title")?.replace(/at (\d+:\d+).+$/, "$1");
 
-    let embed = new RichEmbed();
-        embed.setTitle(title);
-        embed.setDescription(author);
-        embed.addField(url, (body.length > 400 ? body.slice(0, 400) + "..." : body) + "\n[read more](" + url+ ")");
-        embed.setFooter(`${frags} frags`);
-        embed.setTimestamp(new Date(date));
-        embed.setColor("#50759D");
+    if (!!date) {
 
-    msg.channel.send(embed);
+        let embed = new RichEmbed();
+            embed.setTitle(title);
+            embed.setDescription(author);
+            embed.addField(url, (body.length > 400 ? body.slice(0, 400) + "..." : body) + "\n[read more](" + url+ ")");
+            embed.setFooter(`${frags} frags`);
+            embed.setTimestamp(new Date(date));
+            embed.setColor("#50759D");
+
+        msg.channel.send(embed);
+    }
 }
 
 function matchMsg(msg: Message) {
