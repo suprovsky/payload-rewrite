@@ -67,8 +67,8 @@ export default class Help extends Command {
 
         let helpEmbed = new RichEmbed();
             helpEmbed.setTitle(command.name);
-            helpEmbed.setURL(`https://docs.payload.tf/#${command.getFullCommandName().replace(/ /g, "-")}`);
-            helpEmbed.setDescription(`${command.description}\n[more info](https://docs.payload.tf/#${command.getFullCommandName().replace(/ /g, "-")})`);
+            helpEmbed.setURL(`https://payload.supra.tf/payload-docs/#${command.getFullCommandName().replace(/ /g, "-")}`);
+            helpEmbed.setDescription(`${command.description}\n[more info](https://payload.supra.tf/payload-docs/#${command.getFullCommandName().replace(/ /g, "-")})`);
             helpEmbed.addField("Usage", usage);
             helpEmbed.addField("Permissions Needed", `\`\`\`md\n# For User #\n${permissionsNeeded.user.join("\n")}\n\n# For Payload #\n${permissionsNeeded.bot.join("\n")}\n\`\`\``);
             if (command.getSubcommandArray().length > 0) {
